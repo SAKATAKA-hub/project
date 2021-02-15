@@ -1,0 +1,21 @@
+// ---------------------------------------------//
+//　*** フォームスタイル　テンプレート  *** //
+// ---------------------------------------------//
+//  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
+@import "env_style";        //スタイルの基本設定読み込み
+
+form{
+    .form-group{
+        display: flex;
+        .form-tag{
+            padding: .8em 1.5em;
+            width: 150px;
+            padding-right: 1.5em;
+            text-align: right;
+            // background: lighten(red,40%);
+        }
+        .form-input{
+            margin: .8em 1.5em;
+        }
+    }
+}

@@ -1,0 +1,84 @@
+// ---------------------------------------------//
+//　*** ボタンスタイル　テンプレート  *** //
+// ---------------------------------------------//
+//  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
+@import "env_style";        //スタイルの基本設定読み込み
+//
+//●テーブルクラス
+//｛.tb_1、.tb_2、.tb_３｝
+//
+//
+
+
+.tb_1{
+  $tb_color: $main_col; //テーブルカラーの設定
+  $n_clm: 4; //カラム数の設定
+  width: 100%;
+  text-align: center;
+  tr{  //行のスタイル
+
+    th{  //見出しのスタイル
+      background-color: $tb_color;
+      width : 1/$n_clm*100%;
+      line-height: 1.8em;
+    }
+
+    td{  //各マスのスタイル
+      width : 1/$n_clm*100%;
+      line-height: 1.8em;
+    }
+
+    &:nth-child(2n+1){
+      background-color: lighten($tb_color,30%);
+    }
+  }
+}
+
+.tb_2{
+  $tb_color: $main_col; //テーブルカラーの設定
+  $n_clm: 6; //カラム数の設定
+  width: 100%;
+  text-align: center;
+  tr{  //行のスタイル
+
+    th{  //見出しのスタイル
+      border-top:solid 2px $tb_color;
+      border-bottom:solid 1px $tb_color;
+      width : 1/$n_clm*100%;
+      line-height: 1.8em;
+    }
+    td{  //各マスのスタイル
+      width : 1/$n_clm*100%;
+      line-height: 1.8em;
+      border-bottom:solid 1px lighten($tb_color,30%);
+    }
+
+  }
+}
+
+.tb_3{
+  $tb_color: $main_col; //テーブルカラーの設定
+  $n_clm: 4; //カラム数の設定
+  width: 100%;
+  text-align: center;
+  tr{  //行のスタイル
+    &:nth-child(1){
+      border-top:solid 2px lighten($tb_color,30%);
+    }
+
+    td{  //各マスのスタイル
+      width : 1/$n_clm*50%;
+      line-height: 1.8em;
+      border-bottom:solid 2px lighten($tb_color,30%);
+
+      &:nth-child(2){
+        font-weight: bold;
+      }
+      &:nth-child(3){
+        width : 50%;
+        text-align: left;
+      }
+    }
+
+  }
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>勤怠一覧表|タイムカード</title>
+  <link rel="stylesheet" href="../common/css/style.css">
+</head>
+<body>
+  <main id="attendance_list">
+    <h2>個人別勤怠管理</h2>
+
+    <!--<  表示切替コンテナ―  >--------------------------------------->
+    <div class="select_container">
+
+        <!-- #1 詳細表示切替 --------------------------------------->
+        <div class="select_list_details">
+            <form action="" method="POST">
+                <!----- value=表示中の勤怠グループ （"month_group","day_group","private_group"）-->
+                <input type="hidden" name="list_group" value="">
+                
+                <p>年月日：</p>
+                <select name="select_month">
+                    <option value="2021/02">2021年2月</option>
+                    <option value="2021/01">2021年1月</option>
+                    <option value="2020/12">2020年12月</option>
+                    <option value="2020/11">2020年11月</option>
+                    <option value="2020/11">2020年10月</option>
+                </select>
+                <select name="select_day">
+                    <option value="1">1日</option>
+                    <option value="2">2日</option>
+                    <option value="3">3日</option>
+                    <option value="4">4日</option>
+                    <option value="5">5日</option>
+                </select>
+                <p>従業員名：</p>
+                <select name="select_employee">
+                    <option value="0000">鈴木　一郎</option>
+                    <option value="0001">鈴木　二郎</option>
+                    <option value="0002">鈴木　三郎</option>
+                    <option value="0003">鈴木　四郎</option>
+                    <option value="0004">鈴木　五郎</option>
+                </select>
+    
+                <button type="submit">選択内容の変更</button>
+    
+            </form>
+        </div>
+        
+        <!-- #2 勤怠一覧グループの表示切替ボタン　（"month_group","day_group","private_group"）--------------------------------------->
+        <div class="select_list_group">
+            <form action="" method="POST">
+                <input type="hidden" name="list_group" value="month_group">
+                <input type="hidden" name="select_month" value=""><!-- value=今日の月 -->
+                <input type="hidden" name="select_day" value=""><!-- value=今日の日付 -->
+                <input type="hidden" name="select_employee" value=""><!-- value=ログイン者 -->
+                <button type="submit">月別勤怠一覧</button>
+            </form>
+            <form action="" method="POST">
+                <input type="hidden" name="list_group" value="day_group">
+                <input type="hidden" name="select_day" value=""><!-- value=今日の日付 -->
+                <input type="hidden" name="select_employee" value=""><!-- value=ログイン者 -->
+                <button type="submit">日別勤怠一覧</button>
+            </form>
+            <form action="" method="POST">
+                <input type="hidden" name="list_group" value="private_group">
+                <input type="hidden" name="select_employee" value=""><!-- value=ログイン者 -->
+                <button type="submit">個人別勤怠一覧</button>
+            </form>
+        </div>    
+
+    </div><!-- end #表示切替コンテナ― -->
+
+
+    <!-- # 表示エリア --------------------------------------->
+    <table class="attendance_list_head">
+        <tr>
+            <th class="in_day">日(曜日)</th>
+            <th class="employee_id">ID</th>
+            <th class="employee_name">名　前</th>
+            <th class="in_time">出　勤</th>
+            <th class="out_time">退　勤</th>
+            <th class="in_break">休憩開始</th>
+            <th class="out_break">休憩終了</th>
+            <th class="restrain_time">勤務時間</th>
+            <th class="break_time">休憩時間</th>
+            <th class="working_time">労働時間</th>
+            <th class="modification">修正</th>
+            <th class="delete">削除</th>
+        </tr>
+    </table>
+
+    <table class="private_input">
+        <tr>
+            <td class="in_day">日(曜日)<?= $in_day ;?></td>
+            <td class="employee_id">ID<?= $employee_id ;?></td>
+            <td class="employee_name">名　前<?= $employee_name ;?></td>
+            <td class="in_time">出　勤<?= $in_time ;?></td>
+            <td class="out_time">退　勤<?= $out_time ;?></td>
+            <td class="in_break">休憩開始<?= $in_break ;?></td>
+            <td class="out_break">休憩終了<?= $out_break ;?></td>
+            <td class="restrain_time">勤務時間<?= $out_break ;?></td>
+            <td class="break_time">休憩時間<?= $break_time ;?></td>
+            <td class="working_time">労働時間<?= $working_time ;?></td>
+            <td class="modification">修正</td>
+            <td class="delete">削除</td>
+        </tr>
+    </table>
+
+    <table class="private_agg">
+        <tr>
+            <td class="restrain_time">合計勤務時間</td>
+            <td class="restrain_time"></td>
+            <td class="break_time">合計休憩時間</td>
+            <td class="break_time"></td>
+            <td class="working_time">合計労働時間</td>
+            <td class="working_time"></td>
+          </tr>
+    </table>
+
+    <table class="total_agg">
+        <tr>
+            <td class="restrain_time">総勤務時間</td>
+            <td class="restrain_time"></td>
+            <td class="break_time">総休憩時間</td>
+            <td class="break_time"></td>
+            <td class="working_time">総労働時間</td>
+            <td class="working_time"></td>
+          </tr>
+    </table>
+
+  
+  </main>
+</body>
+</html>
+<style>
+    .select_container{
+        display: flex;
+        align-items: center;
+    }
+    .select_list_group,.select_list_details>form{
+        display: flex;
+        /* margin-bottom: 20px; */
+    }
+
+    .attendance_list_head,.private_agg,.total_agg{margin-top: .8em;}
+
+    th,td{
+        text-align: center;
+        font-size: 14px;
+        width:60px;
+    }
+    .employee_id,.employee_name,.restrain_time,.break_time,.working_time{
+        width:90px;
+    }
+</style>
+
+  

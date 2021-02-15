@@ -1,0 +1,150 @@
+// ---------------------------------------------//
+//　*** ボタンスタイル　テンプレート  *** //
+// ---------------------------------------------//
+//  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
+@import "env_style";        //スタイルの基本設定読み込み
+//
+//　【説明】
+//　以下のmixinをincludeして、ボタンのスタイルを簡単に行いましょう！
+//
+//
+// ●フローティングボタンmixin　　
+//
+//      @include btn_fab(1,pink,0);
+//     ---------------------------------------------------------------------------------------------
+//　　引数｛１：サイズ、２：カラー、３："１"を入れるとアウトライン｝
+//　　　１サイズ｛１～１０｝
+// 　　　２カラーの選択｛$main_col、$accent_col-1、$glay_col、カスタム入力｝
+//     ---------------------------------------------------------------------------------------------
+//
+//
+// ●ブロックボタン　mixin　　
+//
+//      @include btn_blk(1,pink,0);
+//     ---------------------------------------------------------------------------------------------
+//　　引数｛１：サイズ、２：カラー、３："１"を入れるとアウトライン｝
+//　　　１サイズ｛１～１０｝
+// 　　　２カラーの選択｛$main_col、$accent_col-1、$glay_col、カスタム入力｝
+//     ---------------------------------------------------------------------------------------------
+//
+//●フラットボタンクラス　.btn_flat　（青のテキストのみ）
+//
+// ●オプション影　mixin　　
+//      @include btn_shadow1;  下方向に影
+//      @include btn_shadow2;　上下左右に影
+//
+//     ---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+//　*** 共通スタイル  *** //
+@mixin btn_com{
+  padding: .8em 1.5em;
+  text-align: center;/*文字の中央寄せ*/
+  text-decoration: none;
+  font-size: 1em;/*文字サイズ*/
+  cursor: pointer;
+}
+
+
+//フラットボタンクラス
+.btn_flat{
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+// フローティングボタンmixin
+@mixin btn_fab($size, $col_val, $col_tf:0){
+  @include btn_com;
+  display: block;
+  font-size: $size*1em;
+  width: $size*4em;/*幅*/
+  height: $size*4em;/*高さ*/
+  border-radius: 50%;/*角丸く*/
+  border: 1px solid $col_val;
+
+  @if $col_tf == 1 {
+    color: $col_val;
+    // background: $col;/*背景色*/
+  }@else{
+    color: #fff;
+    background: $col_val;/*背景色*/
+  }
+}
+
+
+
+// ブロックボタン　mixin　
+@mixin btn_blk($size, $col_val, $col_tf:0){
+  @include btn_com;
+  font-size: $size*1em;
+  border-radius: .5em;
+  border: 1px solid $col_val;
+
+  @if $col_tf == 1 {
+    color: $col_val;
+    &:hover{
+      color: #fff;
+      background: $col_val;
+      border: #fff;
+    }
+  }@else{
+    color: #fff;
+    background: $col_val;
+    &:hover{
+      color: $col_val;
+      background: transparent;
+    }
+  }
+}
+
+
+
+// 影オプション　mixin　
+@mixin btn_shadow1{
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26)
+}
+@mixin btn_shadow2{
+  box-shadow: 0 2px 10px rgba(0,0,0,.2)
+}
+
+
+
+
+//     ---------------------------------------------------------------------------------------------
+//　　＊＊＊テンプレートクラス＊＊＊
+//　　　不必要の場合は、スタイルに反映されないように以下を削除してください。
+//     ---------------------------------------------------------------------------------------------
+
+
+.btn_fab1{//フローティングボタン1
+  @include btn_fab(1,pink);
+  @include btn_shadow2;
+}
+
+.btn_fab2{//フローティングボタン2
+  @include btn_fab(1,pink,1);
+  border-radius: .3em;
+}
+
+.btn_box1{//　浮き出しボタン
+  @include btn_blk(.5,$main_col,0);
+  @include btn_shadow1;
+}
+
+.btn_box2{//アウトラインボタン
+  @include btn_blk(.5,$main_col,1);
+  border-radius: 1.5em;
+  @include btn_shadow2;
+}
+
+.btn_box3{//　ロングボタン
+  @include btn_blk(1,$main_col,0);
+  @include btn_shadow1;
+  width: 90%;
+}

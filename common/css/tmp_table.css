@@ -1,0 +1,102 @@
+@charset "UTF-8";
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+  font-size: 1em;
+}
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/
+}
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.tb_1 {
+  width: 100%;
+  text-align: center;
+}
+.tb_1 tr th {
+  background-color: #ff3333;
+  width: 25%;
+  line-height: 1.8em;
+}
+.tb_1 tr td {
+  width: 25%;
+  line-height: 1.8em;
+}
+.tb_1 tr:nth-child(2n+1) {
+  background-color: #ffcccc;
+}
+
+.tb_2 {
+  width: 100%;
+  text-align: center;
+}
+.tb_2 tr th {
+  border-top: solid 2px #ff3333;
+  border-bottom: solid 1px #ff3333;
+  width: 16.6666666667%;
+  line-height: 1.8em;
+}
+.tb_2 tr td {
+  width: 16.6666666667%;
+  line-height: 1.8em;
+  border-bottom: solid 1px #ffcccc;
+}
+
+.tb_3 {
+  width: 100%;
+  text-align: center;
+}
+.tb_3 tr:nth-child(1) {
+  border-top: solid 2px #ffcccc;
+}
+.tb_3 tr td {
+  width: 12.5%;
+  line-height: 1.8em;
+  border-bottom: solid 2px #ffcccc;
+}
+.tb_3 tr td:nth-child(2) {
+  font-weight: bold;
+}
+.tb_3 tr td:nth-child(3) {
+  width: 50%;
+  text-align: left;
+}
+
+/*# sourceMappingURL=tmp_table.css.map */

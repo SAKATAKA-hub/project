@@ -1,0 +1,60 @@
+
+// *** 色の設定 ***　***　***　***　***　***
+
+$main_col: lighten(red,10%);       //メインカラー
+$accent_col-1:  #FF8427;       //アクセントカラー１
+$accent_col-2: #454551;       //アクセントカラー２
+$glay_col: lighten(#000,95%);       //灰色（枠線・背景用）
+$glay_line: lighten(#000,80%);       //灰色（枠線・背景用）
+
+
+
+
+// *** リセットCSS ***　***　***　***　***　***
+
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+  font-size: 1em;
+}
+
+
+body, h1, h2, h3,h4,ul, ol, li,a,p,div,nav,figure,article,section{
+  margin: 0 0;  padding: 0 0;
+}
+
+
+h1,h2,h3,h4,h5,h6{font-size: 100%;}
+
+
+table{
+  border-collapse: collapse;/*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;/*境界線の感覚を無くす*/
+}
+
+
+img{
+  border: none;/*枠線を消す*/
+  vertical-align: bottom;/*画像下の余白を消す*/
+  }
+
+
+a{
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+
+ul{
+  list-style: none;
+}
+
+
+button{
+  background: none;
+  border: none;
+	outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

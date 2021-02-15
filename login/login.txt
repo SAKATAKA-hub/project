@@ -1,0 +1,99 @@
+<?php
+include('../common/app/function.php');//function.phpファイルの読み込み
+
+$error_notes="";
+$next_page = "../template/index.tmpl";//　タイムカードページまでのパス
+
+#-----------------------------------------------------------
+# フォームから受け取ったデータの下処理
+$in = parse_form();
+
+if(!empty($in)){
+  //(1) 入力された会員IDが登録されているかチェック
+  #-----------------------------------------------------------
+  # データベースからデータを授受
+  $SQL = "SELECT employee_id FROM employee_data WHERE id >= ?";//SQL命令文
+  $DATA = array('0');//プリペアーステートメントの値
+  $e_ids = parse_db($SQL,$DATA);  
+  #-----------------------------------------------------------
+
+  $employee_id ="";
+  //IDが登録されているとき。
+  foreach ( $e_ids as $e_id) {
+    if($e_id["employee_id"] == $in["employee_id"]){
+      $employee_id = $in["employee_id"];
+    }
+  }
+  //IDが登録されていないとき。
+  if($employee_id == ""){
+    $error_notes.="<p>入力したIDは登録されておりません。</p>";
+  }else{
+    // (2)ユーザー情報の取得
+    #-----------------------------------------------------------
+    # データベースからデータを授受
+    $SQL = "SELECT * FROM employee_data WHERE employee_id = ? " ;//SQL命令文
+    $DATA = array($employee_id);//プリペアーステートメントの値
+    $employee = parse_db($SQL,$DATA);  
+    #-----------------------------------------------------------
+
+    $employee_name = $employee_data["employee_name"];
+    $work_state = $employee_data["work_state"];
+
+    #-----------------------------------------------------------
+    #パスワードの照合データを作ったら、解放
+    $employee_pass = $employee_data["pass"];
+    $input_pass = $in["employee_pass"];
+    if(!$input_pass == $employee_pass){
+    /*
+
+    // (3)パスワード情報の取得と照合
+    $code_id = $user_data["code_id"];//パスコードの代入
+    #-----------------------------------------------------------
+    # データベースからデータを授受
+    $SQL = "SELECT employee_password FROM pass_data WHERE code_id  = ? " ;//SQL命令文
+    $DATA = array($code_id);//プリペアーステートメントの値
+    $password = parse_db($SQL,$DATA);  
+    #-----------------------------------------------------------
+
+    $input_pass = $in["employee_pass"];//入力されたパスワード
+
+    
+
+    //パスワードの照合
+    if(!password_verify($input_pass, $password)){
+    */
+      $error_notes.="<p>パスワードが正しくありません。</p>";
+    }else{
+      // (4)セッションへ保存
+      $_SESSION["employee_id"] = $employee_id;
+      $_SESSION["employee_name"] = $employee_name;
+
+      // (5)TOPページの表示
+      $file = $next_page;
+      $tmpl = file_get_contents($file);
+      $tmpl = str_replace("!employee_name!",$_SESSION["employee_name"],$tmpl);
+      $tmpl = str_replace("!employee_id!",$_SESSION["employee_id"],$tmpl);
+
+      $employee_datas = array($employee_id,$employee_name,$work_state);
+      $replace_datas = array("!employee_id!","!employee_name!","!work_state!");
+      foreach($in_datas as $key => $in_data){
+          $f_data = str_replace($replace_datas[$key],$in_data,$f_data);
+      }
+      //ページの表示
+      echo $tmpl;
+    }
+  }
+}else{
+  login_input();//ログインページの表示
+}
+
+//ログインページの表示関数
+function login_input(){
+  // テンプレートファイルの読み込み
+  global $in ,$error_notes;
+  $file = "login_input.tmpl";
+  $tmpl = file_get_contents($file);
+  $tmpl = str_replace("!error_notes!",$error_notes,$tmpl);
+  //ページの表示
+  echo $tmpl;
+}

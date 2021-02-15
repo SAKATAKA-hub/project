@@ -1,0 +1,22 @@
+// ---------------------------------------------//
+//　*** ナビゲーションスタイル　テンプレート  *** //
+// ---------------------------------------------//
+@import "env_style";        //スタイルの基本設定読み込み
+
+//グローバルナビゲーション
+
+//パンくずリスト
+.bread_crumbs{
+    // background: palegreen;
+    display: flex;
+    padding-left: 2em;
+    line-height: 2em;
+    
+    li{
+        a{
+            color:lighten(black,50%);
+            padding-right: 1em;
+        }
+    }
+}
+
