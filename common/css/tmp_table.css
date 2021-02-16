@@ -51,7 +51,7 @@ button {
   text-align: center;
 }
 .tb_1 tr th {
-  background-color: #ff3333;
+  background-color: #ff5c5c;
   width: 25%;
   line-height: 1.8em;
 }
@@ -60,7 +60,7 @@ button {
   line-height: 1.8em;
 }
 .tb_1 tr:nth-child(2n+1) {
-  background-color: #ffcccc;
+  background-color: #fff5f5;
 }
 
 .tb_2 {
@@ -68,15 +68,15 @@ button {
   text-align: center;
 }
 .tb_2 tr th {
-  border-top: solid 2px #ff3333;
-  border-bottom: solid 1px #ff3333;
+  border-top: solid 2px #ff5c5c;
+  border-bottom: solid 1px #ff5c5c;
   width: 16.6666666667%;
   line-height: 1.8em;
 }
 .tb_2 tr td {
   width: 16.6666666667%;
   line-height: 1.8em;
-  border-bottom: solid 1px #ffcccc;
+  border-bottom: solid 1px #fff5f5;
 }
 
 .tb_3 {
@@ -84,12 +84,12 @@ button {
   text-align: center;
 }
 .tb_3 tr:nth-child(1) {
-  border-top: solid 2px #ffcccc;
+  border-top: solid 2px #fff5f5;
 }
 .tb_3 tr td {
   width: 12.5%;
   line-height: 1.8em;
-  border-bottom: solid 2px #ffcccc;
+  border-bottom: solid 2px #fff5f5;
 }
 .tb_3 tr td:nth-child(2) {
   font-weight: bold;

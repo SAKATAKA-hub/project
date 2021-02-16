@@ -1,0 +1,173 @@
+@import "env_style"; 
+@import "tmp_botton"; 
+@import "tmp_form"; 
+//  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
+@mixin btn1 {
+    border: solid 1px $glay_line;
+    border-radius: .3em;
+    color: $main_col;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover{
+        border: solid 1px $main_col;
+        background: $main_col;
+        color: #fff;
+    }
+}
+
+header{
+    height: 60px;
+    width: 100%;
+    // border-bottom: solid 5px $main_col;
+    box-shadow: 0 2px 5px $main_col;
+}
+main{ //==================================================
+    display: flex;
+    position: relative; 
+
+    //******** <m_side> ******** ******** ********
+    $side_width: 200px;
+    .m_side{
+        $bk_col: $accent_col-3;
+        $font_col: $main_col;//フォント色
+
+        position: absolute; //mainを基準に左側に位置固定
+        top: 5px;
+        left: 0px;
+        z-index: 100;
+
+        width: $side_width;
+        height: 100%;
+        background-color: $bk_col;
+
+
+        .select_list_group{
+            padding-top: 2em;
+            @mixin cul_hov {
+                background: $font_col;
+                color: $bk_col;
+            }
+
+            button{
+                width: 100%;
+                text-align: left;
+                padding-left: 1em;
+                line-height: 2.8em;
+                font-weight: bold;
+                cursor: pointer;
+
+                font-size: 16px;
+                color: $font_col;
+
+                &:hover{@include cul_hov;}              
+            }
+
+            .cullent{@include cul_hov;}
+        }
+    }
+
+    //******** <m_center> ******** ******** ********
+    .m_center{
+        $bk_col:#fff;
+        width: 100%;
+        height: 100vh;
+        margin-left: $side_width;
+        padding: 0em 0 2em 2em;
+
+        .bread_crumb {//<!-- パンくずリスト -->
+            font-size: .8em;
+            line-height: 3em;
+            ul{ display: flex;}
+        }
+
+        h2{
+            border-left: solid .5em $main_col;
+            font-size: 1.6em;
+        }
+
+        .table_heading_container{//<!-- テーブル見出し -->
+            display: flex;
+            align-items: center;
+            margin: 1em 0;
+
+            select{
+                display: block;
+                line-height: 1em;
+                height: 2em;
+                border: solid 1px $glay_line;
+                margin-right: 1em;
+            }
+
+            button{
+                margin-right: 1em;
+                border: solid 1px $main_col;
+                background: $main_col;
+                color: #fff;
+                border-radius: .3em;
+                font-weight: bold;
+                cursor: pointer;
+                &:hover{
+                    border: solid 1px $glay_line;
+                    background: #fff;
+                    color: $main_col;
+                } 
+            }             
+    }
+
+        //-- "table_container" ----- ----- ----- -----
+        @mixin th_td {
+            width: 88px;
+            text-align: center;
+            line-height: 1.8em;
+            font-size: 16px;
+        }
+        .table_container{  
+            table{ margin-bottom: 1em;
+                th{
+                    border-top:solid 1px $glay_line;
+                    border-bottom:solid 2px $glay_line;          
+                    @include th_td;
+                }
+                td{
+                    @include th_td;
+                }
+    
+            }
+
+            .rec_top>td{
+                border-top: solid 1px $glay_line;  //レコードのボーダー（上） 
+            }
+            tr:last-child>td{
+                border-bottom: solid 1px $glay_line;  //レコードのボーダー（下）
+            }
+
+
+            .employee_id, .employee_name{width: 100px;}
+            .total{width: 150px;}
+
+            .modification, .delete{
+                width: 56px;
+                button{ @include btn1;}
+            }
+            .private_agg{
+                button{ @include btn1;}
+            }
+
+            .total_agg{
+                font-weight: bold;
+                display: inline-block;
+                width: 500px;
+                padding: .5em 0;
+                border: solid 1px $glay_line;
+                border-radius: .3em;
+                tr:last-child>td{
+                    border-bottom: 0;  //レコードのボーダー（下）
+                }
+            }
+            
+        }
+
+    }
+
+
+}
