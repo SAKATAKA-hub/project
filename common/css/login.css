@@ -1,0 +1,97 @@
+@charset "UTF-8";
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+  font-size: 1em;
+}
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/
+}
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: cornsilk;
+}
+main .login_card {
+  width: 300px;
+  height: 300px;
+  padding: 50px 50px;
+  border-radius: 3em;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 2px 10px #ffb8b8;
+}
+main .login_card h2 {
+  font-size: 28px;
+  margin-bottom: .5em;
+  color: #ff5c5c;
+}
+main .login_card label {
+  display: none;
+  width: 5em;
+}
+main .login_card input {
+  font-size: 18px;
+  width: 96%;
+  line-height: 2em;
+  margin-bottom: 1em;
+}
+main .login_card button {
+  font-size: 18px;
+  border: solid 1px #ff5c5c;
+  background: #ff5c5c;
+  color: #fff;
+  width: 100%;
+  line-height: 2.4em;
+  border-radius: .3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+main .login_card button:hover {
+  border: solid 1px #ff5c5c;
+  background: #fff;
+  color: #ff5c5c;
+}
+
+/*# sourceMappingURL=login.css.map */

@@ -10,9 +10,17 @@ $tcCol: green;
     flex-direction:  column;
     align-items: center;
 
+    h2{
+        width: 100%;
+        line-height: 3em;
+        background: lighten($tcCol,20%);
+        // color: #fff;
+        text-align: center;
+        font-weight: bold;
+    }
     //<!--現在時刻の表示領域-->
     #showTime{
-        margin-top: 20px;
+        margin-top: 1em;
         text-align: center;
         font-weight: bold;
         #nowTime{
@@ -48,7 +56,7 @@ $tcCol: green;
             background: lighten($tcCol,20%);
             border-radius: .5em .5em 0 0;
             #userImg{
-                background: #fff;
+                background: url(../img/person.png) no-repeat bottom center/72px 72px #fff;
                 width: 84px;
                 height: 84px;
                 border-radius: 50%;
@@ -63,7 +71,7 @@ $tcCol: green;
             padding: $pd_size;
             background: #fff;
             border-radius: 0 0 .5em .5em;
-            color: lighten($tcCol,10%);
+            color: lighten($tcCol,20%);
 
             .workState{
                 line-height: $wh_size*0.2 - $pd_size*2;
@@ -76,16 +84,12 @@ $tcCol: green;
         }
     }
     .outWork{//退勤時のユーザー情報のスタイル
-        .top{background: lighten(black,50%);}
-        .bottom{
-            .workState{color: lighten(black,50%);}
-        }
+        .top{background: lighten($tcCol,50%);}
+        // .top{background: greenyellow;}
+        // .top{background: lighten($tcCol,20%);}
     }
     .inBreak{//休憩時のユーザー情報のスタイル
-        .top{background: lighten($tcCol,50%);}
-        .bottom{
-            // .workState{color: lighten($tcCol,50%);}
-        }
+        .top{background: greenyellow;}
     }
 
     //<!--出退勤入力ボタン-->

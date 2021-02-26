@@ -270,8 +270,15 @@ form .form-group .form-input {
   flex-direction: column;
   align-items: center;
 }
+#timeCord h2 {
+  width: 100%;
+  line-height: 3em;
+  background: #00e600;
+  text-align: center;
+  font-weight: bold;
+}
 #timeCord #showTime {
-  margin-top: 20px;
+  margin-top: 1em;
   text-align: center;
   font-weight: bold;
 }
@@ -301,7 +308,7 @@ form .form-group .form-input {
   border-radius: .5em .5em 0 0;
 }
 #timeCord .userInfo .top #userImg {
-  background: #fff;
+  background: url(../img/person.png) no-repeat bottom center/72px 72px #fff;
   width: 84px;
   height: 84px;
   border-radius: 50%;
@@ -312,7 +319,7 @@ form .form-group .form-input {
   padding: 20px;
   background: #fff;
   border-radius: 0 0 .5em .5em;
-  color: #00b300;
+  color: #00e600;
 }
 #timeCord .userInfo .bottom .workState {
   line-height: 0px;
@@ -322,13 +329,10 @@ form .form-group .form-input {
   background: #00e600;
 }
 #timeCord .outWork .top {
-  background: gray;
-}
-#timeCord .outWork .bottom .workState {
-  color: gray;
+  background: #80ff80;
 }
 #timeCord .inBreak .top {
-  background: #80ff80;
+  background: greenyellow;
 }
 #timeCord #selectMord {
   display: flex;

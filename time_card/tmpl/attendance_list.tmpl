@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>勤怠管理 !cullent_heading!</title>
+    <link rel="stylesheet" href="../common/css/attendance_manegement.css">
+    <link rel="stylesheet" href="../common/css/header.css"><!--header用css-->
+</head>
+!header!
+
+    <main>
+        <!--******** <m_side> ******** ******** ********-->
+        <div class="m_side">
+            <!--#メニューボタン-->
+            <nav class="select_list_group">
+                <!--メニューボタン1.日別勤怠一覧-->
+                <form action="#" method="post">
+                    <input type="hidden" name="mode" value="day_table">
+                    <input type="hidden" name="select_Y_m" value="!select_Y_m!">
+                    <input type="hidden" name="select_d" value="!select_d!">
+                    <input type="hidden" name="select_employee" value="!select_employee!">
+                    <input type="hidden" name="modify" value="!modify!">
+                    <button class="!cullent_menu['day']!">日別勤怠一覧</button>
+                </form>
+                <form action="#" method="post">
+                    <input type="hidden" name="mode" value="month_table">
+                    <input type="hidden" name="select_Y_m" value="!select_Y_m!">
+                    <input type="hidden" name="select_d" value="!select_d!">
+                    <input type="hidden" name="select_employee" value="!select_employee!">
+                    <input type="hidden" name="modify" value="!modify!">
+                    <button class="!cullent_menu['month']!">月別勤怠一覧</button>                    
+                </form>
+                <form action="#" method="post">
+                    <input type="hidden" name="mode" value="private_table">
+                    <input type="hidden" name="select_Y_m" value="!select_Y_m!">
+                    <input type="hidden" name="select_d" value="!select_d!">
+                    <input type="hidden" name="select_employee" value="!select_employee!">
+                    <input type="hidden" name="modify" value="!modify!">
+                    <button class="!cullent_menu['private']!">個人別勤怠一覧</button>
+                </form>
+
+            </nav>
+        </div>
+
+        <!--******** <m_center> ******** ******** ********-->
+        <div class="m_center">
+
+            <div class="bread_crumb"><ul><!-- パンくずリスト -->
+                    <li><a href="">HOME></a></li>
+                    <li>勤怠管理></li>
+                    <li>!cullent_heading!</li>
+            </ul></div>
+
+            <h2>!cullent_heading!</h2>
+            <h3>!table_heading!</h3>
+
+            <!--#詳細変更ボタン-->
+            <div class="table_heading_container">
+                <form action="#" method="post">
+                    <input type="hidden" name="mode" value="!mode!">
+                    <input type="hidden" name="modify" value="!modify!"> 
+                    !select_element!
+                    <button type="submit">選択内容の変更</button>
+                </form>
+                
+                <form action="" method="" target=”_blank”>
+                    <button type="button" onclick="window.open('print_record.php','print_record')">印刷画面</button>
+                </form>
+            </div>
+
+
+            <!--#テーブル要素エリア-->
+            <div class="table_container">
+                !table_element!
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+</body>
+<script>
+function changeSelectDate(){
+    const selectElement = document.querySelectorAll('select');
+    const val = selectElement[0].value;//選択された年月の"値"
+    // console.log(val+"-01");
+    var selectDate = new Date(val+"-01");
+
+    selectDate.setMonth(selectDate.getMonth() + 1 );
+    selectDate.setDate(selectDate.getDate()-1);
+    const lastDate = selectDate.getDate(); //月末日
+
+    //日付選択'option'要素の削除
+    for (let i = 0; i < selectElement[1].length; i+1) {
+        selectElement[1].children[i].remove();
+    }
+    
+    //console.log(selectElement[1]);
+
+    for (let i = 1; i <= lastDate; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i+"日";
+        selectElement[1].appendChild(option);
+        // console.log(option);
+    }
+}
+</script>
+
+</html>

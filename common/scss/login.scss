@@ -1,0 +1,55 @@
+@import "env_style"; 
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    // background-color: $glay_col;
+    background-color: $back_col-2;
+
+    .login_card{
+        width: 300px;
+        height: 300px;
+        padding: 50px 50px;
+        border-radius: 3em;
+        background: #fff;
+        text-align: center;
+        // box-shadow: 0 2px 10px rgba(0,0,0,.2);
+        // box-shadow: 0 2px 10px $main_col;
+        box-shadow: 0 2px 10px $back_col-1;
+
+        h2{
+            font-size: 28px;
+            margin-bottom: .5em;
+            color: $main_col;
+        }
+        label{
+            display: none;
+            width: 5em;
+        }
+        input{
+            font-size: 18px;
+            width: 96%;
+            line-height: 2em;
+            margin-bottom: 1em;
+        }
+        button{
+            font-size: 18px;
+            border: solid 1px $main_col;
+            background: $main_col;
+            color: #fff;
+
+            width: 100%;
+            line-height: 2.4em;
+            border-radius: .3em;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover{
+                border: solid 1px $main_col;
+                background: #fff;
+                color: $main_col;
+    
+            }        
+        }
+    }
+}

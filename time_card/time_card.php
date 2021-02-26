@@ -6,8 +6,6 @@
 //[読込順]function.php > time_card_function.php > insert_record.php > time_card.php(現在地)
 include('insert_record.php');
 
-//ログインページのパス
-$login = "../login/login.php";
 #-----------------------------------------------------------
 #　↓　↓　↓　表示エリア　↓　↓　↓
 
@@ -23,7 +21,7 @@ $login = "../login/login.php";
 </head>
 <body>
   <main id="timeCord"><!--attendanceManager-->
-    <h2>出退勤管理</h2>
+    <h2>出退勤入力</h2>
 
     <!--現在時刻の表示領域-->
     <div id="showTime">
@@ -62,7 +60,7 @@ $login = "../login/login.php";
       </form>
     </div>
 
-    <button class="btn_flat" type="button" onclick="location.href=`<?= $login;?>`">ログイン画面に戻る</button>
+    <button class="btn_flat" type="button" onclick="window.close();">閉じる</button>
 
   </main>
   <script>

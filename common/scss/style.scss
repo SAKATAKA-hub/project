@@ -1,6 +1,6 @@
 @import "env_style"; 
-@import "tmp_botton"; 
-@import "tmp_form"; 
+// @import "tmp_botton"; 
+// @import "tmp_form"; 
 //  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
 @mixin btn1 {
     border: solid 1px $glay_line;
@@ -28,7 +28,7 @@ main{ //==================================================
     //******** <m_side> ******** ******** ********
     $side_width: 200px;
     .m_side{
-        $bk_col: $accent_col-3;
+        $bk_col: $back_col-2;
         $font_col: $main_col;//フォント色
 
         position: absolute; //mainを基準に左側に位置固定
@@ -70,7 +70,7 @@ main{ //==================================================
     .m_center{
         $bk_col:#fff;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         margin-left: $side_width;
         padding: 0em 0 2em 2em;
 
@@ -89,17 +89,20 @@ main{ //==================================================
             display: flex;
             align-items: center;
             margin: 1em 0;
+            form{
+                display: flex;
 
-            select{
-                display: block;
-                line-height: 1em;
-                height: 2em;
-                border: solid 1px $glay_line;
-                margin-right: 1em;
+                select{
+                    display: block;
+                    line-height: 1em;
+                    height: 2em;
+                    border: solid 1px $glay_line;
+                    margin-right: 1em;
+                }    
             }
 
             button{
-                margin-right: 1em;
+                margin-right: 2.8em;
                 border: solid 1px $main_col;
                 background: $main_col;
                 color: #fff;
@@ -123,15 +126,18 @@ main{ //==================================================
         }
         .table_container{  
             table{ margin-bottom: 1em;
+                .rec_top:nth-child(odd){
+                    background: $back_col-2;
+                }
                 th{
                     border-top:solid 1px $glay_line;
-                    border-bottom:solid 2px $glay_line;          
+                    border-bottom:solid 2px $glay_line;
+                    background: $back_col-1;        
                     @include th_td;
                 }
                 td{
                     @include th_td;
                 }
-    
             }
 
             .rec_top>td{
@@ -145,7 +151,8 @@ main{ //==================================================
             .employee_id, .employee_name{width: 100px;}
             .total{width: 150px;}
 
-            .modification, .delete{
+            .modification, .delete{ //修正・削除ボタン
+                display: none; //修正・削除ボタンを非表示
                 width: 56px;
                 button{ @include btn1;}
             }
@@ -156,13 +163,12 @@ main{ //==================================================
             .total_agg{
                 font-weight: bold;
                 display: inline-block;
-                width: 500px;
-                padding: .5em 0;
+                width: 450px;
+                margin-bottom: 2em;
                 border: solid 1px $glay_line;
                 border-radius: .3em;
-                tr:last-child>td{
-                    border-bottom: 0;  //レコードのボーダー（下）
-                }
+                th{border-top: 0;}
+                tr:last-child>td{border-bottom: 0;}  //レコードのボーダー（下）}
             }
             
         }

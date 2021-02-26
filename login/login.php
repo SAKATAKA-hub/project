@@ -13,8 +13,14 @@ $collation_pass = "";//登録されたPASSであれば、値を代入
 $column_id = "id";//DBのカラム名
 $column_pass = "pass_key";//DBのカラム名
 
-$next_page = "../time_card/time_card.php"; //　ログイン後、表示ページまでのパス
+$next_page = "../top/index.php"; //　ログイン後、表示ページまでのパス
 #-----------------------------------------------------------
+//もしログイン中であれば、ログアウト（セッションリセット）する。
+if(!empty($_SESSION["employee_name"])){
+    $_SESSION["employee_id"] = "";
+    $_SESSION["employee_name"] = "";
+    $_SESSION["work_state"] = "";
+}
 
 
 //フォームから受け取ったデータの下処理
@@ -51,8 +57,8 @@ if(!empty($in)){
                 #-----------------------------------------------------------
                 # (3)セッションへ保存
                 #　※ログイン中にセッションに保存しておきたい情報を記述します。
-                $_SESSION["employee_id"] = $db_data["id"];;
-                $_SESSION["employee_name"] = $db_data["name"];;
+                $_SESSION["employee_id"] = $db_data["id"];
+                $_SESSION["employee_name"] = $db_data["name"];
                 $_SESSION["work_state"] = $db_data["work_state"];
                 #-----------------------------------------------------------
                 // (4)ログイン後のページへ進む
@@ -71,3 +77,7 @@ $tmpl = file_get_contents($file);
 $tmpl = str_replace("!error_notes!",$error_notes,$tmpl);
 $tmpl = str_replace("!body!",$body,$tmpl);
 echo $tmpl;
+
+// ※ cssスタイル編集用
+$file = "login_input.html";//テンプレートファイル
+file_put_contents($file,$tmpl);

@@ -1,0 +1,128 @@
+@charset "UTF-8";
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+  font-size: 1em;
+}
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/
+}
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+header {
+  width: 100%;
+  box-shadow: 0 2px 5px #ff5c5c;
+}
+header a {
+  display: block;
+}
+header .header_container {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  height: 60px;
+  margin: 0 auto;
+}
+header .header_container h1 {
+  width: 180px;
+  line-height: 60px;
+  text-align: center;
+}
+header .header_container .nav_menu {
+  width: 660px;
+  display: flex;
+  justify-content: space-around;
+}
+header .header_container .nav_menu li a {
+  line-height: 60px;
+  padding: 0 1em;
+}
+header .header_container .nav_menu li a:hover {
+  background: #ffebeb;
+  border-radius: .5em;
+  font-weight: bold;
+  color: #ff5c5c;
+}
+header .header_container .nav_menu li button {
+  height: 30px;
+  margin: 15px 0;
+  width: 8em;
+  border: solid 2px #00e600;
+  background: #00e600;
+  color: #fff;
+  border-radius: .3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+header .header_container .nav_menu li button:hover {
+  background: #fff;
+  color: #00e600;
+}
+header .header_container .login_user {
+  width: 360px;
+  display: flex;
+  justify-content: space-around;
+  height: 40px;
+  margin-top: 10px;
+  border-left: solid 2px #ff5c5c;
+  border-right: solid 2px #ff5c5c;
+}
+header .header_container .login_user .photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: url(../img/person.png) no-repeat bottom center/32px 32px #ffebeb;
+}
+header .header_container .login_user .name {
+  line-height: 40px;
+  font-weight: bold;
+}
+header .header_container .login_user button {
+  height: 40px;
+  width: 8em;
+  color: #ff5c5c;
+  cursor: pointer;
+  font-weight: bold;
+}
+header .header_container .login_user button:hover {
+  opacity: .6;
+}
+
+/*# sourceMappingURL=header.css.map */

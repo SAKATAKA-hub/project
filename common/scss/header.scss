@@ -1,0 +1,99 @@
+@import "env_style"; 
+header{
+    width: 100%;
+    box-shadow: 0 2px 5px $main_col;
+    $hight: 60px;
+    $header_container_width: 1200px;
+
+    a{display: block;}
+
+    .header_container{
+        display: flex;
+        justify-content: space-between;
+        width: $header_container_width;
+        height: $hight;
+        margin: 0 auto;
+        $button_height: 30px;
+
+        h1{
+            width: $header_container_width*.15;
+            line-height: $hight;
+            text-align: center;
+        }
+        .nav_menu{
+            width: $header_container_width*.55;
+            display: flex;
+            justify-content: space-around;
+            li{
+                a{
+                    line-height: 60px;
+                    // line-height: $button_height;
+                    // margin: 15px 0;
+                    padding: 0 1em;
+                    &:hover{
+                        background: lighten($main_col,28%);
+                        border-radius: .5em;
+                        font-weight: bold;
+                        // color: #fff;
+                        // border-bottom: solid 3px $main_col;
+                        // font-weight: bold;
+                        color: $main_col;
+                    }    
+                }
+                $timecard_col: lighten(green,20%);
+                button{
+                    // line-height: $button_height;
+                    height: $button_height;
+                    margin: 15px 0;
+                    width: 8em;
+                    border: solid 2px $timecard_col;
+                    background: $timecard_col;
+                    color: #fff;
+                    border-radius: .3em;
+                    font-weight: bold;
+                    cursor: pointer;
+                    &:hover{
+                        background: #fff;
+                        // color: $main_col;
+                        color: $timecard_col;
+                    }
+                }    
+    
+            }
+        }
+        $login_user_height: 40px;
+        .login_user{
+            width: $header_container_width*.3;
+            display: flex;
+            justify-content: space-around;
+            height: $login_user_height;
+            margin-top: 10px;
+            // padding: 0 1.5em;
+            border-left: solid 2px $main_col;
+            border-right: solid 2px $main_col;
+            .photo{
+                width: $login_user_height;
+                height: $login_user_height;
+                border-radius: 50%;
+                background:  url(../img/person.png) no-repeat bottom center/32px 32px lighten($main_col,28%);
+            }
+            .name{
+                line-height: $login_user_height;
+                font-weight: bold;
+            }
+            button{
+                height: $login_user_height;
+                width: 8em;
+                color: $main_col;
+                cursor: pointer;
+                font-weight: bold;
+                &:hover{
+                    opacity: .6;
+                }
+
+            }    
+
+        }
+
+    }
+}

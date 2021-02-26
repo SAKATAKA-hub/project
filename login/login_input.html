@@ -6,27 +6,29 @@
   <title>ログイン|タイムカード</title>
   <link rel="stylesheet" href="../common/css/login.css">
 </head>
-!body!
+ <body onload="location.href = '../top/index.php'" >
   <header>
   </header>
   <main id="login_input">
-    <h2>ログイン</h2>
-    <!-- ログイン -->
-    <form action="#" method="post" id="login">
-      <div class="error">!error_notes!</div>
+    <div class="login_card">
+      <h2>LOGO</h2>
+      <!-- ログイン -->
+      <form action="#" method="post" id="login">
+        <div class="error"></div>
 
-      <div class="form-group">
-        <label for="key_id">ID</label>
-        <input type="text" name="login_id" placeholder="0000"id="key_id"><br>
-      </div>
+        <div class="form-group">
+          <label for="key_id">ID</label>
+          <input type="text" name="login_id" placeholder="従業員ＩＤ(0001)"id="key_id"><br>
+        </div>
 
-      <div class="form-group">
-        <label for="key_pass">pass</label>
-        <input type="password" name="login_pass" placeholder="0000"id="key_pass"><br>
-      </div>
+        <div class="form-group">
+          <label for="key_pass">pass</label>
+          <input type="password" name="login_pass" placeholder="パスワード(0001)"id="key_pass"><br>
+        </div>
 
-      <button type="submit">ログイン</button>
-    </form>
+        <button type="submit">ログイン</button>
+      </form>
+    <div>
 
   </main>
 </body>

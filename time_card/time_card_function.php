@@ -155,7 +155,6 @@ function record_date_update(){
 
         //----------------------------------
         // ＤＢの出勤状況を書き換え
-        $SQL = "UPDATE employee_data SET work_state = ? WHERE `employee_data`.`id` = ? ";
         $SQL = "UPDATE employee_data SET work_state = ? WHERE id = ? ";
         $DATA = array($work_state,$employee_id);//プリペアーステートメントの値
         insert_db($SQL,$DATA);  //関数の実行
@@ -178,8 +177,6 @@ function record_date_update(){
 
 # 採番ファイルの読み込み
 //記述
-//$num_file = "data/work_nom".$employee_id.".txt";
-//$work_num = read_num_file($num_file);
 function read_num_file($file){
     if(file_exists($file)){
       $num = file_get_contents($file);

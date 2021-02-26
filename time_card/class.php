@@ -63,16 +63,16 @@ class AggregateRecord{
         $in_hour = $in[0];
         $in_min = $in[1];
 
-        if($in_min > (60-$cut_m)){
-            $in_hour ++;
-            $in_min = 0;    
-        }else{
-            for ($i=(60/$cut_m)-1; $i <= 0; $i--) { 
-                if($in_min <= $cut_m*$i){
-                    $in_min = $cut_m*$i;
-                }
-            }
-        }
+        // if($in_min > (60-$cut_m)){
+        //     $in_hour ++;
+        //     $in_min = 0;    
+        // }else{
+        //     for ($i=(60/$cut_m)-1; $i <= 0; $i--) { 
+        //         if($in_min <= $cut_m*$i){
+        //             $in_min = $cut_m*$i;
+        //         }
+        //     }
+        // }
 
 
         // 退勤情報(指定した分数みに時間算出）
@@ -85,11 +85,11 @@ class AggregateRecord{
             $out_hour = $out[0];
             $out_min = $out[1];
 
-            for ($i=0; $i < (60/$cut_m); $i++) { 
-                if($out_min >= $cut_m*$i){
-                    $out_min = $cut_m*$i;
-                }
-            }
+            // for ($i=0; $i < (60/$cut_m); $i++) { 
+            //     if($out_min >= $cut_m*$i){
+            //         $out_min = $cut_m*$i;
+            //     }
+            // }
             // メモ：if($out_min == 0){$out_min=0;}
 
             //一日の総出勤時間の算出
