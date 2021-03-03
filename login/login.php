@@ -64,8 +64,10 @@ if(!empty($in)){
                 // (4)ログイン後のページへ進む
                 $body =
                 <<<_onload_
-                 <body onload="location.href = '{$next_page}'" >
+                <body onload="history.go(-2)" >
                 _onload_;
+                //  <body onload="location.href = '{$next_page}'" >
+
 
         }
     }

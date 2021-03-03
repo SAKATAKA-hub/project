@@ -19,6 +19,10 @@ $cut_min = 15;
 //1-1 フォーム（表示切替ボタン）の受取り
 $in = parse_form();
 
+if(!empty($in)){ validateToken();} //tokenのチェック
+createToken(); //tokenの発行 -> $_SESSION['token']
+
+
 if(empty($in)){ //フォームを受け取らなかったとき
  $in = array (
     "mode"=> "day_table",
@@ -28,6 +32,8 @@ if(empty($in)){ //フォームを受け取らなかったとき
     "select_d"=> "",
  );
 }
+
+
 
 // 1-2 受け取った値より、変数を定義
 $mode = $in["mode"];
@@ -80,13 +86,12 @@ $select_month_last_day = $end_dt->format('Y-m-d');//指定年月+"末日"
 
 #===========================================================
 # 2.詳細選択セレクトエリアの作成
-$option_elements = array( //option要素
+$option_elements = array( 
     'month' => '',
     'day' => '',
     'employee' => '',
 );
-
-$select_elements = array( //option要素
+$select_elements = array( 
     'month' => '',
     'day' => '',
     'employee' => '',
@@ -112,7 +117,7 @@ for ($i=0; $i < 12; $i++) {
 }
 // select要素
 $select_elements['month'] = <<<_ELEMENT_
-<select name="select_Y_m" onchange="changeSelectDate()">
+<select id="select_Y_m" name="select_Y_m" onchange="changeSelectDate()">
 {$option_elements['month']}
 </select>
 _ELEMENT_;
@@ -129,7 +134,7 @@ for ($i=1; $i <= $select_end_d; $i++) {
 }
 // select要素
 $select_elements['day'] = <<<_ELEMENT_
-<select name="select_d">
+<select id="select_d" name="select_d">
 {$option_elements['day']}
 </select>
 _ELEMENT_;
@@ -321,17 +326,6 @@ $private_break_times = AggregateRecord::getPrivateBreakTimes();
 $private_working_times = AggregateRecord::getPrivateWorkingTimes();
 ksort($private_restrain_times); //キーの昇順変換
 
-// 詳細ボタン
-$ditte_button = <<<_button_
-<form action="#" method="post" target=”_blank”>
-<input type="hidden" name="mode" value="private_table">
-<input type="hidden" name="select_Y_m" value="{$select_Y_m}">
-<input type="hidden" name="select_d" value="{$select_d}">
-<input type="hidden" name="select_employee" value="{$select_employee}">
-<input type="hidden" name="modify" value="{$modify}">
-<button>詳細</button>
-</form>
-_button_;
 
 foreach ($private_restrain_times as $employee_id => $val) {
     foreach($input_records as $key => $input_record){
@@ -339,6 +333,20 @@ foreach ($private_restrain_times as $employee_id => $val) {
             $employee_name = $input_record["employee_name"];
         }
     }
+
+    // 詳細ボタン
+    $ditte_button = <<<_button_
+    <form action="#" method="get">
+    <input type="hidden" name="mode" value="private_table">
+    <input type="hidden" name="select_Y_m" value="{$select_Y_m}">
+    <input type="hidden" name="select_d" value="{$select_d}">
+    <input type="hidden" name="select_employee" value="{$employee_id}">
+    <input type="hidden" name="modify" value="{$modify}">
+    <button>詳細</button>
+    </form>
+    _button_;
+    
+
     $private_restrain_time = sprintf("%02d時間%02d分",floor($val/60),$val%60);
     $private_break_time = $private_break_times[$employee_id];
     $private_break_time = sprintf("%02d時間%02d分",floor($private_break_time/60),$private_break_time%60);
@@ -387,8 +395,8 @@ $total_working_time = sprintf("%02d時間%02d分",floor($total_working_time/60),
 $table_elements[3] = <<<_TotalAggText_
 <table class="total_agg">
 <tr>
-<th class="total">総休憩時間</th>
 <th class="total">総勤務時間</th>
+<th class="total">総休憩時間</th>
 <th class="total">総労働時間</th>
 </tr>
 <tr>
@@ -435,7 +443,7 @@ $table_element_mord = array( //テーブル要素の表示切替用
 
 
 $table_headings = []; //印刷画面で使用
-$table_headings[1] = $select_dt->format('Y月m日');
+$table_headings[1] = $select_dt->format('Y年m月');
 $in_date = $select_dt->format('d');
 $in_week_nom = $select_dt->format('w');
 $weeks = array("日","月","火","水","木","金","土");
@@ -508,6 +516,9 @@ $tmpl = file_get_contents($file);
 $replaces = array(
     //使いまわしパーツ
     "!header!" => $header,
+
+    //token
+    "!token!" => $_SESSION['token'] ,
 
     // メニューボタン・詳細変更ボタン用
     "!select_Y_m!" => $select_Y_m,

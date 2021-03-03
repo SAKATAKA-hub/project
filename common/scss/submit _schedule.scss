@@ -1,0 +1,96 @@
+@import "env_style"; 
+
+.select_container{
+    display: flex;
+    justify-content: center;
+    // background-color: chocolate;
+    .select_month{display: flex;}
+    .select_input_menu{display: flex;}
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 400px;
+    max-width: 800px;
+}
+
+// カレンダーコンテナー
+.calendar{
+
+    tr{
+        &:first-child{
+            td{ border-top: solid 1px $glay_line;}
+        }
+
+        .dates{
+            line-height: 3em;
+            width: 100px;
+            box-sizing: border-box; //widthの幅を一定に
+            text-align: right;
+            padding: 0 1em;
+            border-right: solid 1px $glay_line;
+            border-bottom: solid 1px $glay_line;
+        }
+
+        .input{
+            display: flex;//　レスポンシブでなし
+
+            line-height: 3em;
+            min-width: 300px;
+            width: 700px;
+            box-sizing: border-box; 
+            border-bottom: solid 1px $glay_line;
+
+            .input0, .input1, .input2{
+                padding: 0 1.8em;
+            }
+
+
+            .input0{}
+            .input1{}
+            .input2{}
+        }
+    }
+}
+
+.comment_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1em 2em;
+    box-sizing: border-box; 
+
+
+    p{padding-bottom: .5em;}
+    textarea{
+        height: 3em;
+        border: solid 2px $glay_line;
+        border-radius: .3em;
+        resize: none;
+    }
+}
+.aggregate{
+    width: 100%;
+    padding: 1em 3em;
+    box-sizing: border-box; 
+    border-top: solid 1px $glay_line;
+    border-bottom: solid 1px $glay_line;
+}
+.submit_container{
+    width: 100%;
+    padding: 1em 3em;
+    box-sizing: border-box; 
+
+
+    button{
+        width: 400px;
+        line-height: 3em;
+        border: solid 2px $glay_line;
+        border-radius: .5em;
+        font-size: 16px;
+    }
+    
+}
+

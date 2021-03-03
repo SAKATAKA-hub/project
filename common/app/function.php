@@ -129,6 +129,34 @@ function parse_form(){
 }
 
 #-----------------------------------------------------------
+# tokenの関数　＊フォーム送信時のCSRF対策
+# 1.createToken(); //tokenの発行 $_SESSION['token']
+# 2.validateToken(); //tokenのチェック
+#-----------------------------------------------------------
+# 1.tokenの発行
+//tokenをセッションへ保存
+function createToken() {
+  if (!isset($_SESSION['token'])) {
+    $nom = mt_rand(28,40);
+    $_SESSION['token'] = bin2hex(random_bytes($nom));
+  }
+}
+// フォーム送信ページよりtokenを送る
+//$replace_array = array("!token!" => $_SESSION['token'] ,);
+//<input type="hidden" name="token" value="!token!">
+
+# 2.トークンのチェック
+function validateToken() {
+  global $in;
+  if (
+    empty($_SESSION['token']) || 
+    $_SESSION['token'] !== $in['token']
+  ){
+    exit('Invalid post request');
+  }
+}
+
+#-----------------------------------------------------------
 # アラートを表示する関数
 #-----------------------------------------------------------
 function alert($alt){

@@ -15,24 +15,27 @@
             <!--#メニューボタン-->
             <nav class="select_list_group">
                 <!--メニューボタン1.日別勤怠一覧-->
-                <form action="#" method="post">
+                <form action="#" method="get">
                     <input type="hidden" name="mode" value="day_table">
+                    <input type="hidden" name="token" value="!token!">
                     <input type="hidden" name="select_Y_m" value="!select_Y_m!">
                     <input type="hidden" name="select_d" value="!select_d!">
                     <input type="hidden" name="select_employee" value="!select_employee!">
                     <input type="hidden" name="modify" value="!modify!">
                     <button class="!cullent_menu['day']!">日別勤怠一覧</button>
                 </form>
-                <form action="#" method="post">
+                <form action="#" method="get">
                     <input type="hidden" name="mode" value="month_table">
+                    <input type="hidden" name="token" value="!token!">
                     <input type="hidden" name="select_Y_m" value="!select_Y_m!">
                     <input type="hidden" name="select_d" value="!select_d!">
                     <input type="hidden" name="select_employee" value="!select_employee!">
                     <input type="hidden" name="modify" value="!modify!">
                     <button class="!cullent_menu['month']!">月別勤怠一覧</button>                    
                 </form>
-                <form action="#" method="post">
+                <form action="#" method="get">
                     <input type="hidden" name="mode" value="private_table">
+                    <input type="hidden" name="token" value="!token!">
                     <input type="hidden" name="select_Y_m" value="!select_Y_m!">
                     <input type="hidden" name="select_d" value="!select_d!">
                     <input type="hidden" name="select_employee" value="!select_employee!">
@@ -57,8 +60,9 @@
 
             <!--#詳細変更ボタン-->
             <div class="table_heading_container">
-                <form action="#" method="post">
+                <form action="#" method="get">
                     <input type="hidden" name="mode" value="!mode!">
+                    <input type="hidden" name="token" value="!token!">
                     <input type="hidden" name="modify" value="!modify!"> 
                     !select_element!
                     <button type="submit">選択内容の変更</button>
@@ -81,8 +85,11 @@
 </body>
 <script>
 function changeSelectDate(){
-    const selectElement = document.querySelectorAll('select');
-    const val = selectElement[0].value;//選択された年月の"値"
+    const selectYmElement = document.querySelector('#select_Y_m');
+    const selectDElement = document.querySelector('#select_d');
+    console.log(selectDElement);
+
+    const val = selectYmElement.value;//選択された年月の"値"
     // console.log(val+"-01");
     var selectDate = new Date(val+"-01");
 
@@ -91,17 +98,17 @@ function changeSelectDate(){
     const lastDate = selectDate.getDate(); //月末日
 
     //日付選択'option'要素の削除
-    for (let i = 0; i < selectElement[1].length; i+1) {
-        selectElement[1].children[i].remove();
+    for (let i = 0; i < selectDElement.length; i+1) {
+        selectDElement.children[i].remove();
     }
     
-    //console.log(selectElement[1]);
+    //console.log(selectDElement);
 
     for (let i = 1; i <= lastDate; i++) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = i+"日";
-        selectElement[1].appendChild(option);
+        selectDElement.appendChild(option);
         // console.log(option);
     }
 }

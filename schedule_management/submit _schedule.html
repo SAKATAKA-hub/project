@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>スケジュール提出</title>
+  <link rel="stylesheet" href="../common/css/submit _schedule.css">
+</head>
+<body>
+    <main id="submit _schedule">
+
+        <!-- 1.セレクトコンテナー ------------>
+        <div class="select_container">
+            <div class="select_month">
+                <div class="befor_mon">前月</div>
+                <div class="select_mon">3月</div>
+                <div class="next_mon">翌月</div>    
+            </div>
+            <div class="select_input_menu">
+                <div class="auto_input">定型入力</div>
+                <div class="delete">入力リセット</div>    
+            </div>
+        </div>
+
+        <form action="" method="POST">
+            <!-- 2.インプットコンテナー ------------>
+            <div id="input_container">
+                <!-- 2-1 -->
+                <div class="calendar">
+                    <ul>
+                        <li class="date01">
+                            <div class="date">
+                                1日(月)
+                            </div>
+                            <div class="input">
+                                <div class="input0">
+                                    <input type="radio" name="attendance01" value="Attendance" id="id_Attendance"　 checked>
+                                    <label for="id_Attendance">出勤</label>
+                                    <input type="radio" name="attendance01" value="paid" id="id_paid">
+                                    <label for="id_paid">有給</label>
+                                </div>
+
+                                <div class="input1">
+                                    シフト1
+                                    <select name="in_time01-1">
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-1">
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>    
+                                </div>
+                                <div class="input2">
+                                    シフト2
+                                    <select name="in_time01-2">
+                                        <option value=""></option>
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-2">
+                                        <option value=""></option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>
+    
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="date01">
+                            <div class="date">
+                                1日(月)
+                            </div>
+                            <div class="input">
+                                <div class="input0">
+                                    <input type="radio" name="attendance02" value="Attendance" id="id_Attendance"　 checked>
+                                    <label for="id_Attendance">出勤</label>
+                                    <input type="radio" name="attendance02" value="paid" id="id_paid">
+                                    <label for="id_paid">有給</label>
+                                </div>
+
+                                <div class="input1">
+                                    シフト1
+                                    <select name="in_time01-1">
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-1">
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>    
+                                </div>
+                                <div class="input2">
+                                    シフト2
+                                    <select name="in_time01-2">
+                                        <option value=""></option>
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-2">
+                                        <option value=""></option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>
+    
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="date01">
+                            <div class="date">
+                                1日(月)
+                            </div>
+                            <div class="input">
+                                <div class="input0">
+                                    <input type="radio" name="attendance03" value="Attendance" id="id_Attendance"　 checked>
+                                    <label for="id_Attendance">出勤</label>
+                                    <input type="radio" name="attendance03" value="paid" id="id_paid">
+                                    <label for="id_paid">有給</label>
+                                </div>
+
+                                <div class="input1">
+                                    シフト1
+                                    <select name="in_time01-1">
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-1">
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>    
+                                </div>
+                                <div class="input2">
+                                    シフト2
+                                    <select name="in_time01-2">
+                                        <option value=""></option>
+                                        <option value="08:00">8:00</option>
+                                        <option value="09:00">9:00</option>
+                                        <option value="10:00">10:00</option>
+                                    </select>
+                                    ~
+                                    <select name="outtime01-2">
+                                        <option value=""></option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                    </select>
+    
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+        
+                <!-- 2-2 -->
+                <div class="comment_box">
+                    <p>コメント</p>
+                    <textarea class="comment_text" name="comment" id="" ></textarea>
+                </div>
+            </div>
+
+            <!-- 3.集計コンテナー ------------>
+            <div class="aggregate">
+                <div class="total_time">
+                    <p>予定勤務時間</p>
+                    <p>100時間</p>
+                </div>
+                <div class="total_wage">
+                    <p>予定獲得賃金</p>
+                    <p>100000円</p>
+                </div>
+            </div>
+            <button type="submit">提出</button>
+        </form>
+
+
+
+
+    </main>
+    <script>
+    'use strict';
+    {
+    // id属性で要素を取得
+    var p2 = document.getElementById('p2');
+    var p3 = document.getElementById('p3');
+
+    // 新しいHTML要素を作成
+    // var new_element = document.createElement('p');
+    // new_element.textContent = '追加テキスト';
+
+    // 指定した要素の中の末尾に挿入
+    // p3.appendChild(new_element);
+    p2.innerHTML = "<?= $p1;?>";
+    p3.innerHTML = "<h3>h3タグに変更しました</h3>";
+    }
+    </script>  
+</body>

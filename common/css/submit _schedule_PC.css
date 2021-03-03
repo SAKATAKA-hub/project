@@ -1,0 +1,115 @@
+@charset "UTF-8";
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+  font-size: 1em; }
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%; }
+
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/ }
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/ }
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer; }
+
+ul {
+  list-style: none; }
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+
+.select_container {
+  display: flex;
+  justify-content: center; }
+.select_container .select_month {
+  display: flex; }
+.select_container .select_input_menu {
+  display: flex; }
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 400px;
+  max-width: 800px; }
+
+.calendar tr:first-child td {
+  border-top: solid 1px #cccccc; }
+.calendar tr .dates {
+  line-height: 3em;
+  width: 100px;
+  box-sizing: border-box;
+  text-align: right;
+  padding: 0 1em;
+  border-right: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc; }
+.calendar tr .input {
+  display: flex;
+  line-height: 3em;
+  min-width: 300px;
+  width: 700px;
+  box-sizing: border-box;
+  border-bottom: solid 1px #cccccc; }
+.calendar tr .input .input0, .calendar tr .input .input1, .calendar tr .input .input2 {
+  padding: 0 1.8em; }
+
+.comment_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 1em 2em;
+  box-sizing: border-box; }
+.comment_box p {
+  padding-bottom: .5em; }
+.comment_box textarea {
+  height: 3em;
+  border: solid 2px #cccccc;
+  border-radius: .3em;
+  resize: none; }
+
+.aggregate {
+  width: 100%;
+  padding: 1em 3em;
+  box-sizing: border-box;
+  border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc; }
+
+.submit_container {
+  width: 100%;
+  padding: 1em 3em;
+  box-sizing: border-box; }
+.submit_container button {
+  width: 400px;
+  line-height: 3em;
+  border: solid 2px #cccccc;
+  border-radius: .5em;
+  font-size: 16px; }
+
+.calendar .input {
+  display: block; }
+
+button {
+  background-color: chocolate; }
+
+/*# sourceMappingURL=submit%20_schedule_PC.css.map */
