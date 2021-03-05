@@ -7,193 +7,206 @@
 //[読込順]function.php > submit_schedule.php(現在地)
 include('../common/app/function.php');
 
+//parts.phpファイルの読み込み
+include('../common/parts/parts.php'); 
+
+# 日付の定義 今のDT_OB
+$nowDT = new DateTime("");
+$now = [];
+$now["Y"] = intval($nowDT->format("Y"));
+$now["m"] = intval($nowDT->format("m"));
+$now["d"] = intval($nowDT->format("d"));
+
+$display = []; //表示用日付
+
 
 
 #===========================================================
-
+# 1.フォームの受取りとモード切替
 //1-1 フォーム（表示切替ボタン）の受取り
 
 $in = parse_form(); //フォームの受取り
-if(!empty($in)){
-    echo $_SESSION['token']."<br>";
-    var_dump($in);
+if(isset($in["mode"])){
+    // echo $_SESSION['token']."<br>";
+    // var_dump($in);
+    echo "****** in *******"."<br>";
+    foreach ($in as $key => $value) {
+        if(!empty($value)){echo $key." => ".$value."<br>";}  
+    }
+
     validateToken(); //tokenのチェック
-    if($in["mode"]=="submit"){echo "成功";}
+
+    if($in["mode"]=="submit"){submit();} //送信モード関数
+    elseif($in["mode"]=="change"){change();} //選択月変更モード関数
+
+}else{
+    normal_processing(); //デフォルトモード関数
 }
 createToken(); //tokenの発行 $_SESSION['token']
 
+#===========================================================
+# デフォルトモード関数
+function normal_processing(){
+    global $in, $now, $display;
+
+    var_dump($now);
+
+    # 1.表示用日付の定義
+    //月の後期なら、翌月前期を入力画面に表示
+    if($now["d"]>15) 
+    {
+        $display["Y"] = $now["m"] == 12 ? $now["Y"] +1 : $now["Y"] ; //表示"年"
+        $display["m"] = $now["m"] == 12 ? 1: $now["m"] +1 ; //表示"月"
+        $display["half"] = "first"; //前期or後期
+    }
+    //月の前期なら、同月後期を入力画面に表示
+    else
+    {
+        $display["Y"] = $now["Y"]; //表示"年"
+        $display["m"] = $now["m"]; //表示"月"
+        $display["half"] = "second"; //前期or後期    
+    }
+    
+    $end_Y = $display["m"] == 12 ? $display["Y"] +1 : $display["Y"] ;
+    $end_m = $display["m"] == 12 ? 1: $display["m"] +1 ;
+    $endDT = new DateTime(sprintf("%04d-%02d-00",$end_Y,$end_m));
+    $display["end_d"] = intval($endDT->format("d")); //月末日
+    $display["week"] = ($display["end_d"] - intval($endDT->format("w")) +1)%7; //月初日の曜日
+
+    echo sprintf("%04d年%02d月%02d日(%d)%s",$display["Y"] ,$display["m"] ,$display["end_d"], $display["week"], $display["half"]);
 
 
-// 出勤時間選択OPTION($select_time_element)の作成                           
+        
+}
+
+
+#===========================================================
+# $in["mode"]=="submit"のとき、実行する関数
+function submit(){
+    global $in, $now, $display;
+
+    # 1.表示用日付の定義
+    $displayDT = new DateTime($in["month"]);
+    $display["Y"] = intval($displayDT->format("Y")); //表示"年"
+    $display["m"] = intval($displayDT->format("m"));; //表示"月"
+    $display["d"] = intval($displayDT->format("d"));; //表示"日"
+    $display["half"] = $display["d"]==1 ? "first" : "second"; //前期or後期 
+    
+    $end_Y = $display["m"] == 12 ? $display["Y"] +1 : $display["Y"] ;
+    $end_m = $display["m"] == 12 ? 1: $display["m"] +1 ;
+    $endDT = new DateTime(sprintf("%04d-%02d-00",$end_Y,$end_m));
+    $display["end_d"] = intval($endDT->format("d")); //月末日
+    $display["week"] = ($display["end_d"] - intval($endDT->format("w")) +1)%7; //月初日の曜日
+
+}
+
+function change(){
+    global $in, $now, $display;
+
+}
+// 出勤時間選択OPTION($select_time_element)の作成 
+// 出勤時間の作成                          
+
+# 2.表示要素の部品作成
+// 2-1 出勤時間選択OPTIONの作成
 $work_times = [];
-$work_times[] = "";
+$work_times[] = '<option value=""> </option>';
 $work_time_mins = array(":00",":30",);
 for ($i=0; $i < 24; $i++) { 
-    $val = $i+8>23 ? $i+8-24 :$i+8;
+    $hour = $i+8>23 ? $i+8-24 :$i+8;
     foreach ($work_time_mins as $min) {
-        $work_times[] = sprintf("%02d",$val).$min."<br>";
+        $time = sprintf("%02d",$hour).$min;
+        $work_times[$time] = sprintf('<option value="%s">%s</option><br>',$time,$time);
     }
 }
 $select_time_element = "";
-foreach($work_times as $time){
-    $select_time_element .=<<<_text_
-    <option value="$time">$time</option>
-    _text_;
+foreach ($work_times as $key => $option_e) {
+    $select_time_element .= $option_e;
 }
 
-// tr要素の作成
-
-
-$text =<<<_text_
-<tr class="date!num!">
-<td class="dates">
-<div class="date"> !num!日(!week!)</div>
-</td>
-
-<td class="input">
-<div class="input0">
-<input type="radio" name="attendance!num!" value="Attendance" id="id_Attendance"　 >
-<label for="id_Attendance">出勤</label>
-<input type="radio" name="attendance!num!" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
-</div>
-
-<div class="input1">
-シフト1
-<select name="in_time!num!-1">
-!select_time_element!
-</select>
-~
-<select name="outtime!num!-1">
-!select_time_element!
-</select>
-</div>
-
-<div class="input2"> 
-シフト2
-<select name="in_time!num!-2">
-!select_time_element!
-</select>
-~
-<select name="outtime!num!-2">
-!select_time_element!
-</select>
-</div>
-</td>
-</tr>
-_text_;
-
-$end_day = 31; // 月末日
-$week_num = 1; // 曜日
+// 2-2 入力テーブル列(tr要素)の作成
+$trdate = [];
+switch ($display["half"]) {
+    case 'first':
+        echo"";
+        $trdate["start"] = 1;
+        $trdate["end"] = 15;
+        $week_num = $display["week"];
+        break;
+    case 'second':
+        $trdate["start"] = 16;
+        $trdate["end"] = $display["end_d"];
+        $week_num = $display["week"]+(16%7)-1;
+        break;
+}
 $weeks = array("日","月","火","水","木","金","土",);
 $tr_element ="";
-for ($i=1; $i <= $end_day; $i++) {
-    $num = sprintf("%02d",$i) ;
 
+// テンプレートファイルの読み込み
+$file = "tmpl/table_parts.tmpl";
+$text = file_get_contents($file);
+
+// 一日毎にtr要素の作成
+for ($i = $trdate["start"]; $i <= $trdate["end"]; $i++) {
+
+    //差替え文字の配列
+    $num = sprintf("%02d",$i) ;
     $replace_array = array(
         "!num!" => $num , 
         "!week!" => $weeks[$week_num] ,
         "!select_time_element!" => $select_time_element ,
     );
-    
 
-    $replace_text = $text;
-    foreach ($replace_array as $key => $value) {
-        $replace_text =str_replace($key,$value,$replace_text);
+    //テンプレートの文字差替え
+    $replace_text = $text;    
+    foreach ($replace_array as $key => $val) {
+        $replace_text = str_replace($key,$val,$replace_text);
     }
     $tr_element .= $replace_text;
 
-    $week_num = $week_num == 6 ? 0 : $week_num+1;
+    $week_num = $week_num == 6 ? 0 : $week_num+1; //曜日の更新
 }
+
+# 3.ページの表示
+// テンプレートファイルの読み込み
+$file = "tmpl/submit_schedule.tmpl";
+$text = file_get_contents($file);
+
+//差替え文字の設定
+switch ($display["half"]) {
+    case 'first':
+        $display_month = sprintf("%04d年%02d月 前期",$display["Y"],$display["m"]);
+        $value_month = sprintf("%04d-%02d-01",$display["Y"],$display["m"]);
+        break;
+    
+    case 'second':
+        $display_month = sprintf("%04d年%02d月 後期",$display["Y"],$display["m"]);
+        $value_month = sprintf("%04d-%02d-16",$display["Y"],$display["m"]);
+        break;
+}
+
+//差替え文字の配列
+$replace_array = array(
+    "!header!" => $header,
+    "!token!" => $_SESSION['token'] ,
+    "!display_month!" => $display_month,
+    "!value_month!" => $value_month,
+
+    //要素
+    "!tr_element!" => $tr_element ,
+);
+
+//テンプレートの文字差替え
+$replace_text = $text;    
+foreach ($replace_array as $key => $val) {
+    $replace_text = str_replace($key,$val,$replace_text);
+}
+echo $replace_text;
 
 
 ?>
 
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>スケジュール提出</title>
-  <link rel="stylesheet" href="../common/css/submit _schedule.css"
-  media="screen and (min-width:441px)">
-  <link rel="stylesheet" href="../common/css/submit _schedule_PC.css"
-  media="screen and (max-width:440px)">
-</head>
-<body>
-    <main id="submit _schedule">
-        <form action="" method="POST">
-        <input type="hidden" name="mode" value="submit">
-        <input type="hidden" name="token" value="<?= $_SESSION['token'];?>"> 
-
-
-        <!-- 1.セレクトコンテナー ------------>
-        <div class="select_container">
-            <div class="select_month">
-                <div class="befor_mon">前月</div>
-                <div class="select_mon">3月</div>
-                <div class="next_mon">翌月</div>    
-            </div>
-            <div class="select_input_menu">
-                <div class="auto_input">定型入力</div>
-                <div class="delete">入力リセット</div>    
-            </div>
-        </div>
-
-        <!-- 2.インプットコンテナー ------------>
-        <div id="input_container">
-        <!-- 2-1 -->
-            <table class="calendar">
-                <?= $tr_element;?>
-            </table>
-
-            <!-- 2-2 -->
-            <div class="comment_box">
-                <p>コメント</p>
-                <textarea class="comment_text" name="comment" id="" ></textarea>
-            </div>
-
-            <!-- 3.集計コンテナー ------------>
-            <div class="aggregate">
-                <div class="total_time">
-                    <p>予定勤務時間</p>
-                    <p>100時間</p>
-                </div>
-                <div class="total_wage">
-                    <p>予定獲得賃金</p>
-                    <p>100000円</p>
-                </div>
-            </div>
-
-            <!-- 4.送信ボタンコンテナー ------------>
-            <div class="submit_container">
-                <button type="submit">提出</button>
-            </div>
-        </div>
-
-
-
-        </form>
-    </main>
-    <script>
-    'use strict';
-    {
-    // id属性で要素を取得
-    var p2 = document.getElementById('p2');
-    var p3 = document.getElementById('p3');
-
-    // 新しいHTML要素を作成
-    // var new_element = document.createElement('p');
-    // new_element.textContent = '追加テキスト';
-
-    // 指定した要素の中の末尾に挿入
-    // p3.appendChild(new_element);
-    p2.innerHTML = "<?= $p1;?>";
-    p3.innerHTML = "<h3>h3タグに変更しました</h3>";
-    }
-    </script>  
-</body>
 
 
 

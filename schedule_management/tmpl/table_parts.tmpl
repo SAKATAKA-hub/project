@@ -1,0 +1,40 @@
+<tr class="date!num!">
+<td class="dates">
+<div class="date"> !num!日(!week!)</div>
+</td>
+
+<td class="input">
+<div class="input0">
+<!--
+<input type="radio" name="attendance!num!" value="holiday" id="id_holiday"　 >
+<label for="id_holiday">公休</label>
+-->
+<input type="radio" name="attendance!num!" value="attendance" id="id_attendance"　 >
+<label for="id_attendance">出勤</label>
+<input type="radio" name="attendance!num!" value="paid" id="id_paid">
+<label for="id_paid">有給</label>
+</div>
+
+<div class="input1">
+シフト1
+<select name="in_time!num!-1">
+!select_time_element!
+</select>
+~
+<select name="outtime!num!-1">
+!select_time_element!
+</select>
+</div>
+
+<div class="input2"> 
+シフト2
+<select name="in_time!num!-2">
+!select_time_element!
+</select>
+~
+<select name="outtime!num!-2">
+!select_time_element!
+</select>
+</div>
+</td>
+</tr>

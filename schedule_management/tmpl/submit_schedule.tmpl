@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>スケジュール提出</title>
+  <link rel="stylesheet" href="../common/css/submit _schedule.css">
+  <link rel="stylesheet" href="../common/css/header.css"><!--header用css-->
+</head>
+!header!
+      <main id="submit _schedule">
+
+
+        <!-- 1.セレクトコンテナー ------------>
+        <div class="select_container">
+            <div class="select_month">
+                <div class="select_mon">!display_month!</div>
+                <br>
+                <button class="befor_mon">前月</button>
+                <button class="next_mon">翌月</button>    
+            </div>
+            <div class="select_input_menu">
+                <button class="auto_input">定型入力</button>
+                <button class="delete">入力リセット</button>    
+            </div>
+        </div>
+
+
+        <!-- 2.インプットコンテナー ------------>
+        <form action="" method="POST">
+        <input type="hidden" name="mode" value="submit">
+        <input type="hidden" name="token" value="!token!"> 
+        <input type="hidden" name="month" value="!value_month!">
+
+        <div id="input_container">
+        <!-- 2-1 -->
+            <table class="calendar">
+            !tr_element!
+            </table>
+
+            <!-- 2-2 -->
+            <div class="comment_box">
+                <p>コメント</p>
+                <textarea class="comment_text" name="comment" id="" ></textarea>
+            </div>
+
+            <!-- 3.集計コンテナー ------------>
+            <div class="aggregate">
+                <div class="total_time">
+                    <p>予定勤務時間</p>
+                    <p>100時間</p>
+                </div>
+                <div class="total_wage">
+                    <p>予定獲得賃金</p>
+                    <p>100000円</p>
+                </div>
+            </div>
+
+            <!-- 4.送信ボタンコンテナー ------------>
+            <div class="submit_container">
+                <button type="submit">提出</button>
+            </div>
+        </div>
+
+
+
+        </form>
+    </main>
+</body>

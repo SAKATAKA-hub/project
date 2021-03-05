@@ -338,6 +338,7 @@ foreach ($private_restrain_times as $employee_id => $val) {
     $ditte_button = <<<_button_
     <form action="#" method="get">
     <input type="hidden" name="mode" value="private_table">
+    <input type="hidden" name="token" value="{$_SESSION['token']}">
     <input type="hidden" name="select_Y_m" value="{$select_Y_m}">
     <input type="hidden" name="select_d" value="{$select_d}">
     <input type="hidden" name="select_employee" value="{$employee_id}">
@@ -457,7 +458,7 @@ $table_headings[3] = $datas[0]["name"];
 $table_heading_array = array( 
     'day' => $table_headings[1].$table_headings[2],
     'month' => $table_headings[1],
-    'private' => $table_headings[1].$table_headings[2]." ".$table_headings[3],
+    'private' => $table_headings[1]." ".$table_headings[3],
 );
 
 
