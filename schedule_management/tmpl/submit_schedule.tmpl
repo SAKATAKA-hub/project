@@ -4,20 +4,38 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>スケジュール提出</title>
-  <link rel="stylesheet" href="../common/css/submit _schedule.css">
+  <link rel="stylesheet" href="../common/css/submit_schedule.css">
   <link rel="stylesheet" href="../common/css/header.css"><!--header用css-->
 </head>
 !header!
-      <main id="submit _schedule">
 
+    <main id="submit_schedule">
+        <h2>スケジュール提出</h2>
+        <h3>!employee_name!さんの スケジュール提出ページ</h3>
 
         <!-- 1.セレクトコンテナー ------------>
         <div class="select_container">
             <div class="select_month">
-                <div class="select_mon">!display_month!</div>
-                <br>
-                <button class="befor_mon">前月</button>
-                <button class="next_mon">翌月</button>    
+
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="change_befor">
+                    <input type="hidden" name="token" value="!token!"> 
+                    <input type="hidden" name="month" value="!value_month!">
+                    <button >前に戻る</button>    
+                </form>
+
+
+                <h3 class="select_mon">!display_month!</h3>
+
+
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="change_next">
+                    <input type="hidden" name="token" value="!token!"> 
+                    <input type="hidden" name="month" value="!value_month!">
+                    <button >次に進む</button>
+                </form>
+
+
             </div>
             <div class="select_input_menu">
                 <button class="auto_input">定型入力</button>
@@ -27,10 +45,22 @@
 
 
         <!-- 2.インプットコンテナー ------------>
-        <form action="" method="POST">
+        <form action="" method="GET">
         <input type="hidden" name="mode" value="submit">
         <input type="hidden" name="token" value="!token!"> 
         <input type="hidden" name="month" value="!value_month!">
+
+        <section id="modal" class="hidden">
+            <p>フォームを送信します。</p>
+            <p>よろしいですか？</p>
+            <div class="m_btn_container">
+                <button type="submit" class="btn" >提出</button>
+                <div id="close" class="btn">戻る</div>
+            </div>   
+        </section>
+
+        <div id="mask" class="hidden"></div>
+
 
         <div id="input_container">
         <!-- 2-1 -->
@@ -41,7 +71,7 @@
             <!-- 2-2 -->
             <div class="comment_box">
                 <p>コメント</p>
-                <textarea class="comment_text" name="comment" id="" ></textarea>
+                <textarea class="comment_text" name="comment" id="" >!comment!</textarea>
             </div>
 
             <!-- 3.集計コンテナー ------------>
@@ -58,7 +88,7 @@
 
             <!-- 4.送信ボタンコンテナー ------------>
             <div class="submit_container">
-                <button type="submit">提出</button>
+                <div id="open" class="btn">提出</div>
             </div>
         </div>
 
@@ -66,4 +96,8 @@
 
         </form>
     </main>
+
+    <!--モーダルの実装js-->
+    <script src="../common/js/submit_schedule.js"></script>
+    
 </body>

@@ -34,7 +34,7 @@ include('insert_record.php');
       <div class="top">
         <p id="userImg"></p>
         <p id="userId"><?= $employee_id;?></p>
-        <p id="userName"><?= $employee_name;?></p>  
+        <p id="userName"><?= $employee_name;?> さん</p>  
       </div>
       <div class="bottom">
         <p class="workState"><?= $work_state_text;?></p>

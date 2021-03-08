@@ -22,7 +22,7 @@ $dbh = new PDO($dsn, $user, $pass);
 #-----------------------------------------------------------
 # DBからデータを授受する関数
 /*
-   $SQL = "SELECT * FROM *** WHERE *** = ? ? ?";//SQL命令文
+   $SQL = "SELECT * FROM *** WHERE *** = ? ";//SQL命令文
    $DATA = array('***' , '***' , '***');//プリペアーステートメントの値
    $data = select_db($SQL,$DATA);  //関数の実行（取得データをリターンする） 
 */

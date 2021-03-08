@@ -1,34 +1,41 @@
 @charset "UTF-8";
 body {
   font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
-  font-size: 1em; }
+  font-size: 1em;
+}
 
 body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
   margin: 0 0;
-  padding: 0 0; }
+  padding: 0 0;
+}
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: 100%; }
+  font-size: 100%;
+}
 
 table {
   border-collapse: collapse;
   /*隣り合うセルの境界線を重ねて表示*/
   border-spacing: 0;
-  /*境界線の感覚を無くす*/ }
+  /*境界線の感覚を無くす*/
+}
 
 img {
   border: none;
   /*枠線を消す*/
   vertical-align: bottom;
-  /*画像下の余白を消す*/ }
+  /*画像下の余白を消す*/
+}
 
 a {
   text-decoration: none;
   color: #000;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 ul {
-  list-style: none; }
+  list-style: none;
+}
 
 button {
   background: none;
@@ -36,25 +43,77 @@ button {
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none; }
+  appearance: none;
+}
 
 .select_container {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+}
 .select_container .select_month {
-  display: flex; }
+  display: flex;
+}
 .select_container .select_input_menu {
-  display: flex; }
+  display: flex;
+}
 
 form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 400px;
-  max-width: 800px; }
+  max-width: 800px;
+}
+form #mask {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+form #modal {
+  background: #fff;
+  width: 500px;
+  padding: 20px;
+  border-radius: 4px;
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transition: transform 0.8s;
+  z-index: 2;
+  text-align: center;
+}
+form #modal .m_btn_container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 3rem 0 3rem;
+  margin-top: 1rem;
+  border-top: solid 2px #cccccc;
+}
+form #modal .m_btn_container .btn {
+  padding: 0 4em;
+  line-height: 3em;
+  text-align: center;
+  border: solid 2px #cccccc;
+  border-radius: .5em;
+  font-size: 16px;
+}
+form #mask.hidden {
+  display: none;
+}
+form #modal.hidden {
+  transform: translate(0, -500px);
+}
 
 .calendar tr:first-child td {
-  border-top: solid 1px #cccccc; }
+  border-top: solid 1px #cccccc;
+}
 .calendar tr .dates {
   line-height: 3em;
   width: 100px;
@@ -62,16 +121,19 @@ form {
   text-align: right;
   padding: 0 1em;
   border-right: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc; }
+  border-bottom: solid 1px #cccccc;
+}
 .calendar tr .input {
   display: flex;
   line-height: 3em;
   min-width: 300px;
   width: 700px;
   box-sizing: border-box;
-  border-bottom: solid 1px #cccccc; }
+  border-bottom: solid 1px #cccccc;
+}
 .calendar tr .input .input0, .calendar tr .input .input1, .calendar tr .input .input2 {
-  padding: 0 1.8em; }
+  padding: 0 1.8em;
+}
 
 .comment_box {
   display: flex;
@@ -79,31 +141,38 @@ form {
   justify-content: flex-start;
   width: 100%;
   padding: 1em 2em;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 .comment_box p {
-  padding-bottom: .5em; }
+  padding-bottom: .5em;
+}
 .comment_box textarea {
   height: 3em;
   border: solid 2px #cccccc;
   border-radius: .3em;
-  resize: none; }
+  resize: none;
+}
 
 .aggregate {
   width: 100%;
   padding: 1em 3em;
   box-sizing: border-box;
   border-top: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc; }
+  border-bottom: solid 1px #cccccc;
+}
 
 .submit_container {
   width: 100%;
   padding: 1em 3em;
-  box-sizing: border-box; }
-.submit_container button {
+  box-sizing: border-box;
+}
+.submit_container #open.btn {
   width: 400px;
   line-height: 3em;
+  text-align: center;
   border: solid 2px #cccccc;
   border-radius: .5em;
-  font-size: 16px; }
+  font-size: 16px;
+}
 
-/*# sourceMappingURL=submit%20_schedule.css.map */
+/*# sourceMappingURL=submit_schedule.css.map */
