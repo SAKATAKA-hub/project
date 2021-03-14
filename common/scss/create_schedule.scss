@@ -1,0 +1,98 @@
+@import "env_style";
+
+main{ //==================================================
+    .m_center{
+
+        //セレクトボタン
+        .select_container{
+            display: flex;
+            align-items: center;
+            margin-bottom: .6em;
+            
+            .select_month{ 
+                display: flex;
+                align-items: center;
+                h4{
+                    line-height: 3rem;
+                    padding: 0 .5em;
+                    // margin-right: 1rem;
+                    border-top: solid 1px $glay_line;
+                    border-bottom: solid 1px $glay_line;
+                    // font-size: 1.8em;
+                }
+            }
+            .select_input_menu{
+                display: flex;
+                margin-left: 3rem;
+            }
+    
+            button{
+                margin-right: 1rem;
+                line-height: 2rem;
+                height: 100%;
+    
+                padding: 0 1.4em;
+                border: solid 1px $glay_line;
+                background: #fff;
+                color: $main_col;
+                border-radius: .3em;
+                font-weight: bold;
+                cursor: pointer;
+    
+                &:hover{
+                    border: solid 1px $main_col;
+                    background: $main_col;
+                    color: #fff;
+                } 
+            }
+            button.befor{
+                margin-right: 0;
+                line-height: 3rem;
+                border-radius: 2em 0 0 2em;
+            } 
+            button.next{
+                border-radius: 0 2em 2em 0;
+                line-height: 3rem;
+            }        
+    
+        }
+    
+    
+        $bk_col:#fff;
+        // width: 100%;
+        height: 100%;
+        padding: 0em 0 2em 2em;
+
+        .shift_table{
+            tr:nth-child(even){
+                background: cornsilk;  
+            }                 
+
+            tr{
+                text-align: center;
+                line-height: 2em;
+
+                th{
+                    border: solid 1px $glay_line;
+                    line-height: 3rem;
+                }
+                td{
+                    border: solid 1px $glay_line;
+                }
+                td.td_name{
+                    width: 10rem;
+                }
+                td.td_date{
+                    width: 12rem;
+                }
+                td.td_working_time{
+                    width: 8rem;
+                }
+    
+            }
+            
+            
+
+        }
+    }
+}

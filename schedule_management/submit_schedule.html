@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>スケジュール提出</title>
-  <link rel="stylesheet" href="../common/css/submit_schedule.css">
-  <link rel="stylesheet" href="../common/css/header.css"><!--header用css-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>スケジュール管理 スケジュール提出</title>
+
+    <link rel="stylesheet" href="../common/css/submit_schedule.css">
+
+    <!--header css-->
+    <link rel="stylesheet" href="../common/css/header.css">
+
+    <!--material_icon css-->
+    <!--
+　  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    -->
 </head>
 <body>
 <header class="">
@@ -13,25 +21,54 @@
         <h1 class="rogo"><a href="../top/index.php">ロゴ</a></h1>
         <ul class="nav_menu">
             <li class="menu1"><a href="../time_card/select_record.php">勤怠管理</a></li>
-            <li class="menu2"><a href="#">作成中<a></li>
-            <li class="menu3"><a href="#">作成中<a></li>
-            <li class="menu4"><a href="#">作成中<a></li>
+            <li class="menu2"><a href="#">作成中</a></li>
+            <li class="menu3"><a href="#">作成中</a></li>
+            <li class="menu4"><a href="#">作成中</a></li>
             <li><button onclick = "window.open('../time_card/time_card.php','time_card','width=400px height=550px')">タイムカード</button></li>
         </ul>
 
 
         <div class="login_user">
             <div class="photo"></div>
-            <div class="name">酒井　貴弘 さん</div>
+            <div class="name">ゲスト さん</div>
             <button class="btn_flat" type="button" onclick="location.href=`../login/login.php`">ログアウト</button>
         </div>
     </div>
 </header>
 
 
-    <main id="submit_schedule">
+<main id="submit_schedule">
+    <!-- ******** <m_side> ******** ******** ******** -->
+    <div class="m_side">
+        <!--#メニューボタン-->
+        <nav class="select_list_group">
+                <form action="" method="get">
+                    <button class="cullent">スケジュール提出</button>
+                </form>
+                <form action="" method="get">
+                    <button class="">スケジュール作成</button>
+                </form>
+                <form action="" method="get">
+                    <button class="">スケジュール印刷</button>
+                </form>
+
+
+        </nav>
+    </div>
+        
+
+    <!-- ******** <m_center> ******** ******** ******** -->
+    <div class="m_center">
+
+        <!-- パンくずリスト -->
+        <div class="bread_crumb"><ul>
+            <li><a href="">HOME</a></li>
+            <li>スケジュール管理</li>
+            <li>スケジュール提出</li>
+        </ul></div>
+
         <h2>スケジュール提出</h2>
-        <h3>酒井　貴弘さんの スケジュール提出ページ</h3>
+        <h3>ゲストさんの スケジュール提出ページ</h3>
 
         <!-- 1.セレクトコンテナー ------------>
         <div class="select_container">
@@ -39,37 +76,50 @@
 
                 <form action="" method="GET">
                     <input type="hidden" name="mode" value="change_befor">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581"> 
-                    <input type="hidden" name="month" value="2021-04-01">
-                    <button >前に戻る</button>    
+                    <input type="hidden" name="token" value="ff58294e1926c67c2e7d044d8ea4960d46c1845b3d35fccc1473e082"> 
+                    <input type="hidden" name="month" value="2021-03-16">
+                    <button class="befor">前へ</button>    
                 </form>
 
 
-                <h3 class="select_mon">2021年04月 前期</h3>
+                <h4 class="select_mon">2021年03月 後期</h4>
 
 
                 <form action="" method="GET">
                     <input type="hidden" name="mode" value="change_next">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581"> 
-                    <input type="hidden" name="month" value="2021-04-01">
-                    <button >次に進む</button>
+                    <input type="hidden" name="token" value="ff58294e1926c67c2e7d044d8ea4960d46c1845b3d35fccc1473e082"> 
+                    <input type="hidden" name="month" value="2021-03-16">
+                    <button class="next">次へ</button>
                 </form>
 
 
             </div>
             <div class="select_input_menu">
-                <button class="auto_input">定型入力</button>
-                <button class="delete">入力リセット</button>    
+                
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="fixed_input">
+                    <input type="hidden" name="token" value="ff58294e1926c67c2e7d044d8ea4960d46c1845b3d35fccc1473e082"> 
+                    <input type="hidden" name="month" value="2021-03-16">
+                    <button class="auto_input">定型入力</button>
+                </form>
+
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="input_reset">
+                    <input type="hidden" name="token" value="ff58294e1926c67c2e7d044d8ea4960d46c1845b3d35fccc1473e082"> 
+                    <input type="hidden" name="month" value="2021-03-16">
+                    <button class="delete">リセット</button>
+                </form>
+    
             </div>
         </div>
-
 
         <!-- 2.インプットコンテナー ------------>
         <form action="" method="GET">
         <input type="hidden" name="mode" value="submit">
-        <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581"> 
-        <input type="hidden" name="month" value="2021-04-01">
+        <input type="hidden" name="token" value="ff58294e1926c67c2e7d044d8ea4960d46c1845b3d35fccc1473e082"> 
+        <input type="hidden" name="month" value="2021-03-16">
 
+        <!-- モーダル -->
         <section id="modal" class="hidden">
             <p>フォームを送信します。</p>
             <p>よろしいですか？</p>
@@ -79,32 +129,28 @@
             </div>   
         </section>
 
+        <!-- マスク -->
         <div id="mask" class="hidden"></div>
 
-
         <div id="input_container">
+
         <!-- 2-1 -->
             <table class="calendar">
-            <tr class="date01">
+            <tr class="date16">
 <td class="dates">
-<div class="date"> 01日(金)</div>
+<div class="date"> 16日(火)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance01" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance01" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance01" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday16" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-01"><option value=""> </option>
+<select name="in1-16"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -154,7 +200,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-01"><option value=""> </option>
+<select name="out1-16"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -207,7 +253,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-01"><option value=""> </option>
+<select name="in2-16"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -257,7 +303,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-01"><option value=""> </option>
+<select name="out2-16"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -308,26 +354,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date02">
+</tr><tr class="date17">
 <td class="dates">
-<div class="date"> 02日(土)</div>
+<div class="date"> 17日(水)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance02" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance02" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance02" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday17" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-02"><option value=""> </option>
+<select name="in1-17"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -377,7 +418,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-02"><option value=""> </option>
+<select name="out1-17"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -430,7 +471,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-02"><option value=""> </option>
+<select name="in2-17"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -480,7 +521,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-02"><option value=""> </option>
+<select name="out2-17"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -531,26 +572,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date03">
+</tr><tr class="date18">
 <td class="dates">
-<div class="date"> 03日(日)</div>
+<div class="date"> 18日(木)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance03" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance03" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance03" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday18" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-03"><option value=""> </option>
+<select name="in1-18"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -600,7 +636,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-03"><option value=""> </option>
+<select name="out1-18"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -653,7 +689,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-03"><option value=""> </option>
+<select name="in2-18"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -703,7 +739,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-03"><option value=""> </option>
+<select name="out2-18"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -754,26 +790,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date04">
+</tr><tr class="date19">
 <td class="dates">
-<div class="date"> 04日(月)</div>
+<div class="date"> 19日(金)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance04" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance04" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance04" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday19" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-04"><option value=""> </option>
+<select name="in1-19"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -823,7 +854,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-04"><option value=""> </option>
+<select name="out1-19"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -876,7 +907,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-04"><option value=""> </option>
+<select name="in2-19"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -926,7 +957,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-04"><option value=""> </option>
+<select name="out2-19"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -977,26 +1008,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date05">
+</tr><tr class="date20">
 <td class="dates">
-<div class="date"> 05日(火)</div>
+<div class="date"> 20日(土)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance05" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance05" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance05" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday20" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-05"><option value=""> </option>
+<select name="in1-20"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1046,7 +1072,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-05"><option value=""> </option>
+<select name="out1-20"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1099,7 +1125,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-05"><option value=""> </option>
+<select name="in2-20"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1149,7 +1175,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-05"><option value=""> </option>
+<select name="out2-20"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1200,26 +1226,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date06">
+</tr><tr class="date21">
 <td class="dates">
-<div class="date"> 06日(水)</div>
+<div class="date"> 21日(日)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance06" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance06" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance06" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday21" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-06"><option value=""> </option>
+<select name="in1-21"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1269,7 +1290,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-06"><option value=""> </option>
+<select name="out1-21"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1322,7 +1343,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-06"><option value=""> </option>
+<select name="in2-21"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1372,7 +1393,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-06"><option value=""> </option>
+<select name="out2-21"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1423,26 +1444,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date07">
+</tr><tr class="date22">
 <td class="dates">
-<div class="date"> 07日(木)</div>
+<div class="date"> 22日(月)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance07" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance07" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance07" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday22" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-07"><option value=""> </option>
+<select name="in1-22"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1492,7 +1508,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-07"><option value=""> </option>
+<select name="out1-22"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1545,7 +1561,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-07"><option value=""> </option>
+<select name="in2-22"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1595,7 +1611,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-07"><option value=""> </option>
+<select name="out2-22"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1646,26 +1662,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date08">
+</tr><tr class="date23">
 <td class="dates">
-<div class="date"> 08日(金)</div>
+<div class="date"> 23日(火)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance08" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance08" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance08" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday23" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-08"><option value=""> </option>
+<select name="in1-23"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1715,7 +1726,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-08"><option value=""> </option>
+<select name="out1-23"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1768,7 +1779,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-08"><option value=""> </option>
+<select name="in2-23"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1818,7 +1829,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-08"><option value=""> </option>
+<select name="out2-23"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1869,26 +1880,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date09">
+</tr><tr class="date24">
 <td class="dates">
-<div class="date"> 09日(土)</div>
+<div class="date"> 24日(水)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance09" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance09" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance09" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday24" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-09"><option value=""> </option>
+<select name="in1-24"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1938,7 +1944,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-09"><option value=""> </option>
+<select name="out1-24"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -1991,7 +1997,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-09"><option value=""> </option>
+<select name="in2-24"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2041,7 +2047,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-09"><option value=""> </option>
+<select name="out2-24"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2092,26 +2098,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date10">
+</tr><tr class="date25">
 <td class="dates">
-<div class="date"> 10日(日)</div>
+<div class="date"> 25日(木)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance10" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance10" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance10" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday25" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-10"><option value=""> </option>
+<select name="in1-25"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2161,7 +2162,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-10"><option value=""> </option>
+<select name="out1-25"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2214,7 +2215,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-10"><option value=""> </option>
+<select name="in2-25"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2264,7 +2265,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-10"><option value=""> </option>
+<select name="out2-25"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2315,26 +2316,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date11">
+</tr><tr class="date26">
 <td class="dates">
-<div class="date"> 11日(月)</div>
+<div class="date"> 26日(金)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance11" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance11" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance11" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday26" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-11"><option value=""> </option>
+<select name="in1-26"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2384,7 +2380,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-11"><option value=""> </option>
+<select name="out1-26"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2437,7 +2433,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-11"><option value=""> </option>
+<select name="in2-26"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2487,7 +2483,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-11"><option value=""> </option>
+<select name="out2-26"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2538,26 +2534,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date12">
+</tr><tr class="date27">
 <td class="dates">
-<div class="date"> 12日(火)</div>
+<div class="date"> 27日(土)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance12" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance12" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance12" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday27" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-12"><option value=""> </option>
+<select name="in1-27"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2607,7 +2598,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-12"><option value=""> </option>
+<select name="out1-27"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2660,7 +2651,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-12"><option value=""> </option>
+<select name="in2-27"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2710,7 +2701,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-12"><option value=""> </option>
+<select name="out2-27"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2761,26 +2752,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date13">
+</tr><tr class="date28">
 <td class="dates">
-<div class="date"> 13日(水)</div>
+<div class="date"> 28日(日)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance13" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance13" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance13" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday28" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-13"><option value=""> </option>
+<select name="in1-28"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2830,7 +2816,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-13"><option value=""> </option>
+<select name="out1-28"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2883,7 +2869,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-13"><option value=""> </option>
+<select name="in2-28"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2933,7 +2919,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-13"><option value=""> </option>
+<select name="out2-28"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -2984,26 +2970,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date14">
+</tr><tr class="date29">
 <td class="dates">
-<div class="date"> 14日(木)</div>
+<div class="date"> 29日(月)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance14" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance14" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance14" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday29" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-14"><option value=""> </option>
+<select name="in1-29"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3053,7 +3034,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-14"><option value=""> </option>
+<select name="out1-29"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3106,7 +3087,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-14"><option value=""> </option>
+<select name="in2-29"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3156,7 +3137,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-14"><option value=""> </option>
+<select name="out2-29"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3207,26 +3188,21 @@
 <option   value="07:30">07:30</option></select>
 </div>
 </td>
-</tr><tr class="date15">
+</tr><tr class="date30">
 <td class="dates">
-<div class="date"> 15日(金)</div>
+<div class="date"> 30日(火)</div>
 </td>
 
 <td class="input">
+
 <div class="input0">
-<!--
-<input type="radio" name="attendance15" value="holiday" id="id_holiday"　 >
-<label for="id_holiday">公休</label>
--->
-<input type="radio" name="attendance15" value="attendance" id="id_attendance"　 >
-<label for="id_attendance">出勤</label>
-<input type="radio" name="attendance15" value="paid" id="id_paid">
-<label for="id_paid">有給</label>
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday30" value="paid_holiday" id="id_paid_holiday" >
 </div>
 
 <div class="input1">
 シフト1
-<select name="in1-15"><option value=""> </option>
+<select name="in1-30"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3276,7 +3252,7 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out1-15"><option value=""> </option>
+<select name="out1-30"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3329,7 +3305,7 @@
 
 <div class="input2"> 
 シフト2
-<select name="in2-15"><option value=""> </option>
+<select name="in2-30"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3379,7 +3355,225 @@
 <option   value="07:00">07:00</option>
 <option   value="07:30">07:30</option></select>
 ~
-<select name="out2-15"><option value=""> </option>
+<select name="out2-30"><option value=""> </option>
+<option   value="08:00">08:00</option>
+<option   value="08:30">08:30</option>
+<option   value="09:00">09:00</option>
+<option   value="09:30">09:30</option>
+<option   value="10:00">10:00</option>
+<option   value="10:30">10:30</option>
+<option   value="11:00">11:00</option>
+<option   value="11:30">11:30</option>
+<option   value="12:00">12:00</option>
+<option   value="12:30">12:30</option>
+<option   value="13:00">13:00</option>
+<option   value="13:30">13:30</option>
+<option   value="14:00">14:00</option>
+<option   value="14:30">14:30</option>
+<option   value="15:00">15:00</option>
+<option   value="15:30">15:30</option>
+<option   value="16:00">16:00</option>
+<option   value="16:30">16:30</option>
+<option   value="17:00">17:00</option>
+<option   value="17:30">17:30</option>
+<option   value="18:00">18:00</option>
+<option   value="18:30">18:30</option>
+<option   value="19:00">19:00</option>
+<option   value="19:30">19:30</option>
+<option   value="20:00">20:00</option>
+<option   value="20:30">20:30</option>
+<option   value="21:00">21:00</option>
+<option   value="21:30">21:30</option>
+<option   value="22:00">22:00</option>
+<option   value="22:30">22:30</option>
+<option   value="23:00">23:00</option>
+<option   value="23:30">23:30</option>
+<option   value="00:00">00:00</option>
+<option   value="00:30">00:30</option>
+<option   value="01:00">01:00</option>
+<option   value="01:30">01:30</option>
+<option   value="02:00">02:00</option>
+<option   value="02:30">02:30</option>
+<option   value="03:00">03:00</option>
+<option   value="03:30">03:30</option>
+<option   value="04:00">04:00</option>
+<option   value="04:30">04:30</option>
+<option   value="05:00">05:00</option>
+<option   value="05:30">05:30</option>
+<option   value="06:00">06:00</option>
+<option   value="06:30">06:30</option>
+<option   value="07:00">07:00</option>
+<option   value="07:30">07:30</option></select>
+</div>
+</td>
+</tr><tr class="date31">
+<td class="dates">
+<div class="date"> 31日(水)</div>
+</td>
+
+<td class="input">
+
+<div class="input0">
+<label for="id_paid_holiday">有給</label>
+<input type="checkbox" name="paid_holiday31" value="paid_holiday" id="id_paid_holiday" >
+</div>
+
+<div class="input1">
+シフト1
+<select name="in1-31"><option value=""> </option>
+<option   value="08:00">08:00</option>
+<option   value="08:30">08:30</option>
+<option   value="09:00">09:00</option>
+<option   value="09:30">09:30</option>
+<option   value="10:00">10:00</option>
+<option   value="10:30">10:30</option>
+<option   value="11:00">11:00</option>
+<option   value="11:30">11:30</option>
+<option   value="12:00">12:00</option>
+<option   value="12:30">12:30</option>
+<option   value="13:00">13:00</option>
+<option   value="13:30">13:30</option>
+<option   value="14:00">14:00</option>
+<option   value="14:30">14:30</option>
+<option   value="15:00">15:00</option>
+<option   value="15:30">15:30</option>
+<option   value="16:00">16:00</option>
+<option   value="16:30">16:30</option>
+<option   value="17:00">17:00</option>
+<option   value="17:30">17:30</option>
+<option   value="18:00">18:00</option>
+<option   value="18:30">18:30</option>
+<option   value="19:00">19:00</option>
+<option   value="19:30">19:30</option>
+<option   value="20:00">20:00</option>
+<option   value="20:30">20:30</option>
+<option   value="21:00">21:00</option>
+<option   value="21:30">21:30</option>
+<option   value="22:00">22:00</option>
+<option   value="22:30">22:30</option>
+<option   value="23:00">23:00</option>
+<option   value="23:30">23:30</option>
+<option   value="00:00">00:00</option>
+<option   value="00:30">00:30</option>
+<option   value="01:00">01:00</option>
+<option   value="01:30">01:30</option>
+<option   value="02:00">02:00</option>
+<option   value="02:30">02:30</option>
+<option   value="03:00">03:00</option>
+<option   value="03:30">03:30</option>
+<option   value="04:00">04:00</option>
+<option   value="04:30">04:30</option>
+<option   value="05:00">05:00</option>
+<option   value="05:30">05:30</option>
+<option   value="06:00">06:00</option>
+<option   value="06:30">06:30</option>
+<option   value="07:00">07:00</option>
+<option   value="07:30">07:30</option></select>
+~
+<select name="out1-31"><option value=""> </option>
+<option   value="08:00">08:00</option>
+<option   value="08:30">08:30</option>
+<option   value="09:00">09:00</option>
+<option   value="09:30">09:30</option>
+<option   value="10:00">10:00</option>
+<option   value="10:30">10:30</option>
+<option   value="11:00">11:00</option>
+<option   value="11:30">11:30</option>
+<option   value="12:00">12:00</option>
+<option   value="12:30">12:30</option>
+<option   value="13:00">13:00</option>
+<option   value="13:30">13:30</option>
+<option   value="14:00">14:00</option>
+<option   value="14:30">14:30</option>
+<option   value="15:00">15:00</option>
+<option   value="15:30">15:30</option>
+<option   value="16:00">16:00</option>
+<option   value="16:30">16:30</option>
+<option   value="17:00">17:00</option>
+<option   value="17:30">17:30</option>
+<option   value="18:00">18:00</option>
+<option   value="18:30">18:30</option>
+<option   value="19:00">19:00</option>
+<option   value="19:30">19:30</option>
+<option   value="20:00">20:00</option>
+<option   value="20:30">20:30</option>
+<option   value="21:00">21:00</option>
+<option   value="21:30">21:30</option>
+<option   value="22:00">22:00</option>
+<option   value="22:30">22:30</option>
+<option   value="23:00">23:00</option>
+<option   value="23:30">23:30</option>
+<option   value="00:00">00:00</option>
+<option   value="00:30">00:30</option>
+<option   value="01:00">01:00</option>
+<option   value="01:30">01:30</option>
+<option   value="02:00">02:00</option>
+<option   value="02:30">02:30</option>
+<option   value="03:00">03:00</option>
+<option   value="03:30">03:30</option>
+<option   value="04:00">04:00</option>
+<option   value="04:30">04:30</option>
+<option   value="05:00">05:00</option>
+<option   value="05:30">05:30</option>
+<option   value="06:00">06:00</option>
+<option   value="06:30">06:30</option>
+<option   value="07:00">07:00</option>
+<option   value="07:30">07:30</option></select>
+</div>
+
+<div class="input2"> 
+シフト2
+<select name="in2-31"><option value=""> </option>
+<option   value="08:00">08:00</option>
+<option   value="08:30">08:30</option>
+<option   value="09:00">09:00</option>
+<option   value="09:30">09:30</option>
+<option   value="10:00">10:00</option>
+<option   value="10:30">10:30</option>
+<option   value="11:00">11:00</option>
+<option   value="11:30">11:30</option>
+<option   value="12:00">12:00</option>
+<option   value="12:30">12:30</option>
+<option   value="13:00">13:00</option>
+<option   value="13:30">13:30</option>
+<option   value="14:00">14:00</option>
+<option   value="14:30">14:30</option>
+<option   value="15:00">15:00</option>
+<option   value="15:30">15:30</option>
+<option   value="16:00">16:00</option>
+<option   value="16:30">16:30</option>
+<option   value="17:00">17:00</option>
+<option   value="17:30">17:30</option>
+<option   value="18:00">18:00</option>
+<option   value="18:30">18:30</option>
+<option   value="19:00">19:00</option>
+<option   value="19:30">19:30</option>
+<option   value="20:00">20:00</option>
+<option   value="20:30">20:30</option>
+<option   value="21:00">21:00</option>
+<option   value="21:30">21:30</option>
+<option   value="22:00">22:00</option>
+<option   value="22:30">22:30</option>
+<option   value="23:00">23:00</option>
+<option   value="23:30">23:30</option>
+<option   value="00:00">00:00</option>
+<option   value="00:30">00:30</option>
+<option   value="01:00">01:00</option>
+<option   value="01:30">01:30</option>
+<option   value="02:00">02:00</option>
+<option   value="02:30">02:30</option>
+<option   value="03:00">03:00</option>
+<option   value="03:30">03:30</option>
+<option   value="04:00">04:00</option>
+<option   value="04:30">04:30</option>
+<option   value="05:00">05:00</option>
+<option   value="05:30">05:30</option>
+<option   value="06:00">06:00</option>
+<option   value="06:30">06:30</option>
+<option   value="07:00">07:00</option>
+<option   value="07:30">07:30</option></select>
+~
+<select name="out2-31"><option value=""> </option>
 <option   value="08:00">08:00</option>
 <option   value="08:30">08:30</option>
 <option   value="09:00">09:00</option>
@@ -3436,33 +3630,20 @@
             <!-- 2-2 -->
             <div class="comment_box">
                 <p>コメント</p>
-                <textarea class="comment_text" name="comment" id="" >4月前期コメント</textarea>
+                <textarea class="comment_text" name="comment" id="" ></textarea>
             </div>
 
-            <!-- 3.集計コンテナー ------------>
-            <div class="aggregate">
-                <div class="total_time">
-                    <p>予定勤務時間</p>
-                    <p>100時間</p>
-                </div>
-                <div class="total_wage">
-                    <p>予定獲得賃金</p>
-                    <p>100000円</p>
-                </div>
-            </div>
-
-            <!-- 4.送信ボタンコンテナー ------------>
+            <!-- 3.送信ボタンコンテナー ------------>
             <div class="submit_container">
                 <div id="open" class="btn">提出</div>
             </div>
         </div>
 
+        </form>   
+    </div> <!--.m_center end-->
+</main>
 
-
-        </form>
-    </main>
-
-    <!--モーダルの実装js-->
-    <script src="../common/js/submit_schedule.js"></script>
+<!--モーダルの実装js-->
+<script src="../common/js/submit_schedule.js"></script>
     
 </body>

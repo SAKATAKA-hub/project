@@ -2,8 +2,11 @@
 header{
     width: 100%;
     box-shadow: 0 2px 5px $main_col;
+    margin-bottom: 5px;
+
     $hight: 60px;
     $header_container_width: 1200px;
+    
 
     a{display: block;}
 

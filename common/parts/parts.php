@@ -40,9 +40,9 @@ $header = <<<_header_
         <h1 class="rogo"><a href="{$link[0]["href"]}">ロゴ</a></h1>
         <ul class="nav_menu">
             <li class="menu1"><a href="{$link[1]["href"]}">{$link[1]["text"]}</a></li>
-            <li class="menu2"><a href="#">作成中<a></li>
-            <li class="menu3"><a href="#">作成中<a></li>
-            <li class="menu4"><a href="#">作成中<a></li>
+            <li class="menu2"><a href="#">作成中</a></li>
+            <li class="menu3"><a href="#">作成中</a></li>
+            <li class="menu4"><a href="#">作成中</a></li>
             <li><button onclick = "window.open('../time_card/time_card.php','time_card','width=400px height=550px')">タイムカード</button></li>
         </ul>
 

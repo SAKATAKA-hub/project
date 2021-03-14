@@ -96,14 +96,77 @@ main .m_center h3 {
   margin-bottom: .8rem;
 }
 
-.bread_crumbs {
+main .m_center {
+  height: 100%;
+  padding: 0em 0 2em 2em;
+}
+main .m_center .select_container {
   display: flex;
-  padding-left: 2em;
+  align-items: center;
+  margin-bottom: .6em;
+}
+main .m_center .select_container .select_month {
+  display: flex;
+  align-items: center;
+}
+main .m_center .select_container .select_month h4 {
+  line-height: 3rem;
+  padding: 0 .5em;
+  border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+}
+main .m_center .select_container .select_input_menu {
+  display: flex;
+  margin-left: 3rem;
+}
+main .m_center .select_container button {
+  margin-right: 1rem;
+  line-height: 2rem;
+  height: 100%;
+  padding: 0 1.4em;
+  border: solid 1px #cccccc;
+  background: #fff;
+  color: #ff5c5c;
+  border-radius: .3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+main .m_center .select_container button:hover {
+  border: solid 1px #ff5c5c;
+  background: #ff5c5c;
+  color: #fff;
+}
+main .m_center .select_container button.befor {
+  margin-right: 0;
+  line-height: 3rem;
+  border-radius: 2em 0 0 2em;
+}
+main .m_center .select_container button.next {
+  border-radius: 0 2em 2em 0;
+  line-height: 3rem;
+}
+main .m_center .shift_table tr:nth-child(even) {
+  background: cornsilk;
+}
+main .m_center .shift_table tr {
+  text-align: center;
   line-height: 2em;
 }
-.bread_crumbs li a {
-  color: gray;
-  padding-right: 1em;
+main .m_center .shift_table tr th {
+  border: solid 1px #cccccc;
+  line-height: 3rem;
+}
+main .m_center .shift_table tr td {
+  border: solid 1px #cccccc;
+}
+main .m_center .shift_table tr td.td_name {
+  width: 10rem;
+}
+main .m_center .shift_table tr td.td_date {
+  width: 12rem;
+}
+main .m_center .shift_table tr td.td_working_time {
+  width: 8rem;
 }
 
-/*# sourceMappingURL=tmp_nav.css.map */
+/*# sourceMappingURL=create_schedule.css.map */

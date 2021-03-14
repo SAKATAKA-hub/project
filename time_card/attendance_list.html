@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>勤怠管理 日別勤務一覧</title>
+    <title>勤怠管理 個人別勤怠一覧</title>
     <link rel="stylesheet" href="../common/css/attendance_manegement.css">
     <link rel="stylesheet" href="../common/css/header.css"><!--header用css-->
 </head>
@@ -13,16 +13,16 @@
         <h1 class="rogo"><a href="../top/index.php">ロゴ</a></h1>
         <ul class="nav_menu">
             <li class="menu1"><a href="../time_card/select_record.php">勤怠管理</a></li>
-            <li class="menu2"><a href="#">作成中<a></li>
-            <li class="menu3"><a href="#">作成中<a></li>
-            <li class="menu4"><a href="#">作成中<a></li>
+            <li class="menu2"><a href="#">作成中</a></li>
+            <li class="menu3"><a href="#">作成中</a></li>
+            <li class="menu4"><a href="#">作成中</a></li>
             <li><button onclick = "window.open('../time_card/time_card.php','time_card','width=400px height=550px')">タイムカード</button></li>
         </ul>
 
 
         <div class="login_user">
             <div class="photo"></div>
-            <div class="name">酒井　貴弘 さん</div>
+            <div class="name">ゲスト さん</div>
             <button class="btn_flat" type="button" onclick="location.href=`../login/login.php`">ログアウト</button>
         </div>
     </div>
@@ -37,30 +37,30 @@
                 <!--メニューボタン1.日別勤怠一覧-->
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="day_table">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581">
+                    <input type="hidden" name="token" value="9530a77567d19d7a29efb6456ddeda340a4b46137f3f3aaad174ee26ab44d6f4749e68">
                     <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="8">
+                    <input type="hidden" name="select_d" value="11">
                     <input type="hidden" name="select_employee" value="9999">
                     <input type="hidden" name="modify" value="false">
-                    <button class="cullent">日別勤怠一覧</button>
+                    <button class="">日別勤怠一覧</button>
                 </form>
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="month_table">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581">
+                    <input type="hidden" name="token" value="9530a77567d19d7a29efb6456ddeda340a4b46137f3f3aaad174ee26ab44d6f4749e68">
                     <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="8">
+                    <input type="hidden" name="select_d" value="11">
                     <input type="hidden" name="select_employee" value="9999">
                     <input type="hidden" name="modify" value="false">
                     <button class="">月別勤怠一覧</button>                    
                 </form>
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="private_table">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581">
+                    <input type="hidden" name="token" value="9530a77567d19d7a29efb6456ddeda340a4b46137f3f3aaad174ee26ab44d6f4749e68">
                     <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="8">
+                    <input type="hidden" name="select_d" value="11">
                     <input type="hidden" name="select_employee" value="9999">
                     <input type="hidden" name="modify" value="false">
-                    <button class="">個人別勤怠一覧</button>
+                    <button class="cullent">個人別勤怠一覧</button>
                 </form>
 
             </nav>
@@ -70,25 +70,26 @@
         <div class="m_center">
 
             <div class="bread_crumb"><ul><!-- パンくずリスト -->
-                    <li><a href="">HOME></a></li>
-                    <li>勤怠管理></li>
-                    <li>日別勤務一覧</li>
+                    <li><a href="">HOME</a></li>
+                    <li>勤怠管理</li>
+                    <li>個人別勤怠一覧</li>
             </ul></div>
 
-            <h2>日別勤務一覧</h2>
-            <h3>2021年03月8日(月)</h3>
+            <h2>個人別勤怠一覧</h2>
+            <h3>2021年03月 酒井　貴弘</h3>
 
             <!--#詳細変更ボタン-->
             <div class="table_heading_container">
                 <form action="#" method="get">
-                    <input type="hidden" name="mode" value="day_table">
-                    <input type="hidden" name="token" value="87c5d661497d23495894410f68a5e12cbfa353d5da684b5da66cbda3e28c851c7a65e581">
+                    <input type="hidden" name="mode" value="private_table">
+                    <input type="hidden" name="token" value="9530a77567d19d7a29efb6456ddeda340a4b46137f3f3aaad174ee26ab44d6f4749e68">
                     <input type="hidden" name="modify" value="false"> 
                     <select id="select_Y_m" name="select_Y_m" onchange="changeSelectDate()">
 <option selected value="2021-03">2021年3月</option><option  value="2021-02">2021年2月</option><option  value="2021-01">2021年1月</option><option  value="2020-12">2020年12月</option><option  value="2020-11">2020年11月</option><option  value="2020-10">2020年10月</option><option  value="2020-09">2020年9月</option><option  value="2020-08">2020年8月</option><option  value="2020-07">2020年7月</option><option  value="2020-06">2020年6月</option><option  value="2020-05">2020年5月</option><option  value="2020-04">2020年4月</option>
-</select><select id="select_d" name="select_d">
-<option  value="01">1日</option><option  value="02">2日</option><option  value="03">3日</option><option  value="04">4日</option><option  value="05">5日</option><option  value="06">6日</option><option  value="07">7日</option><option selected value="08">8日</option><option  value="09">9日</option><option  value="10">10日</option><option  value="11">11日</option><option  value="12">12日</option><option  value="13">13日</option><option  value="14">14日</option><option  value="15">15日</option><option  value="16">16日</option><option  value="17">17日</option><option  value="18">18日</option><option  value="19">19日</option><option  value="20">20日</option><option  value="21">21日</option><option  value="22">22日</option><option  value="23">23日</option><option  value="24">24日</option><option  value="25">25日</option><option  value="26">26日</option><option  value="27">27日</option><option  value="28">28日</option><option  value="29">29日</option><option  value="30">30日</option><option  value="31">31日</option>
-</select><input type="hidden" name="select_employee" value="9999">
+</select><input type="hidden" name="select_d" value="11"><p>従業員名：</p>
+<select name="select_employee">
+<option  value="0000">ゲスト</option><option  value="0001">鈴木　一郎</option><option  value="0002">鈴木　二郎</option><option  value="0003">鈴木　三郎</option><option  value="0004">鈴木　四郎</option><option  value="0005">鈴木　五郎</option><option  value="0006">鈴木　六郎</option><option  value="0007">鈴木　七郎</option><option  value="0008">鈴木　八郎</option><option  value="0009">鈴木　九郎</option><option selected value="9999">酒井　貴弘</option>
+</select>
                     <button type="submit">選択内容の変更</button>
                 </form>
                 
@@ -115,26 +116,15 @@
 </tr>
 <tr class="rec_top">
 <td class="in_day">8日(月)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:58</td>
-<td class="out_time">10:58</td>
-<td class="in_break">-</td>
-<td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">8日(月)</td>
 <td class="employee_id">9999</td>
 <td class="employee_name">酒井　貴弘</td>
 <td class="in_time">10:58</td>
-<td class="out_time"></td>
+<td class="out_time">21:04</td>
 <td class="in_break">-</td>
 <td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
+<td class="restrain_time">10時間06分</td>
 <td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
+<td class="working_time">10時間06分</td>
 </tr>
 </table><table class="total_agg">
 <tr>
@@ -143,9 +133,9 @@
 <th class="total">総労働時間</th>
 </tr>
 <tr>
+<td class="total">10時間06分</td>
 <td class="total">00時間00分</td>
-<td class="total">00時間00分</td>
-<td class="total">00時間00分</td>
+<td class="total">10時間06分</td>
 </tr>
 </table>
             </div>

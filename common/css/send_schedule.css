@@ -145,117 +145,57 @@ main .m_center .select_container button.next {
   border-radius: 0 2em 2em 0;
   line-height: 3rem;
 }
-main .m_center #modal {
-  background: #fff;
-  width: 500px;
-  padding: 20px;
-  border-radius: 4px;
-  position: fixed;
-  top: 40px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  transition: transform 0.8s;
-  z-index: 2;
-  text-align: center;
+main .m_center .shift_table tr:nth-child(even) {
+  background: cornsilk;
 }
-main .m_center #modal .m_btn_container {
+main .m_center .shift_table tr {
+  text-align: center;
+  line-height: 2em;
+  font-weight: bold;
+}
+main .m_center .shift_table tr .sat_color {
+  color: blue;
+}
+main .m_center .shift_table tr .sun_color {
+  color: red;
+}
+main .m_center .shift_table tr th {
+  border: solid 1px #cccccc;
+  line-height: 3rem;
+}
+main .m_center .shift_table tr td {
+  border: solid 1px #cccccc;
+}
+main .m_center .shift_table tr td .input_box {
+  heigt: 100px;
+}
+main .m_center .shift_table tr td .input_box .input0 {
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1rem 3rem 0 3rem;
-  margin-top: 1rem;
-  border-top: solid 2px #cccccc;
 }
-main .m_center #modal .m_btn_container .btn {
-  padding: 0 4em;
-  line-height: 3em;
-  text-align: center;
-  border: solid 2px #cccccc;
-  border-radius: .5em;
-  font-size: 16px;
-  cursor: pointer;
-}
-main .m_center #mask {
-  background: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-}
-main .m_center #mask.hidden {
-  display: none;
-}
-main .m_center #modal.hidden {
-  transform: translate(0, -500px);
-}
-main .m_center .calendar tr:first-child td {
-  border-top: solid 1px #cccccc;
-}
-main .m_center .calendar tr .dates {
-  line-height: 3em;
-  width: 100px;
-  box-sizing: border-box;
-  text-align: right;
-  padding: 0 1em;
-  border-right: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc;
-}
-main .m_center .calendar tr .input {
-  display: flex;
-  line-height: 3em;
-  min-width: 300px;
-  width: 700px;
-  box-sizing: border-box;
-  border-bottom: solid 1px #cccccc;
-}
-main .m_center .calendar tr .input .input0, main .m_center .calendar tr .input .input1, main .m_center .calendar tr .input .input2 {
-  padding: 0 1.8em;
-}
-main .m_center .comment_box {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 800px;
-  padding: 1em 3em;
-  box-sizing: border-box;
-}
-main .m_center .comment_box textarea {
-  padding: 1em;
-}
-main .m_center .comment_box p {
-  padding-bottom: .5em;
-}
-main .m_center .comment_box textarea {
-  height: 3em;
+main .m_center .shift_table tr td .input_box .input0 label {
+  margin-bottom: .4em;
+  padding: 0 .2em;
   border: solid 2px #cccccc;
   border-radius: .3em;
-  resize: none;
-}
-main .m_center .submit_container {
-  width: 800px;
-  padding: 1rem 3rem;
-  margin: 2rem 0;
-  box-sizing: border-box;
-}
-main .m_center .submit_container #open.btn {
-  line-height: 3em;
-  text-align: center;
-  border-radius: .5em;
-  font-size: 16px;
-  border: solid 2px #ff5c5c;
-  background: #ff5c5c;
-  color: #fff;
-  font-weight: bold;
   cursor: pointer;
 }
-main .m_center .submit_container #open.btn:hover {
-  border: solid 2px #ff5c5c;
-  background: #fff;
-  color: #ff5c5c;
+main .m_center .shift_table tr td .input_box .input0 label.culent {
+  background-color: #FF8427;
+  color: #fff;
+  font-weight: bold;
+}
+main .m_center .shift_table tr td .input_box .input0 input[type="radio"] {
+  display: none;
+}
+main .m_center .shift_table tr td.td_name {
+  width: 10rem;
+}
+main .m_center .shift_table tr td.td_date {
+  width: 12rem;
+}
+main .m_center .shift_table tr td.td_working_time {
+  width: 8rem;
 }
 
-/*# sourceMappingURL=submit_schedule.css.map */
+/*# sourceMappingURL=send_schedule.css.map */

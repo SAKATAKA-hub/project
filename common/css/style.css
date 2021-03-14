@@ -46,6 +46,56 @@ button {
   appearance: none;
 }
 
+main {
+  display: flex;
+  min-height: 100vh;
+}
+main .m_side {
+  width: 200px;
+  background-color: cornsilk;
+}
+main .m_side .select_list_group {
+  padding-top: 2em;
+}
+main .m_side .select_list_group button {
+  width: 100%;
+  text-align: left;
+  padding-left: 1em;
+  line-height: 2.8em;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ff5c5c;
+}
+main .m_side .select_list_group button:hover {
+  background: #ff5c5c;
+  color: cornsilk;
+}
+main .m_side .select_list_group .cullent {
+  background: #ff5c5c;
+  color: cornsilk;
+}
+main .m_center {
+  width: 100%;
+  height: 100%;
+  padding: 0em 0 2em 2em;
+}
+main .m_center .bread_crumb {
+  font-size: .8em;
+  line-height: 3em;
+}
+main .m_center .bread_crumb ul {
+  display: flex;
+}
+main .m_center h2 {
+  border-left: solid 0.5em #ff5c5c;
+  font-size: 1.6em;
+  margin-bottom: .8rem;
+}
+main .m_center h3 {
+  margin-bottom: .8rem;
+}
+
 header {
   height: 60px;
   width: 100%;
