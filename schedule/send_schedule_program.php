@@ -1,26 +1,21 @@
 <?php
 #===========================================================
-# スケジュール提出プログラム (send_schedule_program.php)
+# スケジュール提出ページプログラム (send_schedule_program.php)
 #===========================================================
 # 基本設定
 //ファイルの読み込み
 //[読込順]function.php > schedule_function.php > send_schedule_program.php(現在地)
 include('schedule_function.php');
 
-# 日付処理
-// アクセス日付の取得
-$now = [];
-$now["DT"] = new DateTime("");
-$now["Y"] = intval($now["DT"]->format("Y"));
-$now["m"] = intval($now["DT"]->format("m"));
-$now["d"] = intval($now["DT"]->format("d"));
-
-
 #===========================================================
-# フォームの受取りとモード分岐
-$in = parse_form(); //フォームの受取り
+# アクセス日の取得
+$now = get_now();
 
-// 1. ページにアクセスされた時 ::::::::::::::::::::::::::::
+# フォームの受取り
+$in = parse_form();
+
+# modeの分岐処理
+// 1. リンクボタンからアクセスされた時 ::::::::::::::::::::::::::::
 if(!isset($in["mode"]))
 {
     # 表示用日付の取得(表示日付 == アクセス日翌月)
@@ -28,8 +23,7 @@ if(!isset($in["mode"]))
     $display = display_date($displayDT); 
 
     # 提出済スケジュールを表示に反映
-    // read_submission_shift(); 
-
+    read_submission_shift($_SESSION["employee_id"]); 
 }
 // 2. フォームから合アクセスされたとき ::::::::::::::::::::::
 else
@@ -49,29 +43,23 @@ else
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
 
-        # DBに提出スケジュールを保存
-        save_submission_shift(); 
-
-
+        # テキストファイルとして提出スケジュールを保存
+        save_submission_shift($_SESSION["employee_id"]); 
     } 
     # case2. "選択月"の変更 ******************
     elseif(($in["mode"]=="change_next")||($in["mode"]=="change_befor"))
     {
-
         $displayDT = change_date(); //"月"変更
         $display = display_date($displayDT);
 
-        read_submission_shift(); //DBの保存データを反映する関数
-
+        read_submission_shift($_SESSION["employee_id"]); //保存データを反映する関数
     }
     # case3. 入力内容のリセット ******************
     elseif($in["mode"]=="input_reset")
     {
-
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
-
     }
     # case4. 契約曜日通りの入力 ******************
     elseif($in["mode"]=="fixed_input")
@@ -79,15 +67,15 @@ else
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
         fixed_input();
-
     }
-    
 
 }
 
-createToken(); //tokenの発行 $_SESSION['token']
+# tokenの発行 $_SESSION['token']
+createToken(); 
 
-
+# カレンダー用の週分割にした日付情報を取得
+$calendar_weeks = get_calendar($display);
 
 
 ?>

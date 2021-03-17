@@ -11,6 +11,19 @@ include('../common/app/function.php');
 #=============================================================
 # フォームの分岐処理関数
 #--------------------------------------------------------------
+# アクセス日の取得
+function get_now(){
+    $now = [];
+    $now["DT"] = new DateTime("");
+    $now["Y"] = intval($now["DT"]->format("Y"));
+    $now["m"] = intval($now["DT"]->format("m"));
+    $now["d"] = intval($now["DT"]->format("d"));
+    
+    return $now;
+}
+
+
+#--------------------------------------------------------------
 # 表示用日付の取得関数
 function display_date($displayDT)
 {
@@ -58,13 +71,12 @@ function change_date()
 
 
 #--------------------------------------------------------------
-# スケジュール提出内容をDBへ保存
-function save_submission_shift()
+# 提出スケジュールをテキスト文字列に変換
+function save_submission_shift($employee_id)
 {
     global $in, $now, $display;
 
-    # sub1.入力スケジュールを一つの文字列に変換する
-    $shift =[]; //提出スケジュール時間を格納
+    $shift =[]; 
     for ($i=1; $i <= $display["end_d"] ; $i++)
     {
         $in_nom = sprintf("d%02d",$i);
@@ -72,8 +84,9 @@ function save_submission_shift()
         foreach ($in as $in_name => $in_val) 
         {
             $get_nom = substr($in_name,0,3); //行の番号(日付)
+            $get_id = substr($in_name,4,4); //従業員ID
 
-            if($in_nom == $get_nom){
+            if(($in_nom == $get_nom)&&($get_id == $employee_id)){
                 $shift[$in_nom][] = $in_val;
             }
         }
@@ -86,34 +99,38 @@ function save_submission_shift()
     $shift = implode("=",$data);
     $shift = str_replace("--","",$shift);
 
-    // echo $shift."<br>";
+    // "提出コメント"を変数へ格納
+    $input_name = sprintf("comment:%04d", $_SESSION['employee_id']);
+    $comment = isset($in[$input_name]) ? $in[$input_name] :"";
 
+    return $comment."@explode_data@".$shift;
 
-    # 2.以前のデータを削除
-    $SQL ="DELETE FROM submission_shift WHERE";
-    $SQL = <<<_SQL_
-    DELETE FROM submission_shift 
-    WHERE `employee_id` = ?
-    AND `month` = ?
-    _SQL_;
-    $DATA = array($_SESSION["employee_id"], $in["month"],);
+    // *【補足コメント　3/17】
+    // *　提出スケジュールはDBに保管するつもりだったのですが、
+    // *日付をテキストにすると、DBの一つのカラムでは文字数オーバーになるため、
+    // *テキスト保存することに途中から変更しました。
 
-    insert_db($SQL,$DATA);
+    // # 2.以前のデータを削除
+    // $SQL ="DELETE FROM submission_shift WHERE";
+    // $SQL = <<<_SQL_
+    // DELETE FROM submission_shift 
+    // WHERE `employee_id` = ?
+    // AND `month` = ?
+    // _SQL_;
+    // $DATA = array($_SESSION["employee_id"], $in["month"],);
+    // insert_db($SQL,$DATA);
 
-
-    # 3.入力データをデータベースに保存
-    $SQL = <<<_SQL_
-    INSERT INTO submission_shift 
-    ( `employee_id`, `month`, `shift`, `comment`, `update_date`) 
-    VALUES ( ?,?,?,?,?)
-    _SQL_;
-    $DATA = array(
-        $_SESSION["employee_id"], $in["month"], $shift, 
-        $in["comment"], $now["DT"]->format("Y-m-d")
-    );
-
-    insert_db($SQL,$DATA);
-
+    // # 3.入力データをデータベースに保存
+    // $SQL = <<<_SQL_
+    // INSERT INTO submission_shift 
+    // ( `employee_id`, `month`, `shift`, `comment`, `update_date`) 
+    // VALUES ( ?,?,?,?,?)
+    // _SQL_;
+    // $DATA = array(
+    //     $_SESSION["employee_id"], $in["month"], 
+    //     $shift, $comment, $now["DT"]->format("Y-m-d")
+    // );
+    // insert_db($SQL,$DATA);
 
 
 }
@@ -121,38 +138,37 @@ function save_submission_shift()
 
 #--------------------------------------------------------------
 # 提出済スケジュールを表示に反映
-function read_submission_shift()
+function read_submission_shift($employee_id)
 {
     global $in, $now, $display;
      
-    // 1.DBに保存された提出済みスケジュールを呼び出す。
-    $SQL = <<<_SQL_
-    SELECT shift, comment FROM submission_shift 
-    WHERE employee_id = ? AND month = ?
-    ORDER BY ss_id DESC
-    _SQL_;
+    // 1.テキストファイルに保存された提出済みスケジュールを取得。
+    $directory ="data/send_schedule/";
+    $file = $directory.$display["Y-m-d"]."-".$employee_id.".text";
+    $data = file_exists($file) ? file_get_contents($file) :"";
+    
+    // $text = file_exists($file) ? file_get_contents($file) :"読込みファイルはありません";
+    // echo"テキスト：".$text;
 
-    $DATA = array($_SESSION["employee_id"], $display["Y-m-d"],);
-    $data = select_db($SQL,$DATA);  //関数の実行（取得データをリターン） 
-
-    // 2.DBより受け取った情報を加工
+    // 2.取得情報を加工
     if(!empty($data))
     {
-        $data = $data[0];
-    
+        $data = explode("@explode_data@",$data);
+
         // 2-1　コメント
-        $in["comment"] = isset($data["comment"]) ? $data["comment"] : "" ;
+        $input_name = sprintf("comment:%04d", $employee_id);
+        $in[$input_name] = isset($data[0]) ? $data[0] : "" ;
         
         //2-2スケジュール
-        if(!empty($data["shift"])){
-            $data["shift"] = explode("=",$data["shift"]);
+        if(!empty($data[1])){
+            $data[1] = explode("=",$data[1]);
     
-            foreach($data["shift"] as $key => $vals){
+            foreach($data[1] as $key => $vals){
                 $vals = explode("-",$vals);
 
                 $name_keys = array("in1","out1","in2","out2",);
                 foreach ($name_keys as $i => $name_key) {
-                    $input_name = sprintf("d%02d:%d:%s", $key+1, $_SESSION['employee_id'], $name_key);
+                    $input_name = sprintf("d%02d:%04d:%s", $key+1, $employee_id, $name_key);
                     $in[$input_name] = isset($vals[$i]) ? $vals[$i] : "" ;
                 }
 
@@ -168,7 +184,8 @@ function read_submission_shift()
 
 #-----------------------------------------------------------
 # 契約曜日通りに自動入力する関数
-function fixed_input(){
+function fixed_input()
+{
     global $in, $now, $display;
 
     // 1.DBに保存された契約スケジュールを呼び出す。
@@ -178,7 +195,7 @@ function fixed_input(){
     _SQL_;
 
     $DATA = array($_SESSION["employee_id"],);
-    $working_datas = select_db($SQL,$DATA);  //関数の実行（取得データをリターン）
+    $working_datas = select_db($SQL,$DATA); 
     
     // 2.テーブルに取得情報を埋め込む。
     for ($i = 0; $i < $display["end_d"]; $i++) 
@@ -189,9 +206,6 @@ function fixed_input(){
         foreach ($working_datas as $working_data){
             if($working_data["working_week"] == $week_num)
             {
-
-
-
                 //一つ目の入力のとき
                 if(empty($in[in_name($date,"in1")]))
                 {
@@ -204,10 +218,9 @@ function fixed_input(){
                     $in[in_name($date,"in2")] = isset($working_data["in_time"]) ? substr( $working_data["in_time"],0,5) : "" ;
                     $in[in_name($date,"out2")] = isset($working_data["out_time"]) ? substr( $working_data["out_time"],0,5) : "" ;
                 }
-
-
             }
         }
+
     }
 
     
@@ -215,7 +228,7 @@ function fixed_input(){
 
 //データの埋め込み先の"name"を指定する。
 function in_name($date,$name_key){
-    return sprintf("d%02d:%d:%s",$date, $_SESSION['employee_id'], $name_key);
+    return sprintf("d%02d:%04d:%s",$date, $_SESSION['employee_id'], $name_key);
 }
 
 
@@ -233,10 +246,12 @@ function get_calendar($display)
         for ($d=1; $d <= $display["end_d"]; $d++) {
 
             $week = empty(($display["w"] +$d -1)%7) ? 7 : ($display["w"] +$d -1)%7 ;
-
+            $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
+            
             $dates["this$d"] = array(
                 "date" => $d ,
                 "week" => $week ,
+                "week_text" => $week_text[$week] ,
                 "this_month" => true ,
             );
         }
@@ -257,9 +272,19 @@ function get_calendar($display)
 
         // ※先月末が日曜の時は、配列を作成しない
         if(!$last_w == 0){
+
             for ($d = $last_d; $d > ($last_d - $last_w); $d--) {
+
+                $week = empty(($last_w +$d -1)%7) ? 7 : ($last_w +$d -1)%7 ;
+                $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
+        
                 $date = [];
-                $date["last$d"] = array("date" => $d ,"this_month" => false ,);
+                $date["last$d"] = array(
+                    "date" => $d ,
+                    "week" => $week ,
+                    "week_text" => $week_text[$week] ,
+                    "this_month" => false ,
+                );
                 $dates = array_merge($date,$dates);
             }    
         }   
@@ -283,7 +308,16 @@ function get_calendar($display)
         // ※翌月初日が月曜日の時は、配列を作成しない
         if(!$next_w -1){
             for ($d = 1; $d <= (8 - $next_w); $d++) { 
-                $dates["next$d"] = array("date" => $d ,"this_month" => false ,);
+
+                $week = empty(($next_w +$d -1)%7) ? 7 : ($next_w +$d -1)%7 ;
+                $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
+                
+                $dates["next$d"] = array(
+                    "date" => $d ,
+                    "week" => $week ,
+                    "week_text" => $week_text[$week] ,
+                    "this_month" => false ,
+                );
             }    
         }
         return $dates;
@@ -295,12 +329,6 @@ function get_calendar($display)
     $dates = array_merge($dates,get_calendar_head($display));
     $dates = array_merge($dates,get_calendar_body($display));
     $dates = array_merge($dates,get_calendar_tail($display));
-
-    // var_dump($dates);
-
-
-    // カレンダーの配列情報を保存
-
 
 
     //カレンダー配列を週毎に分割

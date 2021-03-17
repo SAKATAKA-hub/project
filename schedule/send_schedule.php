@@ -5,9 +5,6 @@
 //  > send_schedule.php(現在地)
 include('send_schedule_program.php');
 
-//カレンダー用の週分割にした日付情報を取得
-$calendar_weeks = get_calendar($display);
-
 //スケジュール保存完了ポップアップ
 $popup ="";
 if(isset($in["mode"])&&($in["mode"]=="submit")){ 
@@ -15,7 +12,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 }  
 
 // echo "<br>inに保存した情報<br>";
-// var_dump($in);
+var_dump($in);
 
 ?>
 
@@ -153,33 +150,33 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                         <div class="input_box"> 
                             
                             <!-- <div class="input0">
-                                <?php $input_name = sprintf("d%02d:%d:plans", $date, $_SESSION['employee_id']);?>
+                                <?php $input_name = sprintf("d%02d:%04d:plans", $date, $_SESSION['employee_id']);?>
 
                                 <?php $name_val = array("work", "出勤");?>
-                                <?php $input_id = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
+                                <?php $input_id = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
                                 <input type="radio" name="<?= $input_name;?>" value="<?= $name_val[0];?>"  id="<?= $input_id; ?>" checked="">
                                 <label class="work <?= $in[$input_name] == $name_val[0] ? 'culent' : '' ;?>" for="<?= $input_id; ?>"><?= $name_val[1];?></label>
 
                                 <?php $name_val = array("holiday", "公休");?>
-                                <?php $input_id = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
+                                <?php $input_id = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
                                 <input type="radio" name="<?= $input_name;?>" value="<?= $name_val[0];?>"  id="<?= $input_id; ?>" checked="">
                                 <label class="holiday <?= $in[$input_name] == $name_val[0] ? 'culent' : '' ;?>" for="<?= $input_id; ?>"><?= $name_val[1];?></label>
 
                                 <?php $name_val = array("paid", "有給");?>
-                                <?php $input_id = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
+                                <?php $input_id = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_val[0]);?>
                                 <input type="radio" name="<?= $input_name;?>" value="<?= $name_val[0];?>"  id="<?= $input_id; ?>" checked="">
                                 <label class="paid <?= $in[$input_name] == $name_val[0] ? 'culent' : '' ;?>" for="<?= $input_id; ?>"><?= $name_val[1];?></label>
                             </div> -->
 
                             <div class="input1">
                                 <?php $name_key = "in1";?>
-                                <?php $input_name = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_key);?>
+                                <?php $input_name = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_key);?>
                                 <select name="<?= $input_name;?>">
                                     <?= create_option_erements($in[$input_name])?>
                                 </select>
                                 -
                                 <?php $name_key = "out1";?>
-                                <?php $input_name = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_key);?>
+                                <?php $input_name = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_key);?>
                                 <select name="<?= $input_name;?>">
                                     <?= create_option_erements($in[$input_name])?>
                                 </select>
@@ -187,13 +184,13 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
                             <div class="input2">
                                 <?php $name_key = "in2";?>
-                                <?php $input_name = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_key);?>
+                                <?php $input_name = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_key);?>
                                 <select name="<?= $input_name;?>">
                                     <?= create_option_erements($in[$input_name])?>
                                 </select>
                                 -
                                 <?php $name_key = "0ut2";?>
-                                <?php $input_name = sprintf("d%02d:%d:%s", $date, $_SESSION['employee_id'], $name_key);?>
+                                <?php $input_name = sprintf("d%02d:%04d:%s", $date, $_SESSION['employee_id'], $name_key);?>
                                 <select name="<?= $input_name;?>">
                                     <?= create_option_erements($in[$input_name])?>
                                 </select>
@@ -214,8 +211,9 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
             <!-- 2-2 -->
             <div class="comment_box">
-                <p>コメント</p>
-                <textarea class="comment_text" name="comment" id="" ><?= empty($in["comment"]) ? "" : $in["comment"] ;?></textarea>
+                <h4>コメント</h4>
+                <?php $input_name = sprintf("comment:%04d", $_SESSION['employee_id']);;?>
+                <textarea class="comment_text" name="comment:<?=$_SESSION['employee_id'];?>" id="" ><?= empty($in[$input_name]) ? "" : $in[$input_name] ;?></textarea>
             </div>
 
             <!-- 3.送信ボタンコンテナー ------------>

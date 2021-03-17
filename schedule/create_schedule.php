@@ -1,15 +1,19 @@
 <?php
 # 基本設定
 //ファイルの読み込み
-//[読込順]function.php > schedule_function.php > send_schedule_program.php
-//  > send_schedule.php(現在地)
-include('send_schedule_program.php');
+//[読込順]function.php > schedule_function.php > create_schedule_program.php
+//  > create_schedule.php(現在地)
+include('create_schedule_program.php');
 
 $popup ="";
 if(isset($in["mode"])&&($in["mode"]=="submit")){ 
     $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
 }  
 
+var_dump($in);
+// var_dump($employees);
+// echo"<br><br>";
+// var_dump($calendar_weeks);
 
 ?>
 
@@ -26,11 +30,6 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 <header></header>
 <main>
     <!-- ******** <m_side> ******** ******** ******** -->
-    <div class="m_side">
-
-    
-    
-    </div>
 
     <!-- ******** <m_center> ******** ******** ******** -->
     <div class="m_center">
@@ -57,9 +56,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <button class="befor">前へ</button>    
                 </form>
     
-    
-                <h4 class="select_mon">2021年02月</h4>
-    
+                <h4 class="select_mon"><?= $display["m_index"]; ?></h4>    
     
                 <form action="" method="GET">
                     <input type="hidden" name="mode" value="change_next">
@@ -73,32 +70,26 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
             <div class="select_input_menu">
                     
                 <form action="" method="GET">
-                    <input type="hidden" name="mode" value="">
+                    <input type="hidden" name="mode" value="read_send_schedule">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <button class="">提出スケ取得</button>
+                    <button class="">提出予定取得</button>
                 </form>
     
                 <form action="" method="GET">
-                    <input type="hidden" name="mode" value="">
+                    <input type="hidden" name="mode" value="submit">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <button class="">一時保存</button>
+                    <button class="">保存</button>
                 </form>
 
-                <form action="" method="GET">
-                    <input type="hidden" name="mode" value="">
-                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
-                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <button class="" id="open">確定保存</button>
-                </form>
 
             </div>
 
             <div class="selectWeeks">
-                <?php for($w=1; $w <= 5; $w++):?>
-                <button class="<?= $w == 1 ? "active" : "" ;?>" data-id="week<?=sprintf("%02d",$w);?>"><?=$w;?></button>
-                <?php endfor;?>
+                <?php foreach ($calendar_weeks as $key => $c_week):?>
+                <button class="<?= $key == 0 ? "active" : "" ;?>" data-id="week<?=sprintf("%02d",$key+1);?>"><?=$key+1;?></button>
+                <?php endforeach;?>
             </div>
 
         </div>
@@ -124,50 +115,68 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
             <div id="mask" class="hidden"></div>
 
             <!-- ポップアップ -->
-            <div id="popup0" class="popup"><?=$display["m_index"];?>分のスケジュールを提出しました。</div>
+            <div id="popup0" class="popup"><?=$display["m_index"];?>分のスケジュールを保存しました。</div>
 
 
             <!-- 2-1 -->
-            <?php for($w=1; $w <= 5; $w++):?>
-            <table class="shift_table <?= $w == 1 ? "active" : "" ;?>" id="week<?=sprintf("%02d",$w);?>">
+            <?php foreach ($calendar_weeks as $key => $c_week):?>
+            <table class="shift_table <?= $key == 0 ? "active" : "" ;?>" id="week<?=sprintf("%02d",$key+1);?>">
                 <tr>
                     <th>STAFF NAME</th>
-                    <th><?=sprintf("%02d",($w-1)*7+1);?>日 MON</th>
-                    <th><?=sprintf("%02d",($w-1)*7+2);?>日 TUE</th>
-                    <th><?=sprintf("%02d",($w-1)*7+3);?>日 WED</th>
-                    <th><?=sprintf("%02d",($w-1)*7+4);?>日 THU</th>
-                    <th><?=sprintf("%02d",($w-1)*7+5);?>日 FRI</th>
-                    <th class="sat_color"><?=sprintf("%02d",($w-1)*7+6);?>日 SAT</th>
-                    <th class="sun_color"><?=sprintf("%02d",($w-1)*7+7);?>日 SUN</th>
+                    <!-- 日付の表示 -->
+                    <?php foreach ($c_week as $c_day):?>
+                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                        <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
+                    </th>
+                    <?php endforeach;?>
+
                     <th>WEEK TOTAL</th>
                     <th>MON TOTAL</th>
                 </tr>
 
-                <?php for($m=0; $m < 7; $m++):?>
-                <tr>
-                    <td>
-                    <div class="employee_data">
-                    </div>
-                        <div class="id">0001</div>
-                        <div class="name">山田　金太郎</div>
+                <?php foreach ($employees as $key => $employee):?>
+                    <tr>
+                    <td class="employee_data">
+                        <div class="id"><?=$employee["id"];?></div>
+                        <div class="name"><?=$employee["name"];?></div>
                     </td>
 
-                    <?php for($i=0; $i < 7; $i++):?>
+                    <?php foreach ($c_week as $c_day):?>
                     <td>
+
+                    <?php if($c_day ["this_month"]):?>
                     <div class="input_box">
                         <div class="input1">
-                            <select name="" id=""></select>
+                            <?php $name_key = "in1";?>
+                            <?php $input_name = sprintf("d%02d:%04d:%s", $c_day["date"], $employee["id"], $name_key);?>
+                            <select name="<?= $input_name;?>">
+                                <?= create_option_erements($in[$input_name])?>
+                            </select>
                             -
-                            <select name="" id=""></select>
+                            <?php $name_key = "out1";?>
+                            <?php $input_name = sprintf("d%02d:%04d:%s", $c_day["date"], $employee["id"], $name_key);?>
+                            <select name="<?= $input_name;?>">
+                                <?= create_option_erements($in[$input_name])?>
+                            </select>
                         </div>
                         <div class="input2">
-                            <select name="" id=""></select>
+                        <?php $name_key = "in2";?>
+                            <?php $input_name = sprintf("d%02d:%04d:%s", $c_day["date"], $employee["id"], $name_key);?>
+                            <select name="<?= $input_name;?>">
+                                <?= create_option_erements($in[$input_name])?>
+                            </select>
                             -
-                            <select name="" id=""></select>
+                            <?php $name_key = "out2";?>
+                            <?php $input_name = sprintf("d%02d:%04d:%s", $c_day["date"], $employee["id"], $name_key);?>
+                            <select name="<?= $input_name;?>">
+                                <?= create_option_erements($in[$input_name])?>
+                            </select>
                         </div>
                     </div>
+                    <?php endif;?>
+
                     </td>
-                    <?php endfor;?>
+                    <?php endforeach;?>
 
                     <td>
                         <div>40:00</div>
@@ -181,15 +190,22 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
 
                 </tr>
-                <?php endfor;?>
+
+                <?php endforeach;?>
                 
             </table>
-            <?php endfor;?>
+            <?php endforeach;?>
 
             <!-- 2-2 -->
             <div class="comment_box">
-                <p>コメント</p>
-                <textarea class="comment_text" name="comment" id="" ><?= empty($in["comment"]) ? "" : $in["comment"] ;?></textarea>
+                <h4>コメント</h4>
+                <?php foreach ($employees as $key => $employee):?>
+                <?php $input_name = sprintf("comment:%04d", $employee["id"]);;?>
+                <div class="coment">
+                    <p><?= $employee["name"];?></p>
+                    <p><?= empty($in[$input_name]) ? "＊コメントはありません。" : $in[$input_name] ;?></p>
+                </div>
+                <?php endforeach;?>
             </div>
 
 
