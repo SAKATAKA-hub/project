@@ -27,7 +27,8 @@ function get_now(){
 # 表示用日付の取得関数
 function display_date($displayDT)
 {
-    $display["Y-m-d"] = $displayDT->format("Y-m-d"); //年
+    $display["Y-m-d"] = $displayDT->format("Y-m-d");
+    $display["Y-m"] = $displayDT->format("Y-m");  
     $display["Y"] = intval($displayDT->format("Y")); //年
     $display["m"] = intval($displayDT->format("m")); //月
     $display["d"] = intval($displayDT->format("d")); //日
@@ -41,6 +42,7 @@ function display_date($displayDT)
     $display["m_index"] = sprintf("%04d年%02d月",$display["Y"] ,$display["m"] ); // "0000年00月"
     $display["m_text"] = sprintf("%04d-%02d-01",$display["Y"] ,$display["m"] ); // "0000-00-00"
     
+
     return $display;
 }
 
@@ -100,37 +102,18 @@ function save_submission_shift($employee_id)
     $shift = str_replace("--","",$shift);
 
     // "提出コメント"を変数へ格納
-    $input_name = sprintf("comment:%04d", $_SESSION['employee_id']);
+    $input_name = sprintf("comment:%04d",$employee_id);
     $comment = isset($in[$input_name]) ? $in[$input_name] :"";
 
-    return $comment."@explode_data@".$shift;
+    $CSV_array = array($employee_id, $shift, $comment);
+
+    return $CSV_array;
+
 
     // *【補足コメント　3/17】
     // *　提出スケジュールはDBに保管するつもりだったのですが、
     // *日付をテキストにすると、DBの一つのカラムでは文字数オーバーになるため、
     // *テキスト保存することに途中から変更しました。
-
-    // # 2.以前のデータを削除
-    // $SQL ="DELETE FROM submission_shift WHERE";
-    // $SQL = <<<_SQL_
-    // DELETE FROM submission_shift 
-    // WHERE `employee_id` = ?
-    // AND `month` = ?
-    // _SQL_;
-    // $DATA = array($_SESSION["employee_id"], $in["month"],);
-    // insert_db($SQL,$DATA);
-
-    // # 3.入力データをデータベースに保存
-    // $SQL = <<<_SQL_
-    // INSERT INTO submission_shift 
-    // ( `employee_id`, `month`, `shift`, `comment`, `update_date`) 
-    // VALUES ( ?,?,?,?,?)
-    // _SQL_;
-    // $DATA = array(
-    //     $_SESSION["employee_id"], $in["month"], 
-    //     $shift, $comment, $now["DT"]->format("Y-m-d")
-    // );
-    // insert_db($SQL,$DATA);
 
 
 }
@@ -144,37 +127,48 @@ function read_submission_shift($employee_id)
      
     // 1.テキストファイルに保存された提出済みスケジュールを取得。
     $directory ="data/send_schedule/";
-    $file = $directory.$display["Y-m-d"]."-".$employee_id.".text";
-    $data = file_exists($file) ? file_get_contents($file) :"";
-    
-    // $text = file_exists($file) ? file_get_contents($file) :"読込みファイルはありません";
-    // echo"テキスト：".$text;
+    $file = $directory.$display["Y-m-d"]."-".$employee_id.".csv";
+
+    $data = [];
+    if(file_exists($file))
+    {
+        //ファイルの読み込み
+        $fh = fopen($file,"r");
+        $data = fgetcsv($fh);
+        fclose($fh);
+
+        // 文字コードの変更
+        mb_convert_variables("UTF-8","SJIS",$datas); //文字コードの変更
+    }
+
+    // echo "提出スケジュールの取得<br>";
+    // var_dump($data);
+      
 
     // 2.取得情報を加工
     if(!empty($data))
     {
-        $data = explode("@explode_data@",$data);
-
-        // 2-1　コメント
-        $input_name = sprintf("comment:%04d", $employee_id);
-        $in[$input_name] = isset($data[0]) ? $data[0] : "" ;
-        
-        //2-2スケジュール
-        if(!empty($data[1])){
+        //2-1スケジュール
+        if(!empty($data[1]))
+        {
             $data[1] = explode("=",$data[1]);
     
-            foreach($data[1] as $key => $vals){
+            foreach($data[1] as $key => $vals)
+            {
                 $vals = explode("-",$vals);
 
                 $name_keys = array("in1","out1","in2","out2",);
-                foreach ($name_keys as $i => $name_key) {
+                foreach ($name_keys as $i => $name_key) 
+                {
                     $input_name = sprintf("d%02d:%04d:%s", $key+1, $employee_id, $name_key);
                     $in[$input_name] = isset($vals[$i]) ? $vals[$i] : "" ;
                 }
-
             }
-    
         }
+
+        // 2-2　コメント
+        $input_name = sprintf("comment:%04d", $employee_id);
+        $in[$input_name] = isset($data[2]) ? $data[2] : "" ;
     
     } //if(!empty($data))end
 
@@ -248,7 +242,7 @@ function get_calendar($display)
             $week = empty(($display["w"] +$d -1)%7) ? 7 : ($display["w"] +$d -1)%7 ;
             $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
             
-            $dates["this$d"] = array(
+            $dates[] = array(
                 "date" => $d ,
                 "week" => $week ,
                 "week_text" => $week_text[$week] ,

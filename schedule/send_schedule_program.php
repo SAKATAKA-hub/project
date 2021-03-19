@@ -31,42 +31,57 @@ else
     # tokenのチェック
     validateToken(); 
 
-    # \\フォームから受け取った情報の表示\\
-    // echo "*フォームから受け取った情報*<br>";
-    // var_dump($in);
 
-
-    # case1. 入力スケジュールの提出 ******************
+    # case1. 入力スケジュールの提出 
     if($in["mode"]=="submit")
     {
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
 
-        # テキストファイルとして提出スケジュールを保存
-        save_submission_shift($_SESSION["employee_id"]); 
+        # 提出スケジュールをCSV用配列に変換
+        $CSV_array = save_submission_shift($_SESSION["employee_id"]);
+
+        var_dump($CSV_array);
+
+        # 入力データをテキストファイルに保存
+        $directory ="data/send_schedule/";
+        $file = $directory.$display["Y-m-d"]."-".$_SESSION["employee_id"].".csv";
+        mb_convert_variables("SJIS","UTF-8",$datas); //文字コードの変更
+        // CSVファイルの書き込み
+        $fh = fopen($file,"w");
+        fputcsv($fh,$CSV_array);
+        fclose($fh);        
+
+        
     } 
-    # case2. "選択月"の変更 ******************
+    # case2. "選択月"の変更 
     elseif(($in["mode"]=="change_next")||($in["mode"]=="change_befor"))
     {
         $displayDT = change_date(); //"月"変更
         $display = display_date($displayDT);
 
         read_submission_shift($_SESSION["employee_id"]); //保存データを反映する関数
+    
+    
     }
-    # case3. 入力内容のリセット ******************
+    # case3. 入力内容のリセット 
     elseif($in["mode"]=="input_reset")
     {
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
+    
+    
     }
-    # case4. 契約曜日通りの入力 ******************
+    # case4. 契約曜日通りの入力 
     elseif($in["mode"]=="fixed_input")
     {
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
         fixed_input();
+    
+    
     }
 
 }

@@ -6,6 +6,7 @@ main{ //==================================================
         //1.セレクトエリア
         .select_container{
             .selectWeeks{
+                display: flex;
                 button.active{
                     border: solid 1px $main_col;
                     background: $main_col;
@@ -16,7 +17,7 @@ main{ //==================================================
         }
         //2.インプットエリア
         .table_container.create{
-            table{display: none;}
+            // table{display: none;}
             table.active{display: block;}
         }
     

@@ -12,7 +12,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 }  
 
 // echo "<br>inに保存した情報<br>";
-var_dump($in);
+// var_dump($in);
 
 ?>
 
@@ -213,7 +213,7 @@ var_dump($in);
             <div class="comment_box">
                 <h4>コメント</h4>
                 <?php $input_name = sprintf("comment:%04d", $_SESSION['employee_id']);;?>
-                <textarea class="comment_text" name="comment:<?=$_SESSION['employee_id'];?>" id="" ><?= empty($in[$input_name]) ? "" : $in[$input_name] ;?></textarea>
+                <textarea class="comment_text" name="<?=$input_name;?>"><?= empty($in[$input_name]) ? "" : $in[$input_name] ;?></textarea>
             </div>
 
             <!-- 3.送信ボタンコンテナー ------------>

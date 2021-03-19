@@ -316,13 +316,13 @@ main .m_center .table_container .submit_container #open.btn:hover {
     height: 0;
   }
 }
+main .m_center .select_container .selectWeeks {
+  display: flex;
+}
 main .m_center .select_container .selectWeeks button.active {
   border: solid 1px #ff5c5c;
   background: #ff5c5c;
   color: #fff;
-}
-main .m_center .table_container.create table {
-  display: none;
 }
 main .m_center .table_container.create table.active {
   display: block;

@@ -10,7 +10,10 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
     $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
 }  
 
-var_dump($in);
+// echo"<br>inの表示<br>";
+// var_dump($in);
+// echo"<br><br>";
+// var_dump($display);
 // var_dump($employees);
 // echo"<br><br>";
 // var_dump($calendar_weeks);
@@ -53,6 +56,7 @@ var_dump($in);
                     <input type="hidden" name="mode" value="change_befor">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
                     <button class="befor">前へ</button>    
                 </form>
     
@@ -62,9 +66,22 @@ var_dump($in);
                     <input type="hidden" name="mode" value="change_next">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
                     <button class="next">次へ</button>
                 </form>
     
+            </div>
+
+            <div class="selectWeeks">
+                <?php foreach ($calendar_weeks as $key => $c_week):?>
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="change_week">
+                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
+                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+                    <input type="hidden" name="calendar_week" value="<?=$key;?>">
+                    <button class="<?= $key == $in["calendar_week"] ? "active" : "" ;?>"><?=$key+1;?></button>
+                </form>
+                <?php endforeach;?>
             </div>
 
             <div class="select_input_menu">
@@ -73,24 +90,12 @@ var_dump($in);
                     <input type="hidden" name="mode" value="read_send_schedule">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <button class="">提出予定取得</button>
+                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <button class="">提出スケジュール取得</button>
                 </form>
+        
+            </div>
     
-                <form action="" method="GET">
-                    <input type="hidden" name="mode" value="submit">
-                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
-                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <button class="">保存</button>
-                </form>
-
-
-            </div>
-
-            <div class="selectWeeks">
-                <?php foreach ($calendar_weeks as $key => $c_week):?>
-                <button class="<?= $key == 0 ? "active" : "" ;?>" data-id="week<?=sprintf("%02d",$key+1);?>"><?=$key+1;?></button>
-                <?php endforeach;?>
-            </div>
 
         </div>
 
@@ -100,13 +105,15 @@ var_dump($in);
             <input type="hidden" name="mode" value="submit">
             <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
             <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+            <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+
 
             <!-- モーダル -->
             <section id="modal" class="hidden">
-                <p>スケジュールを確定します。</p>
+                <p>スケジュールを保存します。</p>
                 <p>よろしいですか？</p>
                 <div class="m_btn_container">
-                <button type="submit" class="btn" >提出</button>
+                <button type="submit" class="btn" >保存</button>
                 <div id="close" class="btn">戻る</div>
                 </div>   
             </section>
@@ -120,10 +127,12 @@ var_dump($in);
 
             <!-- 2-1 -->
             <?php foreach ($calendar_weeks as $key => $c_week):?>
-            <table class="shift_table <?= $key == 0 ? "active" : "" ;?>" id="week<?=sprintf("%02d",$key+1);?>">
+            <?php if($key == $in["calendar_week"]):?>
+            <table class="shift_table active">
+                <!-- 日付 -->
                 <tr>
                     <th>STAFF NAME</th>
-                    <!-- 日付の表示 -->
+
                     <?php foreach ($c_week as $c_day):?>
                     <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
                         <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
@@ -134,8 +143,9 @@ var_dump($in);
                     <th>MON TOTAL</th>
                 </tr>
 
+                <!-- 勤務時間 -->
                 <?php foreach ($employees as $key => $employee):?>
-                    <tr>
+                <tr>
                     <td class="employee_data">
                         <div class="id"><?=$employee["id"];?></div>
                         <div class="name"><?=$employee["name"];?></div>
@@ -187,13 +197,28 @@ var_dump($in);
                         <div>公休 10</div>
                     </td>
 
+                </tr>
+                <?php endforeach;?>
 
+                <!-- 労働時間 -->
+                <tr>
+                    <td>労働時間合計</td>
+
+                    <?php foreach ($c_week as $c_day):?>
+                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                        <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
+                    </th>
+                    <?php endforeach;?>
+
+                    <th>WEEK TOTAL</th>
+                    <th>MON TOTAL</th>
+                
 
                 </tr>
 
-                <?php endforeach;?>
                 
             </table>
+            <?php endif;?>
             <?php endforeach;?>
 
             <!-- 2-2 -->
@@ -201,6 +226,7 @@ var_dump($in);
                 <h4>コメント</h4>
                 <?php foreach ($employees as $key => $employee):?>
                 <?php $input_name = sprintf("comment:%04d", $employee["id"]);;?>
+                <input type="hidden" name="<?=$input_name;?>" value="<?= empty($in[$input_name]) ? "" : $in[$input_name] ;?>">
                 <div class="coment">
                     <p><?= $employee["name"];?></p>
                     <p><?= empty($in[$input_name]) ? "＊コメントはありません。" : $in[$input_name] ;?></p>
@@ -208,10 +234,15 @@ var_dump($in);
                 <?php endforeach;?>
             </div>
 
+            <!-- 3.送信ボタンコンテナー ------------>
+            <div class="submit_container">
+                <div id="open" class="btn">保存</div>
+            </div>
+
+
 
         </form>
         </div>
-
 
 
     </div>

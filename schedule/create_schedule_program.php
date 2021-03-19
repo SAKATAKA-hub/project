@@ -31,6 +31,8 @@ if(!isset($in["mode"]))
     # 表示用日付の取得(表示日付 == アクセス日翌月)
     $displayDT = new DateTime(sprintf("%04d-%02d-01",$now["Y"] ,$now["m"]+1 ));
     $display = display_date($displayDT); 
+    $in["calendar_week"] = 0 ;
+
 
     # 作成済スケジュールを表示に反映
     // read_create_shift(); 
@@ -48,7 +50,7 @@ else
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
 
-        # スケジュールをテキストファイルとして保存
+        # スケジュールをCSVファイルとして保存
         save_create_shift(); 
 
 
@@ -59,7 +61,8 @@ else
         $displayDT = change_date(); //"月"変更
         $display = display_date($displayDT);
 
-        // read_create_shift(); //DBの保存データを反映する関数
+        # 作成済スケジュールを表示に反映
+        read_create_shift(); 
 
 
     }
@@ -76,6 +79,14 @@ else
         }
     
     }
+    # case4. カレンダーの表示"週"を変更 ******************
+    elseif($in["mode"]=="change_week")
+    {
+        # 表示用日付の取得(表示日付 == フォーム指定日付)
+        $displayDT = new DateTime($in["month"]);
+        $display = display_date($displayDT);
+    
+    }
 }
 
 createToken(); //tokenの発行 $_SESSION['token']
@@ -87,23 +98,112 @@ $calendar_weeks = get_calendar($display);
 #===========================================================
 # スケジュール提出ページ用　関数
 #-----------------------------------------------------------
-# スケジュールをテキストファイルとして保存
+# スケジュールをCSVファイルとして保存
 function save_create_shift()
 {
-    global $in, $employees;
+    global $in, $now, $display, $employees;
 
-    $data = [];
-    foreach ($employees as $key => $employee) 
+    $datas = [];
+    $Agg_datas = [];
+    # 提出スケジュールをCSV用配列に変換
+    foreach ($employees as $key => $employee)
     {
-        $data[] = save_submission_shift($employee["id"]);
+        $datas[$key] = save_submission_shift($employee["id"]);
+        // $Agg_datas[$key] = new Aggregate($datas[$key]);
     }
 
-    $data = implode(",",$data);
-            
+    // foreach ($datas as $key => $data) {
+    //     echo "<br><br>";
+    //     var_dump($data);
+    // }
+
+    // var_dump($datas);
+
     # 入力データをテキストファイルに保存
     $directory ="data/create_schedule/";
-    $file = $directory.$in["month"].".text";
-    file_put_contents($file,$data);
+    $file = sprintf("%s%s-%02d.csv",$directory,$display["Y-m"],$in["calendar_week"]) ;
+    // echo $file;
+    mb_convert_variables("SJIS","UTF-8",$datas); //文字コードの変更
+
+    // CSVファイルの書き込み
+    $fh = fopen($file,"w");
+    foreach ($datas as $key => $data) {
+        fputcsv($fh,$data);
+    }
+    fclose($fh);
     
 
 }
+
+
+#-----------------------------------------------------------
+# 作成済スケジュールを表示に反映
+function read_create_shift()
+{
+    global $in, $now, $display, $employees;
+
+    // 1.テキストファイルに保存された提出済みスケジュールを取得。
+    $directory ="data/create_schedule/";
+    $file = sprintf("%s%s-%02d.csv",$directory,$display["Y-m"],$in["calendar_week"]) ;
+
+    $datas=[];
+    if(file_exists($file))
+    {
+        //ファイルの読み込み
+        $fh = fopen($file,"r");
+        while ($line = fgetcsv($fh)) {
+            array_push($datas,$line);
+        }
+        fclose($fh);
+        
+        // 文字コードの変更
+        mb_convert_variables("UTF-8","SJIS",$datas); //文字コードの変更
+    }
+
+    // echo "提出スケジュールの取得<br>";
+    // var_dump($datas);
+
+
+    // 2.取得情報を加工
+    if(!empty($datas))
+    {
+        foreach ($datas as $key => $data) 
+        {
+            $employee_id = $data[0];
+            $shift = $data[1];
+            $comment = $data[2];
+
+            //2-1スケジュール
+            if(!empty($shift))
+            {
+                $shift = explode("=",$shift);
+        
+                foreach($shift as $key => $vals)
+                {
+                    $vals = explode("-",$vals);
+    
+                    $name_keys = array("in1","out1","in2","out2",);
+                    foreach ($name_keys as $i => $name_key) 
+                    {
+                        $input_name = sprintf("d%02d:%04d:%s", $key+1, $employee_id, $name_key);
+                        $in[$input_name] = isset($vals[$i]) ? $vals[$i] : "" ;
+                    }
+                }
+            }
+            // 2-2　コメント
+            $input_name = sprintf("comment:%04d", $employee_id);
+            $in[$input_name] = isset($comment) ? $comment : "" ;
+
+        }
+      
+    } //if(!empty($data))end
+
+}
+
+
+#-----------------------------------------------------------
+# 勤務予定時間の集計クラス ->110
+class Aggregate{
+
+}
+
