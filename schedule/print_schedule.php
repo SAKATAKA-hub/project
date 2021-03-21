@@ -5,7 +5,37 @@
 //  > create_schedule.php(現在地)
 include('create_schedule_program.php');
 
+// // echo "<br>".$in["calendar_week"];
+
+$w_datas = $calendar_weeks[$in["calendar_week"]];
+$w_count = -1; 
+foreach ($w_datas as $key => $w_data) { 
+    if($w_data["this_month"]){ $w_count++;}
+}
+
+$first = $w_datas[0]["date"];
+$end = $w_datas[$w_count]["date"];
+
+echo $first." ".$end;
+
+
+
+
+$popup ="";
+if(isset($in["mode"])&&($in["mode"]=="submit")){ 
+    $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
+}  
+
+// echo"<br>inの表示<br>";
+// var_dump($in);
+// echo"<br><br>";
+// var_dump($display);
+// var_dump($employees);
+// echo"<br><br>";
+// var_dump($calendar_weeks);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -59,19 +89,15 @@ include('create_schedule_program.php');
             </div>
 
             <div class="selectWeeks">
-                <?php foreach ($calendar_weeks as $key => $c_week):?>
-                <form action="" method="GET">
-                    <input type="hidden" name="mode" value="change_week">
-                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
-                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$key;?>">
-                    <button class="<?= $key == $in["calendar_week"] ? "active" : "" ;?>"><?=$key+1;?></button>
-                </form>
+                <?php foreach ($calendar_weeks as $w => $c_week):?>
+                    <button class="<?= $w == $in["calendar_week"] ? "active" : "" ;?>"　data-id="<?= sprintf("calendar%02d",$w) ;?>"><?=$w+1;?></button>
                 <?php endforeach;?>
             </div>
 
-            <div class="select_input_menu">     
-                <button class="">印刷ページ</button>        
+            <div class="select_input_menu">
+                    
+            <button class="">スケジュール印刷</button>
+        
             </div>
     
 
@@ -79,59 +105,65 @@ include('create_schedule_program.php');
 
         <!-- 2.インプットエリア ------------>
         <div class="table_container create">
-        <form action="" method="GET">
-            <input type="hidden" name="mode" value="submit">
-            <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
-            <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-            <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
 
-            <?php for ($i=0; $i <2 ; $i++):?>
-            <h3><?= $i<1 ? sprintf("%s 前期",$display["m_index"]) : sprintf("%s 後期",$display["m_index"]) ;?></h3>
-            <table class="shift_table">
+            <!-- 2-1 -->
+            <p>※【休憩基準　勤務時間:休憩時間】4.5時間以上:30分、 6時間以上:60分、 8.5時間以上:90分、 10時間以上:120分</p>
+            <?php foreach ($calendar_weeks as $w => $c_week):?>
+            
+            <table class="shift_table <?= $w == $in["calendar_week"] ? "active" : "" ;?>" data-id="<?= sprintf("calendar%02d",$w) ;?>">
                 <!-- 日付 -->
                 <tr>
                     <th>STAFF NAME</th>
 
-                    <?php foreach ($calendar_weeks as $key => $c_week):?>
                     <?php foreach ($c_week as $c_day):?>
-                    <?php if( ($c_day["this_month"])&&($c_day["date"] > $i*15) && ($c_day["date"] <= ($i+1)*16-1) ):?>
-                        <th>
-                            <div class="date_box  <?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>" > 
-                                <?= $c_day["date"]?>
-                            </div>
-                            <div class="date_box  <?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>" > 
-                                <?= $c_day["week_text"]?>
-                            </div>
-
-                        </th>
-                    <?php endif;?>
-                    <?php endforeach;?>
+                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                        <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
+                    </th>
                     <?php endforeach;?>
 
-                    <th>TOTAL</th>
+                    <th>WEEK TOTAL</th>
+                    <th>MON TOTAL</th>
                 </tr>
 
                 <!-- 勤務時間 -->
-                <?php foreach ($employees as $key => $employee):?>
+                <?php foreach ($employees as $employee):?>
                 <tr>
                     <td class="employee_data">
                         <div class="id"><?=$employee["id"];?></div>
                         <div class="name"><?=$employee["name"];?></div>
                     </td>
 
-                    <?php foreach ($calendar_weeks as $key => $c_week):?>
                     <?php foreach ($c_week as $c_day):?>
-                    <?php if( ($c_day["this_month"])&&($c_day["date"] > $i*15) && ($c_day["date"] <= ($i+1)*16-1) ):?>
                     <td>
+
+                    <?php if($c_day ["this_month"]):?>
+                    <div class="input_box">
+                        <?php $name_key = "1";?>
+                        <?php $input_name1 = sprintf("d%02d:%04d:in%s", $c_day["date"], $employee["id"], $name_key);?>
+                        <?php $input_name2 = sprintf("d%02d:%04d:out%s", $c_day["date"], $employee["id"], $name_key);?>
+                        <div class="input1">
+                            <?= isset($in[$input_name1])&&empty(!$in[$input_name1]) ? sprintf("%s-%s" ,$in[$input_name1] ,$in[$input_name2]) :"公休";?>
+                        </div>
+
+                        <?php $name_key = "2";?>
+                        <?php $input_name1 = sprintf("d%02d:%04d:in%s", $c_day["date"], $employee["id"], $name_key);?>
+                        <?php $input_name2 = sprintf("d%02d:%04d:out%s", $c_day["date"], $employee["id"], $name_key);?>
+                        <div class="input2">
+                            <?= isset($in[$input_name1])&&empty(!$in[$input_name1]) ? sprintf("%s-%s" ,$in[$input_name1] ,$in[$input_name2]) :"";?>
+                        </div>
+                    </div>
+                    <?php endif;?>
 
                     </td>
-                    <?php endif;?>
-                    <?php endforeach;?>
                     <?php endforeach;?>
 
                     <td>
-                        <div>180:00</div>
-                        <div>公休 10</div>
+                        <div><?= $calcutation->getPrivateWeekWork($employee["id"],$w)?></div>
+                        <div>公休<?= $calcutation->getPrivateWeekHolyday($employee["id"],$w)?>日</div>
+                    </td>
+                    <td>
+                        <div><?= $calcutation->getPrivateMonthWork($employee["id"])?></div>
+                        <div>公休<?= $calcutation->getPrivateMonthHolyday($employee["id"])?>日</div>
                     </td>
 
                 </tr>
@@ -141,28 +173,24 @@ include('create_schedule_program.php');
                 <tr>
                     <td>労働時間合計</td>
 
-                    <?php foreach ($calendar_weeks as $key => $c_week):?>
                     <?php foreach ($c_week as $c_day):?>
-                    <?php if( ($c_day["this_month"])&&($c_day["date"] > $i*15) && ($c_day["date"] <= ($i+1)*16-1) ):?>
-                    <td>
-
-                    </td>
-                    <?php endif;?>
+                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                        <?php if($c_day ["this_month"]):?>
+                        <?= $calcutation->getTotalDay($c_day["date"]);?>
+                        <?php endif;?>
+                    </th>
                     <?php endforeach;?>
-                    <?php endforeach;?>
 
-                    <td>
-                        <div>180:00</div>
-                        <div>公休 10</div>
-                    </td>
+                    <th><?= $calcutation->getTotalWeek($w)?></th>
+                    <th><?= $calcutation->getTotalMonth();?></th>
+                
 
                 </tr>
 
-
-
+                
             </table>
-            <?php endfor;?>
-        </form>
+            <?php endforeach;?>
+
         </div>
 
 
@@ -171,11 +199,20 @@ include('create_schedule_program.php');
 </main> 
 <script src="../common/js/schedule.js"></script>
 
+
+<script>
+    //<!-- ポップアップ -->
+    function popupSubmit(){
+      const popup0 = document.getElementById('popup0');
+      popup0.classList.add('show');
+      window.setTimeout(hiddenpMsg, 5000);
+      function hiddenpMsg(){
+      popup0.classList.remove('show');
+      }
+    }
+</script>
+<?=$popup;?>
+
 </body>
 </html>
-
-
-
-
-
 

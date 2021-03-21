@@ -106,7 +106,7 @@ main{
     width: 100%;
     $bk_col:#fff;
     height: 100%;
-    padding: 0em 0 2em 2em;
+    padding: 0em 2em 2em 2em;
 
     .bread_crumb {//<!-- パンくずリスト -->
         font-size: .8em;
@@ -130,9 +130,9 @@ main{
     h2{
         border-left: solid .5em $main_col;
         font-size: 1.6em;
-        margin-bottom: .8rem;
+        margin-bottom: 1rem;
     }
-    h3{margin-bottom: .8rem;}
+    h3{margin-bottom: 1rem;}
 
     
   }//.m_center end

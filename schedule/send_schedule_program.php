@@ -40,20 +40,21 @@ else
         $display = display_date($displayDT);
 
         # 提出スケジュールをCSV用配列に変換
-        $CSV_array = save_submission_shift($_SESSION["employee_id"]);
+        $CSV_array = save_submission_shift($_SESSION["employee_id"],1,$display["end_d"]);
 
-        var_dump($CSV_array);
+        // var_dump($CSV_array);
 
         # 入力データをテキストファイルに保存
         $directory ="data/send_schedule/";
         $file = $directory.$display["Y-m-d"]."-".$_SESSION["employee_id"].".csv";
         mb_convert_variables("SJIS","UTF-8",$datas); //文字コードの変更
+        
         // CSVファイルの書き込み
         $fh = fopen($file,"w");
         fputcsv($fh,$CSV_array);
         fclose($fh);        
 
-        
+
     } 
     # case2. "選択月"の変更 
     elseif(($in["mode"]=="change_next")||($in["mode"]=="change_befor"))
@@ -79,7 +80,7 @@ else
     {
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
-        fixed_input();
+        fixed_input($_SESSION["employee_id"]);
     
     
     }

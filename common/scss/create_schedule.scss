@@ -1,7 +1,6 @@
 @import "send_schedule";
 
 main{ //==================================================
-
     .m_center{
         //1.セレクトエリア
         .select_container{
@@ -17,9 +16,31 @@ main{ //==================================================
         }
         //2.インプットエリア
         .table_container.create{
-            // table{display: none;}
+            table{display: none;}
             table.active{display: block;}
         }
+        // 3.コメントボックス
+        .all_comment_box{
+            margin: 2em 0em; 
+            box-sizing: border-box;
+            border: solid 2px $glay_line;
+            border-radius: .3em;
+
+            h4{
+                padding: 1em;
+                // line-height: 3em;
+            }
+
+            .coment{
+                display: flex;
+                padding: 1em;
+                border-top: solid 2px $glay_line;
+                p{
+                    margin-right: 3em;
+                }
+            }
+        }
+
     
 
     }

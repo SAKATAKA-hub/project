@@ -74,12 +74,12 @@ function change_date()
 
 #--------------------------------------------------------------
 # 提出スケジュールをテキスト文字列に変換
-function save_submission_shift($employee_id)
+function save_submission_shift($employee_id,$first,$end)
 {
     global $in, $now, $display;
 
     $shift =[]; 
-    for ($i=1; $i <= $display["end_d"] ; $i++)
+    for ($i=$first; $i <= $end ; $i++)
     {
         $in_nom = sprintf("d%02d",$i);
         $shift[$in_nom] = [];
@@ -141,10 +141,6 @@ function read_submission_shift($employee_id)
         mb_convert_variables("UTF-8","SJIS",$datas); //文字コードの変更
     }
 
-    // echo "提出スケジュールの取得<br>";
-    // var_dump($data);
-      
-
     // 2.取得情報を加工
     if(!empty($data))
     {
@@ -178,7 +174,7 @@ function read_submission_shift($employee_id)
 
 #-----------------------------------------------------------
 # 契約曜日通りに自動入力する関数
-function fixed_input()
+function fixed_input($employee_id)
 {
     global $in, $now, $display;
 
@@ -188,8 +184,12 @@ function fixed_input()
     WHERE employee_id = ?
     _SQL_;
 
-    $DATA = array($_SESSION["employee_id"],);
+    $DATA = array($employee_id,);
     $working_datas = select_db($SQL,$DATA); 
+
+    // var_dump($working_datas);
+    // echo"<br><br>";
+
     
     // 2.テーブルに取得情報を埋め込む。
     for ($i = 0; $i < $display["end_d"]; $i++) 
@@ -201,16 +201,16 @@ function fixed_input()
             if($working_data["working_week"] == $week_num)
             {
                 //一つ目の入力のとき
-                if(empty($in[in_name($date,"in1")]))
+                if(empty($in[in_name($date,$employee_id,"in1")]))
                 {
-                    $in[in_name($date,"in1")] = isset($working_data["in_time"]) ? substr( $working_data["in_time"],0,5)  : "" ;
-                    $in[in_name($date,"out1")] = isset($working_data["out_time"]) ? substr( $working_data["out_time"],0,5) : "" ;    
+                    $in[in_name($date,$employee_id,"in1")] = isset($working_data["in_time"]) ? substr( $working_data["in_time"],0,5)  : "" ;
+                    $in[in_name($date,$employee_id,"out1")] = isset($working_data["out_time"]) ? substr( $working_data["out_time"],0,5) : "" ;    
                 }
                 //2つ目の入力のとき
                 else
                 {
-                    $in[in_name($date,"in2")] = isset($working_data["in_time"]) ? substr( $working_data["in_time"],0,5) : "" ;
-                    $in[in_name($date,"out2")] = isset($working_data["out_time"]) ? substr( $working_data["out_time"],0,5) : "" ;
+                    $in[in_name($date,$employee_id,"in2")] = isset($working_data["in_time"]) ? substr( $working_data["in_time"],0,5) : "" ;
+                    $in[in_name($date,$employee_id,"out2")] = isset($working_data["out_time"]) ? substr( $working_data["out_time"],0,5) : "" ;
                 }
             }
         }
@@ -221,8 +221,8 @@ function fixed_input()
 }
 
 //データの埋め込み先の"name"を指定する。
-function in_name($date,$name_key){
-    return sprintf("d%02d:%04d:%s",$date, $_SESSION['employee_id'], $name_key);
+function in_name($date,$employee_id,$name_key){
+    return sprintf("d%02d:%04d:%s",$date, $employee_id, $name_key);
 }
 
 

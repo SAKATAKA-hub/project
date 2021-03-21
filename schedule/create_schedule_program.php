@@ -3,17 +3,15 @@
 # スケジュール作成ページプログラム (create_schedule_program.php)
 #===========================================================
 # 基本設定
-//ファイルの読み込み
+// ファイルの読み込み
 //[読込順]function.php > schedule_function.php > create_schedule_program.php(現在地)
 include('schedule_function.php');
 
+// 労働時間計算クラスファイル
+include('calcutation_class.php.php');
+
 #===========================================================
 # 表示する従業員リストを取得
-
-//テスト用
-// $SQL = "SELECT `id`, `name` FROM employee_data WHERE `id` = ?";
-// $DATA = array( "0001" ); //取得グループ名
-
 $SQL = "SELECT `id`, `name` FROM employee_data WHERE `group` = ?";
 $DATA = array( "group1" ); //取得グループ名
 $employees = select_db($SQL,$DATA);  //DBより従業員情報の取得
@@ -32,12 +30,14 @@ if(!isset($in["mode"]))
     $displayDT = new DateTime(sprintf("%04d-%02d-01",$now["Y"] ,$now["m"]+1 ));
     $display = display_date($displayDT); 
     $in["calendar_week"] = 0 ;
+    $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
+
 
 
     # 作成済スケジュールを表示に反映
-    // read_create_shift(); 
+    read_create_shift(); 
 }
-// 2. フォームから合アクセスされたとき ::::::::::::::::::::::
+// 2. フォームからアクセスされたとき ::::::::::::::::::::::
 else
 {
     # tokenのチェック
@@ -49,9 +49,14 @@ else
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
+        $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
 
         # スケジュールをCSVファイルとして保存
         save_create_shift(); 
+
+        # 作成済スケジュールを表示に反映
+        read_create_shift(); 
+
 
 
     } 
@@ -60,6 +65,7 @@ else
     {
         $displayDT = change_date(); //"月"変更
         $display = display_date($displayDT);
+        $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
 
         # 作成済スケジュールを表示に反映
         read_create_shift(); 
@@ -72,8 +78,9 @@ else
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
+        $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
 
-        // #従業員全員の提出スケジュールの読み込み
+        #　従業員全員の提出スケジュールの読み込み
         foreach ($employees as $key => $employee) {
             read_submission_shift($employee["id"]);
         }
@@ -85,15 +92,19 @@ else
         # 表示用日付の取得(表示日付 == フォーム指定日付)
         $displayDT = new DateTime($in["month"]);
         $display = display_date($displayDT);
+        $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
+
+        # 作成済スケジュールを表示に反映
+        read_create_shift(); 
     
     }
 }
 
-createToken(); //tokenの発行 $_SESSION['token']
+# tokenの発行 $_SESSION['token']
+createToken(); 
 
-# カレンダー用の週分割にした日付情報を取得
-$calendar_weeks = get_calendar($display);
-
+# 労働時間計算クラス
+$calcutation = new Calcutation($in,$employees,$calendar_weeks);
 
 #===========================================================
 # スケジュール提出ページ用　関数
@@ -101,23 +112,24 @@ $calendar_weeks = get_calendar($display);
 # スケジュールをCSVファイルとして保存
 function save_create_shift()
 {
-    global $in, $now, $display, $employees;
+    global $in, $now, $display, $calendar_weeks, $employees;
+
+    $w_datas = $calendar_weeks[$in["calendar_week"]];
+    $w_count = -1; 
+    foreach ($w_datas as $key => $w_data) { 
+        if($w_data["this_month"]){ $w_count++;}
+    }
+    
+    $first = $w_datas[0]["date"];
+    $end = $w_datas[$w_count]["date"];
+
 
     $datas = [];
-    $Agg_datas = [];
     # 提出スケジュールをCSV用配列に変換
     foreach ($employees as $key => $employee)
     {
-        $datas[$key] = save_submission_shift($employee["id"]);
-        // $Agg_datas[$key] = new Aggregate($datas[$key]);
+        $datas[$key] = save_submission_shift($employee["id"],$first,$end);
     }
-
-    // foreach ($datas as $key => $data) {
-    //     echo "<br><br>";
-    //     var_dump($data);
-    // }
-
-    // var_dump($datas);
 
     # 入力データをテキストファイルに保存
     $directory ="data/create_schedule/";
@@ -140,70 +152,83 @@ function save_create_shift()
 # 作成済スケジュールを表示に反映
 function read_create_shift()
 {
-    global $in, $now, $display, $employees;
+    global $in, $now, $display, $calendar_weeks, $employees;
 
-    // 1.テキストファイルに保存された提出済みスケジュールを取得。
-    $directory ="data/create_schedule/";
-    $file = sprintf("%s%s-%02d.csv",$directory,$display["Y-m"],$in["calendar_week"]) ;
+    foreach ($calendar_weeks as $w => $c_week){
+        // 1.テキストファイルに保存された提出済みスケジュールを取得。
+        $directory ="data/create_schedule/";
+        // $file = sprintf("%s%s-%02d.csv",$directory,$display["Y-m"],$in["calendar_week"]) ;
+        $file = sprintf("%s%s-%02d.csv",$directory,$display["Y-m"],$w) ;
+        $datas=[];
 
-    $datas=[];
-    if(file_exists($file))
-    {
-        //ファイルの読み込み
-        $fh = fopen($file,"r");
-        while ($line = fgetcsv($fh)) {
-            array_push($datas,$line);
-        }
-        fclose($fh);
-        
-        // 文字コードの変更
-        mb_convert_variables("UTF-8","SJIS",$datas); //文字コードの変更
-    }
-
-    // echo "提出スケジュールの取得<br>";
-    // var_dump($datas);
+        // var_dump($c_week); 
+        // echo $c_week[0]["date"]."<br>";
+        // echo $c_week[6]["date"]."<br>";
+        // echo"<br><br>";
 
 
-    // 2.取得情報を加工
-    if(!empty($datas))
-    {
-        foreach ($datas as $key => $data) 
+        if(file_exists($file))
         {
-            $employee_id = $data[0];
-            $shift = $data[1];
-            $comment = $data[2];
-
-            //2-1スケジュール
-            if(!empty($shift))
-            {
-                $shift = explode("=",$shift);
-        
-                foreach($shift as $key => $vals)
-                {
-                    $vals = explode("-",$vals);
+            //ファイルの読み込み
+            $fh = fopen($file,"r");
+            while ($line = fgetcsv($fh)) {
+                array_push($datas,$line);
+            }
+            fclose($fh);
+            
+            // 文字コードの変更
+            mb_convert_variables("UTF-8","SJIS",$datas); //文字コードの変更
+        }
     
-                    $name_keys = array("in1","out1","in2","out2",);
-                    foreach ($name_keys as $i => $name_key) 
+        // echo "提出スケジュールの取得<br>";
+        // var_dump($datas);
+        // echo"<br><br>";
+    
+    
+        // 2.取得情報を加工
+        if(!empty($datas))
+        {
+            foreach ($datas as $key => $data) 
+            {
+                $employee_id = $data[0];
+                $shift = $data[1];
+                $comment = $data[2];
+    
+                //2-1スケジュール
+                if(!empty($shift))
+                {
+                    $shift = explode("=",$shift);
+
+                    $day = $c_week[0]["date"];
+                    foreach($shift as $vals)
                     {
-                        $input_name = sprintf("d%02d:%04d:%s", $key+1, $employee_id, $name_key);
-                        $in[$input_name] = isset($vals[$i]) ? $vals[$i] : "" ;
+                        // echo $day."<br>";
+
+                        $vals = explode("-",$vals);
+        
+                        $name_keys = array("in1","out1","in2","out2",);
+                        foreach ($name_keys as $i => $name_key) 
+                        {
+                            $input_name = sprintf("d%02d:%04d:%s", $day, $employee_id, $name_key);
+                            $in[$input_name] = isset($vals[$i]) ? $vals[$i] : "" ;
+                        }
+
+                        $day ++;
                     }
                 }
+                // 2-2　コメント
+                $input_name = sprintf("comment:%04d", $employee_id);
+                $in[$input_name] = isset($comment) ? $comment : "" ;
+    
             }
-            // 2-2　コメント
-            $input_name = sprintf("comment:%04d", $employee_id);
-            $in[$input_name] = isset($comment) ? $comment : "" ;
+          
+        } //if(!empty($data))end
+    
 
-        }
-      
-    } //if(!empty($data))end
+    }
+
 
 }
 
 
-#-----------------------------------------------------------
-# 勤務予定時間の集計クラス ->110
-class Aggregate{
-
-}
 

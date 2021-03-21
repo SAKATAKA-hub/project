@@ -5,6 +5,23 @@
 //  > create_schedule.php(現在地)
 include('create_schedule_program.php');
 
+// var_dump($in);
+// echo "<br>".$in["calendar_week"];
+
+$w_datas = $calendar_weeks[$in["calendar_week"]];
+$w_count = -1; 
+foreach ($w_datas as $key => $w_data) { 
+    if($w_data["this_month"]){ $w_count++;}
+}
+
+$first = $w_datas[0]["date"];
+$end = $w_datas[$w_count]["date"];
+
+echo $first." ".$end;
+
+
+
+
 $popup ="";
 if(isset($in["mode"])&&($in["mode"]=="submit")){ 
     $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
@@ -73,13 +90,13 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
             </div>
 
             <div class="selectWeeks">
-                <?php foreach ($calendar_weeks as $key => $c_week):?>
+                <?php foreach ($calendar_weeks as $w => $c_week):?>
                 <form action="" method="GET">
                     <input type="hidden" name="mode" value="change_week">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$key;?>">
-                    <button class="<?= $key == $in["calendar_week"] ? "active" : "" ;?>"><?=$key+1;?></button>
+                    <input type="hidden" name="calendar_week" value="<?=$w;?>">
+                    <button class="<?= $w == $in["calendar_week"] ? "active" : "" ;?>"><?=$w+1;?></button>
                 </form>
                 <?php endforeach;?>
             </div>
@@ -126,8 +143,9 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
 
             <!-- 2-1 -->
-            <?php foreach ($calendar_weeks as $key => $c_week):?>
-            <?php if($key == $in["calendar_week"]):?>
+            <p>※【休憩基準　勤務時間:休憩時間】4.5時間以上:30分、 6時間以上:60分、 8.5時間以上:90分、 10時間以上:120分</p>
+            <?php foreach ($calendar_weeks as $w => $c_week):?>
+            <?php if($w == $in["calendar_week"]):?>
             <table class="shift_table active">
                 <!-- 日付 -->
                 <tr>
@@ -144,7 +162,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                 </tr>
 
                 <!-- 勤務時間 -->
-                <?php foreach ($employees as $key => $employee):?>
+                <?php foreach ($employees as $employee):?>
                 <tr>
                     <td class="employee_data">
                         <div class="id"><?=$employee["id"];?></div>
@@ -189,12 +207,12 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <?php endforeach;?>
 
                     <td>
-                        <div>40:00</div>
-                        <div>公休 2</div>
+                        <div><?= $calcutation->getPrivateWeekWork($employee["id"],$w)?></div>
+                        <div>公休<?= $calcutation->getPrivateWeekHolyday($employee["id"],$w)?>日</div>
                     </td>
                     <td>
-                        <div>180:00</div>
-                        <div>公休 10</div>
+                        <div><?= $calcutation->getPrivateMonthWork($employee["id"])?></div>
+                        <div>公休<?= $calcutation->getPrivateMonthHolyday($employee["id"])?>日</div>
                     </td>
 
                 </tr>
@@ -206,12 +224,14 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
                     <?php foreach ($c_week as $c_day):?>
                     <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
-                        <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
+                        <?php if($c_day ["this_month"]):?>
+                        <?= $calcutation->getTotalDay($c_day["date"]);?>
+                        <?php endif;?>
                     </th>
                     <?php endforeach;?>
 
-                    <th>WEEK TOTAL</th>
-                    <th>MON TOTAL</th>
+                    <th><?= $calcutation->getTotalWeek($w)?></th>
+                    <th><?= $calcutation->getTotalMonth();?></th>
                 
 
                 </tr>
@@ -222,9 +242,9 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
             <?php endforeach;?>
 
             <!-- 2-2 -->
-            <div class="comment_box">
+            <div class="all_comment_box">
                 <h4>コメント</h4>
-                <?php foreach ($employees as $key => $employee):?>
+                <?php foreach ($employees as $employee):?>
                 <?php $input_name = sprintf("comment:%04d", $employee["id"]);;?>
                 <input type="hidden" name="<?=$input_name;?>" value="<?= empty($in[$input_name]) ? "" : $in[$input_name] ;?>">
                 <div class="coment">
