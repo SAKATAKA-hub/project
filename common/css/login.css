@@ -46,12 +46,16 @@ button {
   appearance: none;
 }
 
+select {
+  font-size: 1em;
+}
+
 main {
   display: flex;
   min-height: 100vh;
 }
 main .m_side {
-  width: 200px;
+  width: 120px;
   background-color: cornsilk;
 }
 main .m_side .select_list_group {
@@ -60,11 +64,11 @@ main .m_side .select_list_group {
 main .m_side .select_list_group button {
   width: 100%;
   text-align: left;
-  padding-left: 1em;
-  line-height: 2.8em;
+  padding: 2em 1em;
+  line-height: 1.5em;
   font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: #ff5c5c;
 }
 main .m_side .select_list_group button:hover {
@@ -104,9 +108,9 @@ main {
   background-color: cornsilk;
 }
 main .login_card {
-  width: 300px;
-  height: 300px;
-  padding: 50px 50px;
+  width: 310px;
+  height: 310px;
+  padding: 40px 40px;
   border-radius: 3em;
   background: #fff;
   text-align: center;
@@ -139,9 +143,28 @@ main .login_card button {
   cursor: pointer;
 }
 main .login_card button:hover {
-  border: solid 1px #ff5c5c;
   background: #fff;
   color: #ff5c5c;
+}
+
+.admin_login_input {
+  background-color: #FF8427;
+}
+.admin_login_input .login_card {
+  box-shadow: 0 2px 10px #000;
+}
+.admin_login_input .login_card p {
+  margin-bottom: 1em;
+}
+.admin_login_input .login_card h2 {
+  color: #FF8427;
+}
+.admin_login_input .login_card button {
+  background-color: #FF8427;
+  border: solid 1px #FF8427;
+}
+.admin_login_input .login_card button:hover {
+  color: #FF8427;
 }
 
 /*# sourceMappingURL=login.css.map */

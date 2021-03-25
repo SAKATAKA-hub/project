@@ -46,12 +46,16 @@ button {
   appearance: none;
 }
 
+select {
+  font-size: 1em;
+}
+
 main {
   display: flex;
   min-height: 100vh;
 }
 main .m_side {
-  width: 200px;
+  width: 120px;
   background-color: cornsilk;
 }
 main .m_side .select_list_group {
@@ -60,11 +64,11 @@ main .m_side .select_list_group {
 main .m_side .select_list_group button {
   width: 100%;
   text-align: left;
-  padding-left: 1em;
-  line-height: 2.8em;
+  padding: 2em 1em;
+  line-height: 1.5em;
   font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: #ff5c5c;
 }
 main .m_side .select_list_group button:hover {
@@ -96,166 +100,58 @@ main .m_center h3 {
   margin-bottom: 1rem;
 }
 
-header {
-  height: 60px;
-  width: 100%;
-  box-shadow: 0 2px 5px #ff5c5c;
+.m_center {
+  background-color: #f2f2f2;
 }
-
-main {
-  display: flex;
-  position: relative;
+.m_center .explanatory_text {
+  width: 800px;
+  margin: 1rem auto;
+  padding: 3rem;
+  background-color: #fff;
+  border-radius: 1rem;
 }
-main .m_side {
-  position: absolute;
-  top: 5px;
-  left: 0px;
-  z-index: 100;
-  width: 200px;
-  height: 100%;
-  background-color: cornsilk;
+.m_center .explanatory_text section {
+  margin-bottom: 6rem;
 }
-main .m_side .select_list_group {
-  padding-top: 2em;
+.m_center .explanatory_text div {
+  padding-bottom: 1.6em;
 }
-main .m_side .select_list_group button {
-  width: 100%;
-  text-align: left;
-  padding-left: 1em;
-  line-height: 2.8em;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
+.m_center .explanatory_text p.point {
+  display: inline;
   color: #ff5c5c;
+  font-weight: bold;
 }
-main .m_side .select_list_group button:hover {
-  background: #ff5c5c;
-  color: cornsilk;
+.m_center .explanatory_text img {
+  margin: 1.6em 0;
 }
-main .m_side .select_list_group .cullent {
-  background: #ff5c5c;
-  color: cornsilk;
+.m_center .explanatory_text h2 {
+  margin-top: 1em;
 }
-main .m_center {
-  width: 100%;
-  height: 100%;
-  margin-left: 200px;
-  padding: 0em 0 2em 2em;
-}
-main .m_center .bread_crumb {
-  font-size: .8em;
-  line-height: 3em;
-}
-main .m_center .bread_crumb ul {
-  display: flex;
-}
-main .m_center h2 {
-  border-left: solid 0.5em #ff5c5c;
+.m_center .explanatory_text h3 {
+  padding-top: 1.6em;
   font-size: 1.6em;
-}
-main .m_center .table_heading_container {
-  display: flex;
-  align-items: center;
-  margin: 1em 0;
-}
-main .m_center .table_heading_container form {
-  display: flex;
-}
-main .m_center .table_heading_container form select {
-  display: block;
-  line-height: 1em;
-  height: 2em;
-  border: solid 1px #cccccc;
-  margin-right: 1em;
-}
-main .m_center .table_heading_container button {
-  margin-right: 2.8em;
-  border: solid 1px #ff5c5c;
-  background: #ff5c5c;
-  color: #fff;
-  border-radius: .3em;
-  font-weight: bold;
-  cursor: pointer;
-}
-main .m_center .table_heading_container button:hover {
-  border: solid 1px #cccccc;
-  background: #fff;
   color: #ff5c5c;
 }
-main .m_center .table_container table {
-  margin-bottom: 1em;
+.m_center .explanatory_text h4 {
+  margin: .5em 0;
+  padding: .2em 0;
+  font-size: 1.6rem;
+  border-bottom: solid 2px #ff5c5c;
 }
-main .m_center .table_container table .rec_top:nth-child(odd) {
-  background: cornsilk;
-}
-main .m_center .table_container table th {
-  border-top: solid 1px #cccccc;
-  border-bottom: solid 2px #cccccc;
-  background: #ffb8b8;
-  width: 88px;
-  text-align: center;
-  line-height: 1.8em;
-  font-size: 16px;
-}
-main .m_center .table_container table td {
-  width: 88px;
-  text-align: center;
-  line-height: 1.8em;
-  font-size: 16px;
-}
-main .m_center .table_container .rec_top > td {
-  border-top: solid 1px #cccccc;
-}
-main .m_center .table_container tr:last-child > td {
-  border-bottom: solid 1px #cccccc;
-}
-main .m_center .table_container .employee_id, main .m_center .table_container .employee_name {
-  width: 100px;
-}
-main .m_center .table_container .total {
-  width: 150px;
-}
-main .m_center .table_container .modification, main .m_center .table_container .delete {
-  display: none;
-  width: 56px;
-}
-main .m_center .table_container .modification button, main .m_center .table_container .delete button {
-  border: solid 1px #cccccc;
-  border-radius: .3em;
+.m_center .explanatory_text h5 {
+  margin: 0;
+  padding: .2em 0;
+  font-size: 1.4rem;
   color: #ff5c5c;
+}
+.m_center .explanatory_text ul {
+  margin-left: 4em;
   font-weight: bold;
-  cursor: pointer;
 }
-main .m_center .table_container .modification button:hover, main .m_center .table_container .delete button:hover {
-  border: solid 1px #ff5c5c;
-  background: #ff5c5c;
-  color: #fff;
-}
-main .m_center .table_container .private_agg button {
-  border: solid 1px #cccccc;
-  border-radius: .3em;
+.m_center .explanatory_text a {
   color: #ff5c5c;
+  border-bottom: solid 1px #ff5c5c;
   font-weight: bold;
-  cursor: pointer;
-}
-main .m_center .table_container .private_agg button:hover {
-  border: solid 1px #ff5c5c;
-  background: #ff5c5c;
-  color: #fff;
-}
-main .m_center .table_container .total_agg {
-  font-weight: bold;
-  display: inline-block;
-  width: 450px;
-  margin-bottom: 2em;
-  border: solid 1px #cccccc;
-  border-radius: .3em;
-}
-main .m_center .table_container .total_agg th {
-  border-top: 0;
-}
-main .m_center .table_container .total_agg tr:last-child > td {
-  border-bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

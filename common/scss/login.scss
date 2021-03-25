@@ -8,9 +8,9 @@ main{
     background-color: $back_col-2;
 
     .login_card{
-        width: 300px;
-        height: 300px;
-        padding: 50px 50px;
+        width: 310px;
+        height: 310px;
+        padding: 40px 40px;
         border-radius: 3em;
         background: #fff;
         text-align: center;
@@ -45,11 +45,28 @@ main{
             font-weight: bold;
             cursor: pointer;
             &:hover{
-                border: solid 1px $main_col;
                 background: #fff;
                 color: $main_col;
     
             }        
         }
+    }
+}
+
+//管理者ログインページ
+$admin_cal: $accent_col-1;
+// $admin_cal: lighten($accent_col-2,40%);
+.admin_login_input{
+    background-color: $admin_cal;
+    .login_card{
+        box-shadow: 0 2px 10px #000;
+
+        p{  margin-bottom: 1em;}
+        h2{ color: $admin_cal;} 
+        button{
+            background-color: $admin_cal;
+            border: solid 1px $admin_cal;
+            &:hover{ color: $admin_cal;}
+        }   
     }
 }

@@ -3,15 +3,9 @@
 {
   //タブメニュー
   const selectWeekBtns = document.querySelectorAll('.selectWeeks button');
-  const weekTables = document.querySelectorAll('.table_container form table');
+  const weekTables = document.querySelectorAll('.table_container table');
 
   //タブメニュー
-  weekTables.forEach(clickedItem => {
-    clickedItem.addEventListener('click', () => {
-      console.log('テーブルだよ');
-    });
-  });
-
   selectWeekBtns.forEach(clickedItem => {
     clickedItem.addEventListener('click', () => {
         selectWeekBtns.forEach(item => {

@@ -33,16 +33,20 @@ header{
                     // line-height: $button_height;
                     // margin: 15px 0;
                     padding: 0 1em;
+                    
                     &:hover{
                         background: lighten($main_col,28%);
                         border-radius: .5em;
                         font-weight: bold;
-                        // color: #fff;
-                        // border-bottom: solid 3px $main_col;
-                        // font-weight: bold;
                         color: $main_col;
+                        opacity: .8;
                     }    
                 }
+                a.cullent {
+                    font-weight: bold;
+                    color: #ff5c5c;
+                }
+
                 $timecard_col: lighten(green,20%);
                 button{
                     // line-height: $button_height;

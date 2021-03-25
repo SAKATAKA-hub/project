@@ -2,178 +2,61 @@
 // @import "tmp_botton"; 
 // @import "tmp_form"; 
 //  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
-@mixin btn1 {
-    border: solid 1px $glay_line;
-    border-radius: .3em;
-    color: $main_col;
-    font-weight: bold;
-    cursor: pointer;
-    &:hover{
-        border: solid 1px $main_col;
-        background: $main_col;
-        color: #fff;
-    }
-}
+.m_center{
+    background-color: lighten(#000, 95%);
 
-header{
-    height: 60px;
-    width: 100%;
-    // border-bottom: solid 5px $main_col;
-    box-shadow: 0 2px 5px $main_col;
-}
-main{ //==================================================
-    display: flex;
-    position: relative; 
-
-    //******** <m_side> ******** ******** ********
-    $side_width: 200px;
-    .m_side{
-        $bk_col: $back_col-2;
-        $font_col: $main_col;//フォント色
-
-        position: absolute; //mainを基準に左側に位置固定
-        top: 5px;
-        left: 0px;
-        z-index: 100;
-
-        width: $side_width;
-        height: 100%;
-        background-color: $bk_col;
-
-
-        .select_list_group{
-            padding-top: 2em;
-            @mixin cul_hov {
-                background: $font_col;
-                color: $bk_col;
-            }
-
-            button{
-                width: 100%;
-                text-align: left;
-                padding-left: 1em;
-                line-height: 2.8em;
-                font-weight: bold;
-                cursor: pointer;
-
-                font-size: 16px;
-                color: $font_col;
-
-                &:hover{@include cul_hov;}              
-            }
-
-            .cullent{@include cul_hov;}
+    .explanatory_text{
+        width: 800px;
+        margin: 1rem auto;
+        padding: 3rem;
+        background-color: #fff;
+        border-radius: 1rem;
+    
+        section{margin-bottom: 6rem;}
+    
+        div{padding-bottom: 1.6em ;}
+    
+        p.point{ 
+            display: inline;
+            color: $main_col;
+            font-weight: bold;
         }
-    }
-
-    //******** <m_center> ******** ******** ********
-    .m_center{
-        $bk_col:#fff;
-        width: 100%;
-        height: 100%;
-        margin-left: $side_width;
-        padding: 0em 0 2em 2em;
-
-        .bread_crumb {//<!-- パンくずリスト -->
-            font-size: .8em;
-            line-height: 3em;
-            ul{ display: flex;}
-        }
-
-        h2{
-            border-left: solid .5em $main_col;
+    
+        img{ margin: 1.6em 0;}
+    
+        h2{ margin-top: 1em;}
+    
+        h3{
+            padding-top: 1.6em ;
             font-size: 1.6em;
+            color: $main_col;
         }
-
-        .table_heading_container{//<!-- テーブル見出し -->
-            display: flex;
-            align-items: center;
-            margin: 1em 0;
-            form{
-                display: flex;
-
-                select{
-                    display: block;
-                    line-height: 1em;
-                    height: 2em;
-                    border: solid 1px $glay_line;
-                    margin-right: 1em;
-                }    
-            }
-
-            button{
-                margin-right: 2.8em;
-                border: solid 1px $main_col;
-                background: $main_col;
-                color: #fff;
-                border-radius: .3em;
-                font-weight: bold;
-                cursor: pointer;
-                &:hover{
-                    border: solid 1px $glay_line;
-                    background: #fff;
-                    color: $main_col;
-                } 
-            }             
+        h4{
+            margin: .5em 0;
+            padding: .2em 0;
+            font-size: 1.6rem;
+            border-bottom: solid 2px $main_col;
+        }
+        h5{
+            margin: 0;
+            padding: .2em 0;
+            font-size: 1.4rem;
+            color: $main_col;
+        }
+        ul{
+            // list-style:inside;
+            margin-left: 4em;
+            font-weight: bold;
+    
+        }
+        a{
+            color: $main_col;
+            border-bottom: solid 1px $main_col;
+            font-weight: bold;
+    
+        }
+    
+        
     }
-
-        //-- "table_container" ----- ----- ----- -----
-        @mixin th_td {
-            width: 88px;
-            text-align: center;
-            line-height: 1.8em;
-            font-size: 16px;
-        }
-        .table_container{  
-            table{ margin-bottom: 1em;
-                .rec_top:nth-child(odd){
-                    background: $back_col-2;
-                }
-                th{
-                    border-top:solid 1px $glay_line;
-                    border-bottom:solid 2px $glay_line;
-                    background: $back_col-1;        
-                    @include th_td;
-                }
-                td{
-                    @include th_td;
-                }
-            }
-
-            .rec_top>td{
-                border-top: solid 1px $glay_line;  //レコードのボーダー（上） 
-            }
-            tr:last-child>td{
-                border-bottom: solid 1px $glay_line;  //レコードのボーダー（下）
-            }
-
-
-            .employee_id, .employee_name{width: 100px;}
-            .total{width: 150px;}
-
-            .modification, .delete{ //修正・削除ボタン
-                display: none; //修正・削除ボタンを非表示
-                width: 56px;
-                button{ @include btn1;}
-            }
-            .private_agg{
-                button{ @include btn1;}
-            }
-
-            .total_agg{
-                font-weight: bold;
-                display: inline-block;
-                width: 450px;
-                margin-bottom: 2em;
-                border: solid 1px $glay_line;
-                border-radius: .3em;
-                th{border-top: 0;}
-                tr:last-child>td{border-bottom: 0;}  //レコードのボーダー（下）}
-            }
-            
-        }
-
-    }
-
-
+    
 }

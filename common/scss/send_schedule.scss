@@ -1,6 +1,8 @@
 @import "env_style";
 
 main{ //==================================================
+    .m_side{
+    }
     .m_center{
 
         //　*セレクトボタンの表示領域
@@ -122,7 +124,7 @@ main{ //==================================================
     
                 tr{
                     text-align: center;
-                    font-size: 10px;
+                    font-size: 12px;
                     font-weight: bold;
     
                     .sat_color{color: blue;}
@@ -133,16 +135,15 @@ main{ //==================================================
                         border: solid 1px $glay_line;
                         box-sizing: border-box; 
                         padding: .5em;
-                        font-size: 11px;
-                        
+                        font-size: 14px;  
                     }
                     td{
                         // width: 140px; //テーブル横幅　140*7
                         border: solid 1px $glay_line;
                         box-sizing: border-box;
-                        padding: .5em; 
+                        padding: 1em .2em; 
 
-                        .date_box { font-size: 11px;}
+                        .date_box { font-size: 14px;}
     
                         // インプットボックス
                         .input_box{
@@ -202,7 +203,7 @@ main{ //==================================================
                 flex-direction: column;
                 justify-content: flex-start;
                 margin-top: 2em; 
-                // width: $box-width;
+                max-width: 56rem;
                 // padding: 1em 1em;
                 box-sizing: border-box; 
                 textarea{
@@ -221,7 +222,7 @@ main{ //==================================================
             
             // 送信ボタン
             .submit_container{
-                // width: $box-width;
+                max-width: 56rem;
                 margin-bottom:  100px;
                 box-sizing: border-box; 
                 

@@ -46,12 +46,16 @@ button {
   appearance: none;
 }
 
+select {
+  font-size: 1em;
+}
+
 main {
   display: flex;
   min-height: 100vh;
 }
 main .m_side {
-  width: 200px;
+  width: 120px;
   background-color: cornsilk;
 }
 main .m_side .select_list_group {
@@ -60,11 +64,11 @@ main .m_side .select_list_group {
 main .m_side .select_list_group button {
   width: 100%;
   text-align: left;
-  padding-left: 1em;
-  line-height: 2.8em;
+  padding: 2em 1em;
+  line-height: 1.5em;
   font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: #ff5c5c;
 }
 main .m_side .select_list_group button:hover {
@@ -194,7 +198,7 @@ main .m_center .table_container .shift_table tr:nth-child(even) {
 }
 main .m_center .table_container .shift_table tr {
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
 }
 main .m_center .table_container .shift_table tr .sat_color {
@@ -207,15 +211,15 @@ main .m_center .table_container .shift_table tr th {
   border: solid 1px #cccccc;
   box-sizing: border-box;
   padding: .5em;
-  font-size: 11px;
+  font-size: 14px;
 }
 main .m_center .table_container .shift_table tr td {
   border: solid 1px #cccccc;
   box-sizing: border-box;
-  padding: .5em;
+  padding: 1em .2em;
 }
 main .m_center .table_container .shift_table tr td .date_box {
-  font-size: 11px;
+  font-size: 14px;
 }
 main .m_center .table_container .shift_table tr td .input_box .input0 {
   display: flex;
@@ -246,6 +250,7 @@ main .m_center .table_container .comment_box {
   flex-direction: column;
   justify-content: flex-start;
   margin-top: 2em;
+  max-width: 56rem;
   box-sizing: border-box;
 }
 main .m_center .table_container .comment_box textarea {
@@ -261,6 +266,7 @@ main .m_center .table_container .comment_box textarea {
   resize: none;
 }
 main .m_center .table_container .submit_container {
+  max-width: 56rem;
   margin-bottom: 100px;
   box-sizing: border-box;
 }

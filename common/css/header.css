@@ -46,12 +46,16 @@ button {
   appearance: none;
 }
 
+select {
+  font-size: 1em;
+}
+
 main {
   display: flex;
   min-height: 100vh;
 }
 main .m_side {
-  width: 200px;
+  width: 120px;
   background-color: cornsilk;
 }
 main .m_side .select_list_group {
@@ -60,11 +64,11 @@ main .m_side .select_list_group {
 main .m_side .select_list_group button {
   width: 100%;
   text-align: left;
-  padding-left: 1em;
-  line-height: 2.8em;
+  padding: 2em 1em;
+  line-height: 1.5em;
   font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   color: #ff5c5c;
 }
 main .m_side .select_list_group button:hover {
@@ -128,6 +132,11 @@ header .header_container .nav_menu li a {
 header .header_container .nav_menu li a:hover {
   background: #ffebeb;
   border-radius: .5em;
+  font-weight: bold;
+  color: #ff5c5c;
+  opacity: .8;
+}
+header .header_container .nav_menu li a.cullent {
   font-weight: bold;
   color: #ff5c5c;
 }
