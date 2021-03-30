@@ -28,7 +28,10 @@ tr:last-child>td{
 }
 .ditails{ display: none;}
 </style>
+
 _CSS_;
+
+
 $html .= $css;
 
 $tcpdf->writeHTML($html);

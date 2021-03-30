@@ -1,38 +1,15 @@
 <?php
+#===========================================================
+# スケジュール印刷ページ (print_schedule.php)
+#===========================================================
 # 基本設定
 //ファイルの読み込み
-//[読込順]function.php > schedule_function.php > create_schedule_program.php
-//  > create_schedule.php(現在地)
+//[読込順]function.php > schedule_function.php > create_schedule_program.php > print_schedule_.php(現在地)
 include('create_schedule_program.php');
 
-// // echo "<br>".$in["calendar_week"];
+//parts.phpファイルの読み込み
+include('../common/parts/parts.php'); 
 
-$w_datas = $calendar_weeks[$in["calendar_week"]];
-$w_count = -1; 
-foreach ($w_datas as $key => $w_data) { 
-    if($w_data["this_month"]){ $w_count++;}
-}
-
-$first = $w_datas[0]["date"];
-$end = $w_datas[$w_count]["date"];
-
-echo $first." ".$end;
-
-
-
-
-$popup ="";
-if(isset($in["mode"])&&($in["mode"]=="submit")){ 
-    $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
-}  
-
-// echo"<br>inの表示<br>";
-// var_dump($in);
-// echo"<br><br>";
-// var_dump($display);
-// var_dump($employees);
-// echo"<br><br>";
-// var_dump($calendar_weeks);
 
 ?>
 
@@ -46,9 +23,18 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
   <link rel="stylesheet" href="../common/css/header.css">
 </head>
 <body >
+
+<!-- ヘッダーの読み込み
 <header></header>
+<body>            -->
+<?= get_header(2);?>
+
 <main>
+
     <!-- ******** <m_side> ******** ******** ******** -->
+    <div class="m_side">
+    <?= side_menu_list("print_schedule");?>
+    </div>
 
     <!-- ******** <m_center> ******** ******** ******** -->
     <div class="m_center">
@@ -72,7 +58,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <input type="hidden" name="mode" value="change_befor">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <input type="hidden" name="calendar_week" value="0">
                     <button class="befor">前へ</button>    
                 </form>
     
@@ -82,41 +68,51 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <input type="hidden" name="mode" value="change_next">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <input type="hidden" name="calendar_week" value="0">
                     <button class="next">次へ</button>
                 </form>
-    
+
             </div>
 
             <div class="selectWeeks">
                 <?php foreach ($calendar_weeks as $w => $c_week):?>
-                    <button class="<?= $w == $in["calendar_week"] ? "active" : "" ;?>"　data-id="<?= sprintf("calendar%02d",$w) ;?>"><?=$w+1;?></button>
+                <form action="" method="GET">
+                    <input type="hidden" name="mode" value="change_week">
+                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
+                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+                    <input type="hidden" name="calendar_week" value="<?=$w;?>">
+                    <button class="<?= $w == $in["calendar_week"] ? "active" : "" ;?>"><?=$w+1;?></button>
+                </form>
                 <?php endforeach;?>
             </div>
 
             <div class="select_input_menu">
-                    
-            <button class="">スケジュール印刷</button>
-        
+                <form action="print_schedule_pdf.php" method="GET">
+                    <input type="hidden" name="mode" value="print">
+                    <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
+                    <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
+                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <button class="">スケジュール印刷</button>
+                </form>        
             </div>
     
 
         </div>
 
         <!-- 2.インプットエリア ------------>
-        <div class="table_container create">
+        <div class="table_container print">
 
             <!-- 2-1 -->
             <p>※【休憩基準　勤務時間:休憩時間】4.5時間以上:30分、 6時間以上:60分、 8.5時間以上:90分、 10時間以上:120分</p>
             <?php foreach ($calendar_weeks as $w => $c_week):?>
-            
-            <table class="shift_table <?= $w == $in["calendar_week"] ? "active" : "" ;?>" data-id="<?= sprintf("calendar%02d",$w) ;?>">
+            <?php if($w == $in["calendar_week"]):?>
+            <table class="shift_table <?= $w == $in["calendar_week"] ? "active" : "" ;?>" id="<?= sprintf("calendar%02d",$w);?>" >
                 <!-- 日付 -->
                 <tr>
                     <th>STAFF NAME</th>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                    <th class="<?= $c_day["week_class"];?>">
                         <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
                     </th>
                     <?php endforeach;?>
@@ -134,7 +130,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     </td>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <td>
+                    <td class="work_time_data">
 
                     <?php if($c_day ["this_month"]):?>
                     <div class="input_box">
@@ -158,12 +154,12 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <?php endforeach;?>
 
                     <td>
-                        <div><?= $calcutation->getPrivateWeekWork($employee["id"],$w)?></div>
-                        <div>公休<?= $calcutation->getPrivateWeekHolyday($employee["id"],$w)?>日</div>
+                        <div><?= $calcutation->getPrivateWeekWork($employee["id"],$w);?></div>
+                        <div>公休<?= $calcutation->getPrivateWeekHolyday($employee["id"],$w);?>日</div>
                     </td>
                     <td>
-                        <div><?= $calcutation->getPrivateMonthWork($employee["id"])?></div>
-                        <div>公休<?= $calcutation->getPrivateMonthHolyday($employee["id"])?>日</div>
+                        <div><?= $calcutation->getPrivateMonthWork($employee["id"]);?></div>
+                        <div>公休<?= $calcutation->getPrivateMonthHolyday($employee["id"]);?>日</div>
                     </td>
 
                 </tr>
@@ -171,24 +167,25 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
                 <!-- 労働時間 -->
                 <tr>
-                    <td>労働時間合計</td>
+                    <td class="total">総労働時間</td>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                    <td>
                         <?php if($c_day ["this_month"]):?>
                         <?= $calcutation->getTotalDay($c_day["date"]);?>
                         <?php endif;?>
-                    </th>
+                    </td>
                     <?php endforeach;?>
 
-                    <th><?= $calcutation->getTotalWeek($w)?></th>
-                    <th><?= $calcutation->getTotalMonth();?></th>
+                    <td><?= $calcutation->getTotalWeek($w);?></td>
+                    <td><?= $calcutation->getTotalMonth();?></td>
                 
 
                 </tr>
 
                 
             </table>
+            <?php endif;?>
             <?php endforeach;?>
 
         </div>
@@ -197,21 +194,32 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
     </div>
 
 </main> 
-<script src="../common/js/schedule.js"></script>
-
-
+<!-- <script src="../common/js/schedule.js"></script> -->
 <script>
-    //<!-- ポップアップ -->
-    function popupSubmit(){
-      const popup0 = document.getElementById('popup0');
-      popup0.classList.add('show');
-      window.setTimeout(hiddenpMsg, 5000);
-      function hiddenpMsg(){
-      popup0.classList.remove('show');
-      }
-    }
+'use strict';  
+{
+  //タブメニュー
+  const selectWeekBtns = document.querySelectorAll('.selectWeeks button');
+  const weekTables = document.querySelectorAll('.table_container table');
+
+
+  //タブメニュー
+  selectWeekBtns.forEach(clickedItem => {
+    clickedItem.addEventListener('click', () => {
+        selectWeekBtns.forEach(item => {
+            item.classList.remove('active');
+        });
+        clickedItem.classList.add('active');
+
+        weekTables.forEach(weekTable => {
+            weekTable.classList.remove('active');
+        });
+        document.getElementById(clickedItem.dataset.id).classList.add('active');
+    });
+  });
+
+}
 </script>
-<?=$popup;?>
 
 </body>
 </html>

@@ -516,7 +516,7 @@ $tmpl = file_get_contents($file);
 // 5-2 入替文字一覧 * * * * * * * * * * * * * * * * * * * * * 
 $replaces = array(
     //使いまわしパーツ
-    "!header!" => $header,
+    "!header!" => get_header(1),
 
     //token
     "!token!" => $_SESSION['token'] ,

@@ -1,9 +1,15 @@
 <?php
+#===========================================================
+# スケジュール提出ページ (send_schedule.php)
+#===========================================================
 # 基本設定
 //ファイルの読み込み
 //[読込順]function.php > schedule_function.php > send_schedule_program.php
 //  > send_schedule.php(現在地)
 include('send_schedule_program.php');
+
+//parts.phpファイルの読み込み
+include('../common/parts/parts.php'); 
 
 //スケジュール保存完了ポップアップ
 $popup ="";
@@ -26,14 +32,16 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
   <link rel="stylesheet" href="../common/css/send_schedule.css">
   <link rel="stylesheet" href="../common/css/header.css">
 </head>
-<body >
+
+<!-- ヘッダーの読み込み
 <header></header>
+<body>            -->
+<?= get_header(2);?>
+
 <main>
     <!-- ******** <m_side> ******** ******** ******** -->
     <div class="m_side">
-
-    
-    
+    <?= side_menu_list("send_schedule");?>
     </div>
 
     <!-- ******** <m_center> ******** ******** ******** -->
@@ -141,7 +149,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <td>
 
                         <!-- 日付boX -->
-                        <div class="date_box  <?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>" > 
+                        <div class="date_box <?= $c_day["week_class"];?>" > 
                             <?= $date?>
                         </div>
 

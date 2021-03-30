@@ -228,6 +228,64 @@ function in_name($date,$employee_id,$name_key){
 
 #=============================================================
 # 表示エリアの作成
+#===========================================================
+# サイドメニューバー作成関数
+function side_menu_list($cullent_page)
+{
+    #1. メニューリスト内容の設定
+    $menu_list = array(
+
+        //　スケジュール提出
+        array(
+            "page_name" => "send_schedule",
+            "jp_pag_name" => "スケ提出",
+            "href" => "send_schedule.php",
+        ),
+    
+        //　スケジュール作成
+        array(
+            "page_name" => "create_schedule",
+            "jp_pag_name" => "スケ作成",
+            "href" => "../login/admin_login.php",
+            // "href" => "create_schedule.php",
+        ),
+    
+        //　スケジュール印刷
+        array(
+            "page_name" => "print_schedule",
+            "jp_pag_name" => "スケ印刷",
+            "href" => "print_schedule.php",
+        ),
+    
+    );
+    
+
+    #2. 表示テキスト
+    $menus_text = "";
+
+    foreach ($menu_list as $menu)
+    {
+        $cullent_class = $cullent_page == $menu["page_name"] ? 'cullent' : '';
+        $href = sprintf("location.href='%s'",$menu["href"]);
+        $li = sprintf('<li><button class="%s" onclick="%s" >%s</button></li>',$cullent_class, $href, $menu["jp_pag_name"]);
+        $menus_text .= $li;
+    }
+
+    $menus_text = "<ul class='select_list_group'>$menus_text</ul>";
+
+
+    // foreach ($menu_list as $menu)
+    // {
+    //     $cullent_class = $cullent_page == $menu["page_name"] ? 'cullent' : '';
+    //     $li = sprintf('<li class="%s"><a href="%s">%s</a></li>',$cullent_class, $menu["href"], $menu["jp_pag_name"]);
+    //     $menus_text .= $li;
+    // }
+
+    // $menus_text = "<ul class='select_list_group'>$menus_text</ul>";
+    return $menus_text;
+}
+
+
 #--------------------------------------------------------------
 # カレンダーに挿入する情報配列作成の関数
 function get_calendar($display)
@@ -241,11 +299,13 @@ function get_calendar($display)
 
             $week = empty(($display["w"] +$d -1)%7) ? 7 : ($display["w"] +$d -1)%7 ;
             $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
+            $week_class = array(1=>"", 2=>"", 3=>"",4=>"", 5=>"", 6=>"sat_color", 7=>"sun_color",);
             
             $dates[] = array(
                 "date" => $d ,
                 "week" => $week ,
                 "week_text" => $week_text[$week] ,
+                "week_class" => $week_class[$week] ,
                 "this_month" => true ,
             );
         }
@@ -261,22 +321,24 @@ function get_calendar($display)
         $DT_key = sprintf("%04d-%02d-00",$display["Y"] ,$display["m"] );
         $lastMonDT = new DateTime($DT_key);
         $last_d = intval($lastMonDT->format("d"));
-        $last_w = $lastMonDT->format("w");
-       
+        $last_w = $lastMonDT->format("w");      
 
         // ※先月末が日曜の時は、配列を作成しない
-        if(!$last_w == 0){
+        if($last_w != 0){
 
             for ($d = $last_d; $d > ($last_d - $last_w); $d--) {
 
-                $week = empty(($last_w +$d -1)%7) ? 7 : ($last_w +$d -1)%7 ;
+                // $week = empty(($last_w +$d -1)%7) ? 7 : ($last_w +$d -1)%7 ;
+                $week = empty(( $last_w - ($last_d - $d) )%7) ? 7 : ( $last_w - ($last_d - $d) )%7 ;
                 $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
-        
+                $week_class = array(1=>"", 2=>"", 3=>"",4=>"", 5=>"", 6=>"sat_color", 7=>"sun_color",);
+                
                 $date = [];
                 $date["last$d"] = array(
                     "date" => $d ,
                     "week" => $week ,
                     "week_text" => $week_text[$week] ,
+                    "week_class" => $week_class[$week] ,
                     "this_month" => false ,
                 );
                 $dates = array_merge($date,$dates);
@@ -300,16 +362,18 @@ function get_calendar($display)
         $next_w = $nextMonDT->format("w") == 0 ? 7 :$nextMonDT->format("w");
 
         // ※翌月初日が月曜日の時は、配列を作成しない
-        if(!$next_w -1){
+        if($next_w != 1){
             for ($d = 1; $d <= (8 - $next_w); $d++) { 
 
                 $week = empty(($next_w +$d -1)%7) ? 7 : ($next_w +$d -1)%7 ;
                 $week_text = array(1=>"MON", 2=>"TUE", 3=>"WED",4=>"THU", 5=>"FRI", 6=>"SAT", 7=>"SUN",);
-                
+                $week_class = array(1=>"", 2=>"", 3=>"",4=>"", 5=>"", 6=>"sat_color", 7=>"sun_color",);
+
                 $dates["next$d"] = array(
                     "date" => $d ,
                     "week" => $week ,
                     "week_text" => $week_text[$week] ,
+                    "week_class" => $week_class[$week] ,
                     "this_month" => false ,
                 );
             }    

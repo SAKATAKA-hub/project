@@ -1,39 +1,22 @@
 <?php
+#===========================================================
+# スケジュール作成ページ (create_schedule.php)
+#===========================================================
 # 基本設定
 //ファイルの読み込み
 //[読込順]function.php > schedule_function.php > create_schedule_program.php
 //  > create_schedule.php(現在地)
 include('create_schedule_program.php');
 
-// var_dump($in);
-// echo "<br>".$in["calendar_week"];
-
-$w_datas = $calendar_weeks[$in["calendar_week"]];
-$w_count = -1; 
-foreach ($w_datas as $key => $w_data) { 
-    if($w_data["this_month"]){ $w_count++;}
-}
-
-$first = $w_datas[0]["date"];
-$end = $w_datas[$w_count]["date"];
-
-echo $first." ".$end;
+//parts.phpファイルの読み込み
+include('../common/parts/parts.php'); 
 
 
-
-
+# ポップアップ
 $popup ="";
 if(isset($in["mode"])&&($in["mode"]=="submit")){ 
     $popup = "<script>window.addEventListener('load', popupSubmit());</script>";
 }  
-
-// echo"<br>inの表示<br>";
-// var_dump($in);
-// echo"<br><br>";
-// var_dump($display);
-// var_dump($employees);
-// echo"<br><br>";
-// var_dump($calendar_weeks);
 
 ?>
 
@@ -46,11 +29,17 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
   <link rel="stylesheet" href="../common/css/create_schedule.css">
   <link rel="stylesheet" href="../common/css/header.css">
 </head>
-<body >
+
+<!-- ヘッダーの読み込み
 <header></header>
+<body>            -->
+<?= get_header(2);?>
+
 <main>
     <!-- ******** <m_side> ******** ******** ******** -->
-
+    <div class="m_side">
+    <?= side_menu_list("create_schedule");?>
+    </div>
     <!-- ******** <m_center> ******** ******** ******** -->
     <div class="m_center">
 
@@ -73,7 +62,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <input type="hidden" name="mode" value="change_befor">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <input type="hidden" name="calendar_week" value="0">
                     <button class="befor">前へ</button>    
                 </form>
     
@@ -83,7 +72,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <input type="hidden" name="mode" value="change_next">
                     <input type="hidden" name="token" value="<?= $_SESSION['token']; ?>"> 
                     <input type="hidden" name="month" value="<?= $display["m_text"]; ?>">
-                    <input type="hidden" name="calendar_week" value="<?=$in["calendar_week"];?>">
+                    <input type="hidden" name="calendar_week" value="0">
                     <button class="next">次へ</button>
                 </form>
     
@@ -152,7 +141,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     <th>STAFF NAME</th>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                    <th class="<?= $c_day["week_class"];?>">
                         <?= sprintf("%02d日 %s", $c_day["date"], $c_day["week_text"]) ?>
                     </th>
                     <?php endforeach;?>
@@ -170,7 +159,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
                     </td>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <td>
+                    <td class="work_time_data">
 
                     <?php if($c_day ["this_month"]):?>
                     <div class="input_box">
@@ -220,18 +209,18 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
 
                 <!-- 労働時間 -->
                 <tr>
-                    <td>労働時間合計</td>
+                    <td class="total">総労働時間</td>
 
                     <?php foreach ($c_week as $c_day):?>
-                    <th class="<?= $c_day["week"]== 7 ? sun_color : $c_day["week"]== 6 ? sat_color :"" ;?>">
+                    <td>
                         <?php if($c_day ["this_month"]):?>
                         <?= $calcutation->getTotalDay($c_day["date"]);?>
                         <?php endif;?>
-                    </th>
+                    </td>
                     <?php endforeach;?>
 
-                    <th><?= $calcutation->getTotalWeek($w)?></th>
-                    <th><?= $calcutation->getTotalMonth();?></th>
+                    <td><?= $calcutation->getTotalWeek($w)?></td>
+                    <td><?= $calcutation->getTotalMonth();?></td>
                 
 
                 </tr>
@@ -244,14 +233,16 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
             <!-- 2-2 -->
             <div class="all_comment_box">
                 <h4>コメント</h4>
-                <?php foreach ($employees as $employee):?>
-                <?php $input_name = sprintf("comment:%04d", $employee["id"]);;?>
-                <input type="hidden" name="<?=$input_name;?>" value="<?= empty($in[$input_name]) ? "" : $in[$input_name] ;?>">
-                <div class="coment">
-                    <p><?= $employee["name"];?></p>
-                    <p><?= empty($in[$input_name]) ? "＊コメントはありません。" : $in[$input_name] ;?></p>
-                </div>
+                <div class="coments">
+                    <?php foreach ($employees as $employee):?>
+                    <?php $input_name = sprintf("comment:%04d", $employee["id"]);;?>
+                    <input type="hidden" name="<?=$input_name;?>" value="<?= empty($in[$input_name]) ? "" : $in[$input_name] ;?>">
+                    <div class="coment">
+                        <p><?= $employee["name"];?></p>
+                        <p><?= empty($in[$input_name]) ? "＊コメントはありません。" : $in[$input_name] ;?></p>
+                    </div>
                 <?php endforeach;?>
+                </div>
             </div>
 
             <!-- 3.送信ボタンコンテナー ------------>
@@ -282,6 +273,7 @@ if(isset($in["mode"])&&($in["mode"]=="submit")){
       }
     }
 </script>
+
 <?=$popup;?>
 
 </body>

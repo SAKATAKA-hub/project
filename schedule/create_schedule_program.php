@@ -98,8 +98,20 @@ else
         read_create_shift(); 
     
     }
-}
+    # case5. 完成スケジュールの印刷 ******************
+    elseif($in["mode"]=="print")
+    {
+        # 表示用日付の取得(表示日付 == フォーム指定日付)
+        $displayDT = new DateTime($in["month"]);
+        $display = display_date($displayDT);
+        $calendar_weeks = get_calendar($display); //週分割にした日付情報を取得
 
+        # 作成済スケジュールを表示に反映
+        read_create_shift(); 
+    
+    }
+
+}
 # tokenの発行 $_SESSION['token']
 createToken(); 
 

@@ -1,7 +1,7 @@
 <?php
 include('../common/app/function.php');//function.phpファイルの読み込み
 
-$error_notes = "";
+$error_notes = "<p>この先は、管理権限者のみ利用可能です。</p>";
 $body = "<body>";
 
 #-----------------------------------------------------------
@@ -15,12 +15,12 @@ $column_pass = "pass_key";//DBのカラム名
 
 $next_page = "../top/index.php"; //　ログイン後、表示ページまでのパス
 #-----------------------------------------------------------
-//もしログイン中であれば、ログアウト（セッションリセット）する。
-if(!empty($_SESSION["employee_name"])){
-    $_SESSION["employee_id"] = "";
-    $_SESSION["employee_name"] = "";
-    $_SESSION["work_state"] = "";
-}
+// //もしログイン中であれば、ログアウト（セッションリセット）する。
+// if(!empty($_SESSION["employee_name"])){
+//     $_SESSION["employee_id"] = "";
+//     $_SESSION["employee_name"] = "";
+//     $_SESSION["work_state"] = "";
+// }
 
 
 //フォームから受け取ったデータの下処理
@@ -41,36 +41,37 @@ if(!empty($in)){
         FROM employee_data
         JOIN pass_data
         ON employee_data.pass_key = pass_data.pass_id
-        WHERE id = ?";//SQL命令文
-    $DATA = array($form_id);//プリペアーステートメントの値
+        WHERE id = ?
+        AND position = ?";//SQL命令文
+    $DATA = array($form_id, "manager");//プリペアーステートメントの値
     $db_datas = select_db($SQL,$DATA); 
 
     //(1)IDが登録されているか確認。
-    if($db_datas == NULL){
-        $error_notes.="<p>IDが正しくありません。</p>";
-        // echo"<p>IDが正しくありません。</p>";
+    if(($db_datas == NULL)||($_SESSION["employee_id"]!=$form_id)){
+        $error_notes ="<p>IDが正しくありません。</p>";
     }else{
         $db_data = $db_datas[0];
         $save_pass = $db_data["pass"];
 
         // (2)パスワードが一致するか確認
         if(!password_verify( $form_pass, $save_pass)){
-            $error_notes.="<p>パスワードが正しくありません。</p>";
+            $error_notes ="<p>パスワードが正しくありません。</p>";
             // echo "パスワードが一致しません";
         }else{
                 #-----------------------------------------------------------
-                # (3)セッションへ保存
-                #　※ログイン中にセッションに保存しておきたい情報を記述します。
-                $_SESSION["employee_id"] = $db_data["id"];
-                $_SESSION["employee_name"] = $db_data["name"];
-                $_SESSION["work_state"] = $db_data["work_state"];
+                // # (3)セッションへ保存
+                // #　※ログイン中にセッションに保存しておきたい情報を記述します。
+                // $_SESSION["employee_id"] = $db_data["id"];
+                // $_SESSION["employee_name"] = $db_data["name"];
+                // $_SESSION["work_state"] = $db_data["work_state"];
+                $_SESSION["admin_login"] = "completed";
                 #-----------------------------------------------------------
                 // (4)ログイン後のページへ進む
-                $body =
-                <<<_onload_
+                // $body = "<body onload='history.go(-2)' >";
+                $next_page = "../schedule/create_schedule.php";
+                $body = <<<_text_
                 <body onload="location.href = '{$next_page}'" >
-                _onload_;
-                //  <body onload="history.go(-2)" >
+                _text_;
 
 
         }
@@ -80,12 +81,11 @@ if(!empty($in)){
 createToken(); 
 
 //ログインページの表示
-$file = "login_input.tmpl";
+$file = "admin_login_input.tmpl";
 $tmpl = file_get_contents($file);
-$tmpl = str_replace("!error_notes!",$error_notes,$tmpl);
-$tmpl = str_replace("!body!",$body,$tmpl);
+$tmpl = str_replace("!error_notes!", $error_notes, $tmpl);
+$tmpl = str_replace("!body!", $body, $tmpl);
 $tmpl = str_replace("!token!", $_SESSION['token'], $tmpl);
-
 echo $tmpl;
 
 // ※ cssスタイル編集用
