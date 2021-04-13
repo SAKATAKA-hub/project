@@ -4,7 +4,7 @@
 //  *SASS自動読み込みコマンド　：　sass --style expanded --watch scss:css
 
 
-$tcCol: green;
+$tcCol: lighten(green,20%);
 #timeCord{
     display: flex;
     flex-direction:  column;
@@ -13,10 +13,11 @@ $tcCol: green;
     h2{
         width: 100%;
         line-height: 3em;
-        background: lighten($tcCol,20%);
-        // color: #fff;
+        // background: $tcCol;
+        color: $tcCol;
         text-align: center;
         font-weight: bold;
+        border-bottom: solid 2px $tcCol;
     }
     //<!--現在時刻の表示領域-->
     #showTime{
@@ -53,7 +54,7 @@ $tcCol: green;
             width: $wh_size;
             height: $wh_size*0.8;
             padding: $pd_size;
-            background: lighten($tcCol,20%);
+            background: $tcCol;
             border-radius: .5em .5em 0 0;
             #userImg{
                 background: url(../img/person.png) no-repeat bottom center/72px 72px #fff;
@@ -61,8 +62,6 @@ $tcCol: green;
                 height: 84px;
                 border-radius: 50%;
             }
-            #userId{}
-            #userName{}
     
         }
         .bottom{
@@ -71,7 +70,7 @@ $tcCol: green;
             padding: $pd_size;
             background: #fff;
             border-radius: 0 0 .5em .5em;
-            color: lighten($tcCol,20%);
+            color: $tcCol;
 
             .workState{
                 line-height: $wh_size*0.2 - $pd_size*2;
@@ -79,17 +78,17 @@ $tcCol: green;
                 // padding-right: -.8em;
                 text-align: center;
                 font-size: 1.2em;
-                background: lighten($tcCol,20%);    
+                background: $tcCol;    
             }
         }
     }
     .outWork{//退勤時のユーザー情報のスタイル
-        .top{background: lighten($tcCol,50%);}
+        .top{background: #bbb;}
         // .top{background: greenyellow;}
-        // .top{background: lighten($tcCol,20%);}
+        // .top{background: $tcCol;}
     }
     .inBreak{//休憩時のユーザー情報のスタイル
-        .top{background: greenyellow;}
+        .top{background: lighten($tcCol,30%);}
     }
 
     //<!--出退勤入力ボタン-->
@@ -101,18 +100,29 @@ $tcCol: green;
         margin-bottom: 20px;
 
         button{
-            @include btn_blk(1,lighten($tcCol,10%),1);
+            @include btn_blk(1,$tcCol,1);
             width: 6em;
             margin: 4px 1px;
             border-radius: .5em;
             font-weight: bold;
-        }
-         //ボタン利用不可のスタイル
-        .inoperable{
+
             color: $glay_line;
             border: 1px solid $glay_line;
             pointer-events: none;
-
         }
+         //ボタン利用不可のスタイル
+        // .inoperable{
+        //     color: $glay_line;
+        //     border: 1px solid $glay_line;
+        //     pointer-events: none;
+
+        // }
+        //入力ボタン表示のスタイル
+        .display{
+            color: $tcCol;
+            border: 1px solid $tcCol;
+            pointer-events: auto;
+        }
+          
     }
 }

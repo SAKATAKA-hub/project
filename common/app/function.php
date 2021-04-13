@@ -7,7 +7,7 @@ date_default_timezone_set('Asia/Tokyo');
 
 
 #function.phpを読み込めているか確認
-function test(){echo"function.php OK!";}
+// function test(){echo"function.php OK!";}
 
 
 

@@ -116,8 +116,8 @@ main .m_center .select_container .select_month {
 main .m_center .select_container .select_month h4 {
   line-height: 3rem;
   padding: 0 .5em;
-  border-top: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc;
+  border-top: solid 1px #bbb;
+  border-bottom: solid 1px #bbb;
 }
 main .m_center .select_container .select_input_menu {
   display: flex;
@@ -128,7 +128,7 @@ main .m_center .select_container button {
   line-height: 2rem;
   height: 100%;
   padding: 0 1.4em;
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   background: #fff;
   color: #ff5c5c;
   border-radius: .3em;
@@ -170,13 +170,13 @@ main .m_center #modal .m_btn_container {
   box-sizing: border-box;
   padding: 1rem 3rem 0 3rem;
   margin-top: 1rem;
-  border-top: solid 2px #cccccc;
+  border-top: solid 2px #bbb;
 }
 main .m_center #modal .m_btn_container .btn {
   padding: 0 4em;
   line-height: 3em;
   text-align: center;
-  border: solid 2px #cccccc;
+  border: solid 2px #bbb;
   border-radius: .5em;
   font-size: 16px;
   cursor: pointer;
@@ -197,7 +197,7 @@ main .m_center #modal.hidden {
   transform: translate(0, -500px);
 }
 main .m_center .calendar tr:first-child td {
-  border-top: solid 1px #cccccc;
+  border-top: solid 1px #bbb;
 }
 main .m_center .calendar tr .dates {
   line-height: 3em;
@@ -205,8 +205,8 @@ main .m_center .calendar tr .dates {
   box-sizing: border-box;
   text-align: right;
   padding: 0 1em;
-  border-right: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc;
+  border-right: solid 1px #bbb;
+  border-bottom: solid 1px #bbb;
 }
 main .m_center .calendar tr .input {
   display: flex;
@@ -214,7 +214,7 @@ main .m_center .calendar tr .input {
   min-width: 300px;
   width: 700px;
   box-sizing: border-box;
-  border-bottom: solid 1px #cccccc;
+  border-bottom: solid 1px #bbb;
 }
 main .m_center .calendar tr .input .input0, main .m_center .calendar tr .input .input1, main .m_center .calendar tr .input .input2 {
   padding: 0 1.8em;
@@ -235,7 +235,7 @@ main .m_center .comment_box p {
 }
 main .m_center .comment_box textarea {
   height: 3em;
-  border: solid 2px #cccccc;
+  border: solid 2px #bbb;
   border-radius: .3em;
   resize: none;
 }

@@ -112,14 +112,14 @@ main .m_center .table_heading_container form select {
   display: block;
   line-height: 2rem;
   height: 2em;
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   margin: 1em 1em 1em 0;
 }
 main .m_center .table_heading_container button {
   margin-right: 1rem;
   line-height: 2rem;
   padding: 0 1.4em;
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   background: #fff;
   color: #ff5c5c;
   border-radius: .3em;
@@ -135,8 +135,8 @@ main .m_center .table_container table {
   margin-bottom: 1em;
 }
 main .m_center .table_container table th {
-  border-top: solid 1px #cccccc;
-  border-bottom: solid 2px #cccccc;
+  border-top: solid 1px #bbb;
+  border-bottom: solid 2px #bbb;
   background: #ffb8b8;
   width: 88px;
   text-align: center;
@@ -150,10 +150,10 @@ main .m_center .table_container table td {
   font-size: 16px;
 }
 main .m_center .table_container .rec_top > td {
-  border-top: solid 1px #cccccc;
+  border-top: solid 1px #bbb;
 }
 main .m_center .table_container tr:last-child > td {
-  border-bottom: solid 1px #cccccc;
+  border-bottom: solid 1px #bbb;
 }
 main .m_center .table_container .employee_id, main .m_center .table_container .employee_name {
   width: 100px;
@@ -166,7 +166,7 @@ main .m_center .table_container .modification, main .m_center .table_container .
   width: 56px;
 }
 main .m_center .table_container .modification button, main .m_center .table_container .delete button {
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   border-radius: .3em;
   color: #ff5c5c;
   font-weight: bold;
@@ -178,7 +178,7 @@ main .m_center .table_container .modification button:hover, main .m_center .tabl
   color: #fff;
 }
 main .m_center .table_container .private_agg button {
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   border-radius: .3em;
   color: #ff5c5c;
   font-weight: bold;
@@ -194,7 +194,7 @@ main .m_center .table_container .total_agg {
   display: inline-block;
   width: 450px;
   margin-bottom: 2em;
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   border-radius: .3em;
 }
 main .m_center .table_container .total_agg th {

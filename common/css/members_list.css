@@ -694,7 +694,7 @@ main .m_center h3 {
 
 main {
   display: flex;
-  background: #f2f2f2;
+  background: #bbb;
 }
 main .side_nav {
   width: 150px;

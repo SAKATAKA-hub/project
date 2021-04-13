@@ -10,9 +10,9 @@
 <body>
 <header class="">
     <div class="header_container">
-        <h1 class="rogo"><a href="../top/index.php">ロゴ</a></h1>
+        <h1 class="rogo"><a href="">ロゴ</a></h1>
         <ul class="nav_menu">
-            <li class="menu1"><a href="../time_card/select_record.php" class="cullent" >勤怠管理</a></li>
+            <li class="menu1"><a href="../attendance_manegement/select_record.php" class="cullent" >勤怠管理</a></li>
             <li class="menu2"><a href="../schedule/print_schedule.php" class="" >スケジュール</a></li>
             <li class="menu3" ><a href="#">作成中</a></li>
             <li class="menu4" ><a href="#">作成中</a></li>
@@ -37,27 +37,27 @@
                 <!--メニューボタン1.日別勤怠一覧-->
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="day_table">
-                    <input type="hidden" name="token" value="6165511cad38f0bee46a6c0ee1bdd99c1b69eaff17a4d552fe24a91ef1f2">
-                    <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="30">
+                    <input type="hidden" name="token" value="22a560e240c4ad1870f40d68bca672405a99cdec9ba683664f57bc05b487de9f750e">
+                    <input type="hidden" name="select_Y_m" value="2021-04">
+                    <input type="hidden" name="select_d" value="13">
                     <input type="hidden" name="select_employee" value="0000">
                     <input type="hidden" name="modify" value="false">
                     <button class="">日別勤怠</button>
                 </form>
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="month_table">
-                    <input type="hidden" name="token" value="6165511cad38f0bee46a6c0ee1bdd99c1b69eaff17a4d552fe24a91ef1f2">
-                    <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="30">
+                    <input type="hidden" name="token" value="22a560e240c4ad1870f40d68bca672405a99cdec9ba683664f57bc05b487de9f750e">
+                    <input type="hidden" name="select_Y_m" value="2021-04">
+                    <input type="hidden" name="select_d" value="13">
                     <input type="hidden" name="select_employee" value="0000">
                     <input type="hidden" name="modify" value="false">
                     <button class="">月別勤怠</button>                    
                 </form>
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="private_table">
-                    <input type="hidden" name="token" value="6165511cad38f0bee46a6c0ee1bdd99c1b69eaff17a4d552fe24a91ef1f2">
-                    <input type="hidden" name="select_Y_m" value="2021-03">
-                    <input type="hidden" name="select_d" value="30">
+                    <input type="hidden" name="token" value="22a560e240c4ad1870f40d68bca672405a99cdec9ba683664f57bc05b487de9f750e">
+                    <input type="hidden" name="select_Y_m" value="2021-04">
+                    <input type="hidden" name="select_d" value="13">
                     <input type="hidden" name="select_employee" value="0000">
                     <input type="hidden" name="modify" value="false">
                     <button class="cullent">個人別勤怠</button>
@@ -76,17 +76,17 @@
             </ul></div>
 
             <h2>個人別勤怠一覧</h2>
-            <h3>2021年03月 ゲスト</h3>
+            <h3>2021年04月 ゲスト</h3>
 
             <!--#詳細変更ボタン-->
             <div class="table_heading_container">
                 <form action="#" method="get">
                     <input type="hidden" name="mode" value="private_table">
-                    <input type="hidden" name="token" value="6165511cad38f0bee46a6c0ee1bdd99c1b69eaff17a4d552fe24a91ef1f2">
+                    <input type="hidden" name="token" value="22a560e240c4ad1870f40d68bca672405a99cdec9ba683664f57bc05b487de9f750e">
                     <input type="hidden" name="modify" value="false"> 
                     <select id="select_Y_m" name="select_Y_m" onchange="changeSelectDate()">
-<option selected value="2021-03">2021年3月</option><option  value="2021-02">2021年2月</option><option  value="2021-01">2021年1月</option><option  value="2020-12">2020年12月</option><option  value="2020-11">2020年11月</option><option  value="2020-10">2020年10月</option><option  value="2020-09">2020年9月</option><option  value="2020-08">2020年8月</option><option  value="2020-07">2020年7月</option><option  value="2020-06">2020年6月</option><option  value="2020-05">2020年5月</option><option  value="2020-04">2020年4月</option>
-</select><input type="hidden" name="select_d" value="30"><p>従業員名：</p>
+<option selected value="2021-04">2021年4月</option><option  value="2021-03">2021年3月</option><option  value="2021-02">2021年2月</option><option  value="2021-01">2021年1月</option><option  value="2020-12">2020年12月</option><option  value="2020-11">2020年11月</option><option  value="2020-10">2020年10月</option><option  value="2020-09">2020年9月</option><option  value="2020-08">2020年8月</option><option  value="2020-07">2020年7月</option><option  value="2020-06">2020年6月</option><option  value="2020-05">2020年5月</option>
+</select><input type="hidden" name="select_d" value="13"><p>従業員名：</p>
 <select name="select_employee">
 <option selected value="0000">ゲスト</option><option  value="0001">鈴木　一郎</option><option  value="0002">鈴木　二郎</option><option  value="0003">鈴木　三郎</option><option  value="0004">鈴木　四郎</option><option  value="0005">鈴木　五郎</option><option  value="0006">鈴木　六郎</option><option  value="0007">鈴木　七郎</option><option  value="0008">鈴木　八郎</option><option  value="0009">鈴木　九郎</option><option  value="9999">酒井　貴弘</option>
 </select>
@@ -114,84 +114,7 @@
 <th class="break_time">休憩時間</th>
 <th class="working_time">労働時間</th>
 </tr>
-<tr class="rec_top">
-<td class="in_day">7日(日)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:38</td>
-<td class="out_time">10:38</td>
-<td class="in_break">10:38</td>
-<td class="out_break">10:38</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">7日(日)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:38</td>
-<td class="out_time">10:38</td>
-<td class="in_break">-</td>
-<td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">7日(日)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:38</td>
-<td class="out_time">10:38</td>
-<td class="in_break">10:38</td>
-<td class="out_break">10:38</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">7日(日)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:40</td>
-<td class="out_time">10:40</td>
-<td class="in_break">-</td>
-<td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">7日(日)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:40</td>
-<td class="out_time">10:40</td>
-<td class="in_break">-</td>
-<td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">8日(月)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">10:58</td>
-<td class="out_time">10:58</td>
-<td class="in_break">-</td>
-<td class="out_break">-</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr><tr class="rec_top">
-<td class="in_day">30日(火)</td>
-<td class="employee_id">0000</td>
-<td class="employee_name">ゲスト</td>
-<td class="in_time">07:37</td>
-<td class="out_time">07:37</td>
-<td class="in_break">07:37</td>
-<td class="out_break">07:37</td>
-<td class="restrain_time">00時間00分</td>
-<td class="break_time">00時間00分</td>
-<td class="working_time">00時間00分</td>
-</tr>
+<tr><td colspan ='10'>出勤記録はありません。</td></tr>
 </table><table class="total_agg">
 <tr>
 <th class="total">総勤務時間</th>

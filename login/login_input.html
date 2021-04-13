@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>管理者ログイン</title>
+  <title>ログイン</title>
   <link rel="stylesheet" href="../common/css/login.css">
 </head>
-<body>
+<body onload="history.go(-2)" >
   <header>
   </header>
-  <main class="admin_login_input">
+  <main id="login_input">
     <div class="login_card">
-      <h2>管理者ログイン</h2>
+      <h2>LOGO</h2>
       <!-- ログイン -->
       <form action="#" method="get" id="login">
-        <input type="hidden" name="token" value="6165511cad38f0bee46a6c0ee1bdd99c1b69eaff17a4d552fe24a91ef1f2"> 
-        
-        <div class="error"><p>この先は、管理権限者のみ利用可能です。</p></div>
+        <input type="hidden" name="token" value="22a560e240c4ad1870f40d68bca672405a99cdec9ba683664f57bc05b487de9f750e"> 
+
+        <div class="error"></div>
 
         <div class="form-group">
           <label for="key_id">ID</label>

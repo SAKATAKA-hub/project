@@ -435,9 +435,10 @@ form .form-group .form-input {
 #timeCord h2 {
   width: 100%;
   line-height: 3em;
-  background: #00e600;
+  color: #00e600;
   text-align: center;
   font-weight: bold;
+  border-bottom: solid 2px #00e600;
 }
 #timeCord #showTime {
   margin-top: 1em;
@@ -491,10 +492,10 @@ form .form-group .form-input {
   background: #00e600;
 }
 #timeCord .outWork .top {
-  background: #80ff80;
+  background: #bbb;
 }
 #timeCord .inBreak .top {
-  background: greenyellow;
+  background: #80ff80;
 }
 #timeCord #selectMord {
   display: flex;
@@ -513,22 +514,25 @@ form .form-group .form-input {
   cursor: pointer;
   font-size: 1em;
   border-radius: .5em;
-  border: 1px solid #00b300;
-  color: #00b300;
+  border: 1px solid #00e600;
+  color: #00e600;
   width: 6em;
   margin: 4px 1px;
   border-radius: .5em;
   font-weight: bold;
+  color: #bbb;
+  border: 1px solid #bbb;
+  pointer-events: none;
 }
 #timeCord #selectMord button:hover {
   color: #fff;
-  background: #00b300;
+  background: #00e600;
   border: #fff;
 }
-#timeCord #selectMord .inoperable {
-  color: #cccccc;
-  border: 1px solid #cccccc;
-  pointer-events: none;
+#timeCord #selectMord .display {
+  color: #00e600;
+  border: 1px solid #00e600;
+  pointer-events: auto;
 }
 
 /*# sourceMappingURL=time_card.css.map */

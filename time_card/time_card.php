@@ -1,10 +1,11 @@
 <?php
-#-----------------------------------------------------------
+#===========================================================
+# タイムカード表示エリアファイル (time_card.php)
+#===========================================================
 # 基本設定
-
 //ファイルの読み込み
-//[読込順]function.php > time_card_function.php > insert_record.php > time_card.php(現在地)
-include('insert_record.php');
+//[読込順]function.php　> class.php　> issert_function.php > program.php > time_card.php(現在地)
+include('program.php');
 
 #-----------------------------------------------------------
 #　↓　↓　↓　表示エリア　↓　↓　↓
@@ -30,69 +31,35 @@ include('insert_record.php');
     </div>    
 
     <!--ユーザー情報-->
-    <div id ="" class="<?= $user_info_style;?>">
+    <div id ="" class="userInfo <?= $work_state;?>">
       <div class="top">
         <p id="userImg"></p>
-        <p id="userId"><?= $employee_id;?></p>
-        <p id="userName"><?= $employee_name;?> さん</p>  
+        <p id="userId"><?= $_SESSION["employee_id"];?></p>
+        <p id="userName"><?= $_SESSION["employee_name"];?> さん</p>  
       </div>
       <div class="bottom">
-        <p class="workState"><?= $work_state_text;?></p>
+        <p class="workState"><?= $user_info_text;?></p>
       </div>
     </div>
 
-    <!--出退勤入力ボタン-->
+    <!--出勤・退勤・休憩ボタン-->
     <div id ="selectMord">
-      <!--①出勤ボタン-->
-      <form action="<?= $in_action;?>" method="post">
-        <input type="hidden" name="mode" value="inWork">
-        <button type="submit" class="<?= $in_class;?>">出勤</button>
+      <?php foreach ($work_buttons as $w_button):?>
+
+      <form action="#" method="post">
+        <input type="hidden" name="mode" value="<?= $w_button["mode"];?>">
+        <button type="submit" class="<?= $w_button["class"];?>">
+        <!-- style="pointer-events:none" -->
+        <?= $w_button["text"];?>
+        </button>
       </form>
-      <!--②休憩ボタン-->
-      <form action="<?= $break_action;?>" method="post">
-        <input type="hidden" name="mode" value="<?= $post_break;?>">
-        <button type="submit" class="<?= $break_class;?>">休憩</button>
-      </form>     
-      <!--③退勤ボタン-->
-      <form action="<?= $out_action;?>" method="post">
-        <input type="hidden" name="mode" value="outWork">
-        <button type="submit" class="<?= $out_class;?>">退勤</button>
-      </form>
+
+      <?php endforeach;?>
     </div>
 
     <button class="btn_flat" type="button" onclick="window.close();">閉じる</button>
 
   </main>
-  <script>
-    'use strict';
-    {
-      function showTime(){
-        const now = new Date();
-        const nowYear = now.getFullYear();
-        const nowMonth = String(now.getMonth()+1).padStart(2,'0');
-        const nowDate = String(now.getDate()).padStart(2,'0');
-        const nowHour = String(now.getHours()).padStart(2,'0');
-        const nowMin = String(now.getMinutes()).padStart(2,'0');
-        const nowSec = String(now.getSeconds()).padStart(2,'0');
-        const dayNum = String(now.getUTCDay());
+  <script src="js/nowTime.js"></script>
 
-        const DayArry =["(日)","(月)","(火)","(水)","(木)","(金)","(土)"];
-
-        let ampm = "";
-        if(nowHour<12){ampm = "AM";}
-        else{ampm = "PM";}
-  
-        const outputDay = `${nowYear}年${nowMonth}月${nowDate}日${DayArry[dayNum]}`;
-        const outputTime = `${ampm} ${nowHour % 12}:${nowMin}:${nowSec}`;
-  
-        document.getElementById('nowDay').textContent = outputDay;
-        document.getElementById('nowTime').textContent = outputTime;
-        refresh();
-      }
-      function refresh(){setTimeout(showTime,1000);}
-  
-      showTime();
-
-    }
-  </script>  
 </body>

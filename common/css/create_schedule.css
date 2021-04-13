@@ -112,8 +112,8 @@ main .m_center .select_container .select_month {
 main .m_center .select_container .select_month h4 {
   line-height: 3rem;
   padding: 0 .5em;
-  border-top: solid 1px #cccccc;
-  border-bottom: solid 1px #cccccc;
+  border-top: solid 1px #bbb;
+  border-bottom: solid 1px #bbb;
 }
 main .m_center .select_container .select_month button.befor {
   margin-right: 0;
@@ -133,7 +133,7 @@ main .m_center .select_container button {
   line-height: 2rem;
   height: 100%;
   padding: 0 1.4em;
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   background: #fff;
   color: #ff5c5c;
   border-radius: .3em;
@@ -167,13 +167,13 @@ main .m_center #modal .m_btn_container {
   box-sizing: border-box;
   padding: 1rem 3rem 0 3rem;
   margin-top: 1rem;
-  border-top: solid 2px #cccccc;
+  border-top: solid 2px #bbb;
 }
 main .m_center #modal .m_btn_container .btn {
   padding: 0 4em;
   line-height: 3em;
   text-align: center;
-  border: solid 2px #cccccc;
+  border: solid 2px #bbb;
   border-radius: .5em;
   font-size: 16px;
   cursor: pointer;
@@ -208,13 +208,13 @@ main .m_center .table_container .shift_table tr .sun_color {
   color: red;
 }
 main .m_center .table_container .shift_table tr th {
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   box-sizing: border-box;
   padding: .5em;
   font-size: 14px;
 }
 main .m_center .table_container .shift_table tr td {
-  border: solid 1px #cccccc;
+  border: solid 1px #bbb;
   box-sizing: border-box;
   padding: 1em .2em;
 }
@@ -230,8 +230,8 @@ main .m_center .table_container .shift_table tr td .input_box .input0 label {
   display: block;
   margin-bottom: .4em;
   padding: 0 0.2em;
-  color: #cccccc;
-  border: solid 2px #cccccc;
+  color: #bbb;
+  border: solid 2px #bbb;
   border-radius: .3em;
   cursor: pointer;
 }
@@ -261,7 +261,7 @@ main .m_center .table_container .comment_box p {
 }
 main .m_center .table_container .comment_box textarea {
   height: 5em;
-  border: solid 2px #cccccc;
+  border: solid 2px #bbb;
   border-radius: .3em;
   resize: none;
 }
@@ -353,7 +353,7 @@ main .m_center .table_container.print tr {
 main .m_center .all_comment_box {
   margin: 2em 0em;
   box-sizing: border-box;
-  border: solid 2px #cccccc;
+  border: solid 2px #bbb;
   border-radius: .3em;
 }
 main .m_center .all_comment_box h4 {
@@ -362,7 +362,7 @@ main .m_center .all_comment_box h4 {
 main .m_center .all_comment_box .coment {
   display: flex;
   padding: .2em 1em;
-  border-top: solid 1px #cccccc;
+  border-top: solid 1px #bbb;
 }
 main .m_center .all_comment_box .coment p {
   margin-right: 3em;
